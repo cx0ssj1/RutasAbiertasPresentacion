@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rutas Abiertas — Presentación Web</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --verde-principal: #0D7354;
+      --verde-secundario: #4F9482;
+      --verde-claro: #7FB5A5;
+      --gris-texto: #1A202C;
+      --gris-fondo: #F5FBF6;
+      --bg: #FFFFFF;
+    }
+
+    html,
+    body {
+      scroll-behavior: smooth;
+      background: var(--bg);
+      color: var(--gris-texto);
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      overflow-x: hidden
+    }
+
+    .navbar {
+      background: var(--verde-principal) !important;
+      transition: all .3s;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1)
+    }
+
+    .navbar .nav-link,
+    .navbar-brand {
+      color: #fff !important
+    }
+
+    .btn-primary {
+      background: var(--verde-principal);
+      border: none;
+      transition: .3s;
+      box-shadow: 0 4px 15px rgba(13, 115, 84, 0.3)
+    }
+
+    .btn-primary:hover {
+      background: var(--verde-secundario);
+      transform: translateY(-2px)
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0;
+      position: relative
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--gris-fondo) 0%, #ffffff 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero h1 {
+      color: var(--verde-principal);
+      font-weight: 800;
+      font-size: 3rem
+    }
+
+    .section-title {
+      color: var(--verde-principal);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--verde-secundario);
+      border-radius: 2px
+    }
+
+    .lead-max {
+      max-width: 900px;
+      margin: 0 auto
+    }
+
+    footer {
+      background: var(--verde-principal);
+      color: #fff;
+      text-align: center;
+      padding: 30px 0
+    }
+
+    #progress-bar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--verde-principal), var(--verde-secundario));
+      width: 0%;
+      z-index: 9999;
+      transition: width .2s
+    }
+
+    .tech-card {
+      border: 1px solid #e8eeeb;
+      border-radius: 16px;
+      padding: 28px;
+      height: 100%;
+      transition: .4s;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06)
+    }
+
+    .tech-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(13, 115, 84, 0.15);
+      border-color: var(--verde-claro)
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      transition: all .3s;
+      border: 2px solid transparent
+    }
+
+    .feature-card:hover {
+      border-color: var(--verde-claro);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(13, 115, 84, 0.12)
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--verde-principal), var(--verde-secundario));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #fff
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06)
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--verde-principal);
+      line-height: 1
+    }
+
+    .team-card {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      transition: .4s;
+      border: 2px solid transparent
+    }
+
+    .team-card:hover {
+      border-color: var(--verde-claro);
+      transform: translateY(-8px) scale(1.02)
+    }
+
+    .team-card img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--verde-claro);
+      margin-bottom: 20px;
+      transition: .3s
+    }
+
+    .team-card:hover img {
+      border-color: var(--verde-principal);
+      transform: scale(1.05)
+    }
+
+    .access-toolbar {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .access-btn {
+      background: var(--verde-principal);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(13, 115, 84, 0.3);
+      cursor: pointer
+    }
+
+    .access-btn:hover {
+      background: var(--verde-secundario)
+    }
+
+    .high-contrast {
+      --bg: #0b0f0e;
+      --gris-texto: #ECF2ED;
+      --gris-fondo: #0f1512
+    }
+
+    .big-font {
+      font-size: 115%
+    }
+
+    @media(max-width:768px) {
+      .hero h1 {
+        font-size: 2rem
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="progress-bar"></div>
+
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">🌐 Rutas Abiertas</a>
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="nav" class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contexto">Contexto</a></li>
+          <li class="nav-item"><a class="nav-link" href="#solucion">Solución</a></li>
+          <li class="nav-item"><a class="nav-link" href="#metodologia">Metodología</a></li>
+          <li class="nav-item"><a class="nav-link" href="#arquitectura">Arquitectura</a></li>
+          <li class="nav-item"><a class="nav-link" href="#impacto">Impacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="#equipo">Equipo</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="access-toolbar">
+    <button id="btn-contrast" class="access-btn" title="Alto contraste">◐</button>
+    <button id="btn-font" class="access-btn" title="Aumentar texto">A+</button>
+  </div>
+
+  <!-- Hero -->
+  <section id="inicio" class="section hero">
+    <div class="container text-center">
+      <h1 data-aos="fade-up">Una app para abrir caminos hacia un Chile más accesible</h1>
+      <p class="lead lead-max mt-3" data-aos="fade-up" data-aos-delay="200">
+        <strong>Rutas Abiertas</strong> busca derribar las barreras de accesibilidad mediante una aplicación
+        colaborativa que permite identificar, registrar y compartir puntos accesibles en todo Chile.
+      </p>
+      <div class="mt-4" data-aos="zoom-in" data-aos-delay="400">
+        <a href="#contexto" class="btn btn-primary btn-lg">Explora cómo lo logramos</a>
+      </div>
+
+      <div class="row mt-5 g-4 justify-content-center" data-aos="fade-up" data-aos-delay="600">
+        <div class="col-md-4 col-6">
+          <div class="stat-box">
+            <div class="stat-number">🚧</div>
+            <div class="stat-label">En desarrollo</div>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="stat-box">
+            <div class="stat-number">🎯</div>
+            <div class="stat-label">Próximo lanzamiento</div>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="stat-box">
+            <div class="stat-number">💚</div>
+            <div class="stat-label">Inclusión para todos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contexto -->
+  <section id="contexto" class="section" style="background:#f8fbf9">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">El problema real</h2>
+      <p class="lead lead-max text-center" data-aos="fade-up" data-aos-delay="150">
+        En Chile, más de 2 millones de personas viven con alguna discapacidad y enfrentan diariamente obstáculos para
+        desplazarse.
+        La falta de información confiable sobre lugares accesibles genera exclusión, aislamiento y desigualdad de
+        oportunidades.
+      </p>
+      <div class="row mt-5 g-4">
+        <div class="col-md-6" data-aos="fade-right">
+          <div class="feature-card">
+            <div class="feature-icon">🚧</div>
+            <h5>Barreras físicas</h5>
+            <p>Menos del 40% de los espacios públicos del país son completamente accesibles.</p>
+          </div>
+        </div>
+        <div class="col-md-6" data-aos="fade-left">
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h5>Desinformación</h5>
+            <p>No existe una plataforma nacional que centralice datos sobre accesibilidad actualizados y verificados por
+              la comunidad.</p>
+          </div>
+        </div>
+        <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-card text-center">
+            <h4 class="mb-0"><em>“La accesibilidad no es un privilegio, es un derecho.”</em></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solución -->
+  <section id="solucion" class="section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Nuestra solución</h2>
+      <p class="lead lead-max text-center" data-aos="fade-up" data-aos-delay="120">
+        <strong>Rutas Abiertas</strong> es una aplicación móvil colaborativa donde cualquier persona puede aportar
+        información sobre puntos accesibles — rampas, ascensores, baños adaptados — generando un mapa vivo de
+        accesibilidad en Chile.
+      </p>
+
+      <div class="row mt-5 g-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="tech-card">
+            <h6>🔍 Buscar</h6>
+            <p>Encuentra lugares accesibles cercanos según tus necesidades.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="tech-card">
+            <h6>➕ Agregar</h6>
+            <p>Registra nuevos puntos con ubicación, fotos y tipos de accesibilidad.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="tech-card">
+            <h6>🧭 Filtrar</h6>
+            <p>Filtra por rampas, ascensores, baños accesibles y más.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <h4 class="text-center mb-4" style="color:var(--verde-principal)">Casos de uso</h4>
+        <div class="row g-4">
+          <div class="col-md-6" data-aos="fade-right">
+            <div class="feature-card">
+              <div class="feature-icon">👨‍🦽</div>
+              <h5>Personas con movilidad reducida</h5>
+              <p>Planifican rutas accesibles evitando barreras y ganando autonomía.</p>
+            </div>
+          </div>
+          <div class="col-md-6" data-aos="fade-left">
+            <div class="feature-card">
+              <div class="feature-icon">👵</div>
+              <h5>Adultos mayores</h5>
+              <p>Encuentran baños accesibles, rampas y lugares cómodos para visitar con seguridad.</p>
+            </div>
+          </div>
+          <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
+            <div class="feature-card">
+              <div class="feature-icon">👶</div>
+              <h5>Familias con bebés</h5>
+              <p>Identifican espacios amplios y ascensores funcionales para desplazarse con comodidad.</p>
+            </div>
+          </div>
+          <div class="col-md-6" data-aos="fade-left" data-aos-delay="100">
+            <div class="feature-card">
+              <div class="feature-icon">🏛️</div>
+              <h5>Instituciones</h5>
+              <p>Registran sus instalaciones accesibles, reforzando su compromiso con la inclusión.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metodología -->
+  <section id="metodologia" class="section" style="background:#f8fbf9">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Metodología y desarrollo</h2>
+      <p class="lead lead-max text-center" data-aos="fade-up" data-aos-delay="120">
+        El proyecto se desarrolló bajo la metodología ágil <strong>SCRUM</strong>, organizada en sprints semanales.
+        <strong>Mauro Zapata</strong> fue Scrum Master, guiando la planificación y revisión de avances;
+        <strong>Carlos Salvo</strong> lideró el desarrollo técnico, integración y pruebas.
+      </p>
+
+      <div class="row mt-5 g-4">
+        <div class="col-md-3" data-aos="fade-up">
+          <div class="tech-card">
+            <h6>📋 Planificación</h6>
+            <p>Definición del problema y planificación del proyecto.</p>
+          </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="tech-card">
+            <h6>🎨 Diseño</h6>
+            <p>Creación de la interfaz en Jetpack Compose, accesible e intuitiva.</p>
+          </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="tech-card">
+            <h6>🔌 Integración</h6>
+            <p>Firebase, autenticación, y sincronización de datos.</p>
+          </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="tech-card">
+            <h6>🚀 Pruebas</h6>
+            <p>Validación de usabilidad y accesibilidad con usuarios.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="arquitectura" class="section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Arquitectura y tecnologías</h2>
+      <p class="lead lead-max text-center" data-aos="fade-up" data-aos-delay="120">
+        Rutas Abiertas utiliza una arquitectura modular, integrando servicios en la nube y componentes reutilizables.
+      </p>
+      <div class="row g-4 mt-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="tech-card">
+            <h6>📱 Frontend móvil</h6>
+            <p>Kotlin + Jetpack Compose (Material 3).</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="tech-card">
+            <h6>☁️ Backend</h6>
+            <p>Firebase (Auth, Firestore, Storage) con sincronización en tiempo real.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="tech-card">
+            <h6>🧠 Herramientas</h6>
+            <p>GitHub, Project (Gantt), AOS.js, Chart.js.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="impacto" class="section" style="background:#f8fbf9">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Impacto y futuro</h2>
+      <div class="row mt-5 g-4">
+        <div class="col-md-6" data-aos="fade-right">
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h5>Próximos pasos</h5>
+            <ul>
+              <li>Finalizar autenticación Firebase</li>
+              <li>Integrar sistema de filtros avanzados</li>
+              <li>Implementar notificaciones</li>
+              <li>Pruebas de usabilidad</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6" data-aos="fade-left">
+          <div class="feature-card">
+            <div class="feature-icon">🌎</div>
+            <h5>Visión social</h5>
+            <ul>
+              <li>Fomentar comunidad colaborativa</li>
+              <li>Apoyar políticas públicas de accesibilidad</li>
+              <li>Expandir el mapa a nivel nacional</li>
+              <li>Incluir IA para análisis automático</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="equipo" class="section">
+    <div class="container text-center">
+      <h2 class="section-title" data-aos="fade-up">Equipo</h2>
+      <p class="lead lead-max" data-aos="fade-up" data-aos-delay="100">
+        Detrás de Rutas Abiertas hay compromiso, pasión y trabajo colaborativo.
+      </p>
+      <div class="row justify-content-center mt-5 g-4">
+        <div class="col-md-5" data-aos="fade-up">
+          <div class="team-card">
+            <img src="https://ui-avatars.com/api/?name=Mauro+Zapata&size=200&background=0D7354&color=fff"
+              alt="Mauro Zapata">
+            <h5 class="mb-1">Mauro Zapata</h5>
+            <p class="text-muted mb-2">Scrum Master</p>
+            <p class="small">>Liderazgo ágil, gestión de proyecto y coordinación del equipo.</p>
+          </div>
+        </div>
+        <div class="col-md-5" data-aos="fade-up" data-aos-delay="150">
+          <div class="team-card">
+            <img src="https://ui-avatars.com/api/?name=Carlos+Salvo&size=200&background=4F9482&color=fff"
+              alt="Carlos Salvo">
+            <h5 class="mb-1">Carlos Salvo</h5>
+            <p class="text-muted mb-2">Desarrollador</p>
+            <p class="small">Desarrollo móvil Android, integración de servicios y arquitectura.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5" data-aos="zoom-in">
+        <p class="lead"><em>"Rutas Abiertas no es solo una app: es un compromiso con la inclusión digital."</em></p>
+        <a href="#inicio" class="btn btn-primary btn-lg mt-3">⬆ Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="mb-1 fw-bold">© 2025 Rutas Abiertas — Presentación Web</p>
+    <small>Desarrollado con 💚 para construir un Chile más accesible e inclusivo</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    AOS.init({ duration: 800, once: true });
+    window.addEventListener('scroll', () => {
+      const bar = document.getElementById('progress-bar');
+      const s = document.documentElement.scrollTop || document.body.scrollTop;
+      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      bar.style.width = (s / h) * 100 + '%';
+    });
+    const btnContrast = document.getElementById('btn-contrast');
+    const btnFont = document.getElementById('btn-font');
+    btnContrast.onclick = () => document.body.classList.toggle('high-contrast');
+    btnFont.onclick = () => document.body.classList.toggle('big-font');
+  </script>
+</body>
+</html>
