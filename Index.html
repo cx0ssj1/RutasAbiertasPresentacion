@@ -244,6 +244,29 @@
         font-size: 2rem
       }
     }
+    .app-screenshot-simple {
+          border: 1px solid #e0e0e0;
+          padding: 8px;
+          background: white;
+        }
+        .nav-pills .nav-link {
+          color: var(--verde-principal);
+        }
+        .nav-pills .nav-link.active {
+          background-color: var(--verde-principal);
+          color: white;
+        }
+
+        /* AÑADE ESTA NUEVA CLASE */
+        .app-mockup {
+          max-width: 320px; /* Ancho máximo del "teléfono", ajústalo a gusto */
+          margin: 0 auto;   /* Centra el mockup en su columna de col-md-6 */
+          border-radius: 24px; /* Esquinas redondeadas */
+          border: 8px solid #333; /* Borde del teléfono */
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); /* Sombra suave */
+          overflow: hidden; /* Clave para que la imagen se corte en las esquinas */
+          background: #333; /* Fondo por si la imagen no carga */
+        }
   </style>
 </head>
 
@@ -408,6 +431,68 @@
               <p>Registran sus instalaciones accesibles, reforzando su compromiso con la inclusión.</p>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="mt-5 pt-4">
+        <h4 class="text-center mb-4" style="color:var(--verde-principal)">Explora la Aplicación</h4>
+
+        <ul class="nav nav-pills justify-content-center mb-4" id="appTabs" role="tablist" data-aos="fade-up">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab-mapa" data-bs-toggle="tab" data-bs-target="#pane-mapa" type="button" role="tab" aria-controls="pane-mapa" aria-selected="true">Mapa</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-colabora" data-bs-toggle="tab" data-bs-target="#pane-colabora" type="button" role="tab" aria-controls="pane-colabora" aria-selected="false">Colabora</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-login" data-bs-toggle="tab" data-bs-target="#pane-login" type="button" role="tab" aria-controls="pane-login" aria-selected="false">Acceso</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="appTabsContent">
+          
+          <div class="tab-pane fade show active" id="pane-mapa" role="tabpanel" aria-labelledby="tab-mapa" tabindex="0">
+            <div class="row g-4 align-items-center">
+              <div class="col-md-6" data-aos="fade-right">
+                <h5>Encuentra lo que necesitas</h5>
+                <p>Nuestro mapa interactivo te permite ver puntos accesibles en tiempo real. Usa los filtros para buscar por rampas, ascensores, baños y más.</p>
+              </div>
+              <div class="col-md-6" data-aos="fade-left">
+                <div class="app-mockup">
+                    <img src="/layouts/main_screen.png" alt="Mapa y Filtros" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="pane-colabora" role="tabpanel" aria-labelledby="tab-colabora" tabindex="0">
+            <div class="row g-4 align-items-center">
+              <div class="col-md-6" data-aos="fade-right">
+                <h5>Sé parte de la comunidad</h5>
+                <p>¿Encontraste un nuevo lugar accesible? Añádelo a la app en segundos. Sube una foto, selecciona el tipo de accesibilidad y ayuda a otros.</p>
+              </div>
+              <div class="col-md-6" data-aos="fade-left">
+                <div class="app-mockup">
+                    <img src="/layouts/Agregar_direccion.png" alt="Añadir Punto" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="pane-login" role="tabpanel" aria-labelledby="tab-login" tabindex="0">
+            <div class="row g-4">
+              <div class="col-md-6" data-aos="fade-up">
+                  <div class="app-mockup">
+                      <img src="/layouts/Login.png" alt="Pantalla de inicio" class="img-fluid">
+                  </div>
+              </div>
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                  <div class="app-mockup">
+                      <img src="/layouts/Registro.png" alt="Pantalla de registro" class="img-fluid">
+                  </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
