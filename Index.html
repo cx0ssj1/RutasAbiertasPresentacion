@@ -1,260 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rutas Abiertas - Presentación del Proyecto</title>
+    <title>Rutas Abiertas - Inclusión y Movilidad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="/icons/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --primary: #0D7354;
-            --primary-dark: #095b44;
-            --secondary: #1e293b;
-            --accent: #10b981;
-            --bg: #f8fafc;
-            --text: #334155;
-            --light: #f1f5f9;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: var(--text); background: white; overflow-x: hidden; }
-
-        .navbar {
-            position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px); box-shadow: 0 2px 15px rgba(0,0,0,0.08); z-index: 1000;
-        }
-        .nav-content {
-            max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between;
-            align-items: center; padding: 1rem 2rem;
-        }
-        .logo { 
-            display: flex; align-items: center; gap: 0.75rem; 
-            font-weight: 700; font-size: 1.3rem; color: var(--primary); 
-        }
-        .logo i { font-size: 1.8rem; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { 
-            color: var(--text); text-decoration: none; font-weight: 500; 
-            transition: color 0.3s; position: relative;
-        }
-        .nav-links a:hover { color: var(--primary); }
-        .menu-toggle {
-            display: none; background: none; border: none; font-size: 1.5rem;
-            color: var(--primary); cursor: pointer;
-        }
-
-        section { padding: 6rem 2rem; width: 100%; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        
-        h2 {
-            font-family: 'Poppins', sans-serif; font-size: 2.8rem; color: var(--secondary);
-            margin-bottom: 1.5rem; position: relative; display: inline-block;
-        }
-        h2::after {
-            content: ''; position: absolute; bottom: -10px; left: 0; width: 80px; height: 5px;
-            background: var(--primary); border-radius: 2px;
-        }
-        .section-subtitle { 
-            font-size: 1.3rem; color: #64748b; margin-bottom: 3rem; 
-            max-width: 800px; line-height: 1.6;
-        }
-
-        .hero {
-            min-height: 100vh; display: flex; align-items: center;
-            background: linear-gradient(135deg, #0D7354 0%, #10b981 100%);
-            position: relative; overflow: hidden; padding-top: 80px;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            animation: float-bg 20s linear infinite;
-        }
-        @keyframes float-bg { 0% { transform: translateY(0); } 100% { transform: translateY(-100px); } }
-
-        .hero-content {
-            max-width: 1200px; width: 100%; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-            position: relative; z-index: 1;
-        }
-        .hero-text h1 {
-            font-family: 'Poppins', sans-serif; font-size: 4rem; color: white;
-            margin-bottom: 1.5rem; line-height: 1.1;
-        }
-        .hero-text p { font-size: 1.4rem; color: rgba(255,255,255,0.95); margin-bottom: 2rem; line-height: 1.6; }
-
-        .hero-badge {
-            display: inline-block; background: rgba(255,255,255,0.2); color: white;
-            padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.95rem;
-            font-weight: 600; margin-bottom: 1.5rem; backdrop-filter: blur(10px);
-        }
-
-        .phone-mockup { 
-            width: 100%; max-width: 320px; margin: 0 auto; position: relative; 
-            animation: float-phone 6s ease-in-out infinite; 
-        }
-        @keyframes float-phone { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .phone-frame { 
-            width: 100%; aspect-ratio: 9/19.5; background: #111; border-radius: 38px; 
-            padding: 12px; box-shadow: 0 40px 80px rgba(0,0,0,0.5); position: relative;
-        }
-        .phone-frame::before {
-            content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
-            width: 130px; height: 28px; background: #111; border-radius: 0 0 20px 20px; z-index: 2;
-        }
-        .phone-screen { width: 100%; height: 100%; background: white; border-radius: 28px; overflow: hidden; }
-        .phone-screen img { width: 100%; height: 100%; object-fit: cover; }
-
-        .team-intro {
-            background: white; border-radius: 20px; padding: 3rem;
-            box-shadow: 0 10px 40px rgba(13, 115, 84, 0.15);
-            border: 3px solid var(--primary); margin-bottom: 3rem;
-        }
-        .team-intro h3 {
-            font-size: 1.8rem; color: var(--primary); margin-bottom: 1rem;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
-        .team-card {
-            background: white; border-radius: 16px; padding: 2.5rem; text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: all 0.3s ease;
-            border-top: 5px solid var(--primary);
-        }
-        .team-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(13, 115, 84, 0.2); }
-        .team-avatar {
-            width: 120px; height: 120px; 
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%; margin: 0 auto 1.5rem;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; color: white; font-weight: 700;
-        }
-        .team-card h3 { font-size: 1.6rem; color: var(--secondary); margin-bottom: 0.5rem; }
-        .team-role { color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; }
-        .team-description { color: #64748b; font-size: 1rem; line-height: 1.5; }
-
-        .objective-box {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            border: 3px solid var(--primary); border-radius: 20px;
-            padding: 3.5rem; text-align: center; margin-top: 2rem;
-            box-shadow: 0 10px 30px rgba(13, 115, 84, 0.15);
-        }
-        .objective-icon {
-            width: 80px; height: 80px; background: var(--primary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 2rem; font-size: 2.5rem; color: white;
-        }
-        .objective-text { 
-            font-size: 1.6rem; font-weight: 600; color: var(--primary-dark); 
-            line-height: 1.7; max-width: 900px; margin: 0 auto;
-        }
-
-        .menu-showcase {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem; margin-top: 3rem;
-        }
-        .menu-card {
-            background: white; padding: 2.5rem; border-radius: 16px; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s ease;
-            border-bottom: 5px solid var(--accent); position: relative;
-        }
-        .menu-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(13, 115, 84, 0.2); }
-        .menu-number {
-            position: absolute; top: -15px; left: 20px; width: 40px; height: 40px;
-            background: var(--primary); color: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 1.2rem;
-        }
-        .menu-icon { font-size: 3.5rem; color: var(--primary); margin-bottom: 1.5rem; }
-        .menu-card h3 { font-size: 1.8rem; color: var(--secondary); margin-bottom: 1rem; }
-        .menu-card p { color: #64748b; font-size: 1.05rem; line-height: 1.6; }
-
-        .feature-block {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-            margin-bottom: 5rem; padding: 3rem; background: white; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-        }
-        .feature-block:nth-child(even) { background: var(--bg); }
-        .feature-block.reverse { direction: rtl; }
-        .feature-block.reverse > * { direction: ltr; }
-        
-        .feature-text h3 { 
-            font-size: 2.2rem; color: var(--primary); margin-bottom: 1.5rem;
-            display: flex; align-items: center; gap: 15px;
-        }
-        .feature-text h3 i { font-size: 2.5rem; }
-        .feature-list { list-style: none; margin-top: 1.5rem; }
-        .feature-list li { 
-            margin-bottom: 1.2rem; display: flex; align-items: flex-start; gap: 15px; 
-            font-size: 1.15rem; line-height: 1.6;
-        }
-        .feature-list li i { 
-            color: var(--accent); margin-top: 5px; font-size: 1.3rem; 
-            min-width: 20px; flex-shrink: 0;
-        }
-        .feature-list li strong { color: var(--secondary); }
-
-        .video-wrapper {
-            background: #000; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); margin-top: 2.5rem;
-            aspect-ratio: 16/9;
-        }
-        .video-wrapper iframe { width: 100%; height: 100%; border: none; }
-        .video-placeholder {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            height: 100%; color: white; background: linear-gradient(135deg, #1e293b, #334155);
-        }
-        .video-placeholder i { font-size: 5rem; color: #ef4444; margin-bottom: 1.5rem; }
-
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem; margin-top: 3rem;
-        }
-        .stat-card {
-            background: white; padding: 2rem; border-radius: 16px; text-align: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08); border-left: 5px solid var(--accent);
-        }
-        .stat-number { font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem; }
-        .stat-label { color: #64748b; font-size: 1rem; }
-
-        footer { background: var(--secondary); color: white; padding: 3rem 2rem; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
-
-        @media (max-width: 968px) {
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text h1 { font-size: 2.8rem; }
-            .feature-block { grid-template-columns: 1fr; gap: 2rem; }
-            .feature-block.reverse { direction: ltr; }
-            .nav-links {
-                position: fixed; top: 70px; left: 0; right: 0; background: white;
-                flex-direction: column; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                transform: translateY(-120%); transition: transform 0.3s ease;
-            }
-            .nav-links.active { transform: translateY(0); }
-            .menu-toggle { display: block; }
-            h2 { font-size: 2.2rem; }
-        }
-
-        @media (max-width: 640px) {
-            .hero-text h1 { font-size: 2rem; }
-            section { padding: 4rem 1.5rem; }
-            .phone-mockup { max-width: 250px; }
-        }
-
-        .fade-in {
-            opacity: 0; transform: translateY(30px); transition: all 0.6s ease;
-        }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
 
+<body>
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo">
-                <i class="fas fa-route"></i> <span>Rutas Abiertas</span>
+                <img src="/logo/logo_sin_fondo.png" height="60"> <span>Rutas Abiertas</span>
             </div>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
@@ -263,6 +29,9 @@
                 <li><a href="#menus">Menús</a></li>
                 <li><a href="#funcionalidades">Funciones</a></li>
             </ul>
+            <button class="theme-toggle" id="theme-btn" aria-label="Cambiar tema">
+                <i class="fas fa-moon"></i>
+            </button>
             <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -273,16 +42,18 @@
         <div class="hero-content">
             <div class="hero-text">
                 <div class="hero-badge">
-                    <i class="fas fa-graduation-cap"></i> IP Virginio Gómez - Universidad de Concepción
+                    <i class="fas fa-tools"></i> Proyecto en Desarrollo
                 </div>
                 <h1>Rutas Abiertas</h1>
-                <p>Aplicación móvil colaborativa para mapear y compartir puntos de accesibilidad urbana en Chile, promoviendo la inclusión y autonomía de personas con movilidad reducida.</p>
+                <p>Aplicación móvil colaborativa para mapear y compartir puntos de accesibilidad urbana en Chile,
+                    promoviendo la inclusión y autonomía de personas con movilidad reducida.</p>
             </div>
             <div class="hero-phone">
                 <div class="phone-mockup">
                     <div class="phone-frame">
                         <div class="phone-screen">
-                            <img src="layouts/Login.jpeg" alt="Pantalla de inicio">
+                            <img src="/layouts/light/map.jpg" data-name="map" alt="Pantalla de inicio"
+                                class="app-screen">
                         </div>
                     </div>
                 </div>
@@ -291,89 +62,64 @@
     </section>
 
     <section id="equipo">
-        <div class="container">
+        <div class="container fade-in">
             <div class="team-intro">
                 <h3><i class="fas fa-users"></i> Presentación del Equipo</h3>
-                <p style="font-size: 1.2rem; color: #64748b; margin-top: 0.5rem;">
-                    El proyecto <strong>Rutas Abiertas</strong> ha sido desarrollado por estudiantes de 
-                    <strong>Ingeniería en Informática</strong> del Instituto Profesional Virginio Gómez, 
-                    Universidad de Concepción.
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    El proyecto <strong>Rutas Abiertas</strong> está siendo desarrollado por estudiantes de
+                    <strong>Ingeniería en Informática</strong> del Instituto Profesional Virginio Gómez.
                 </p>
             </div>
 
-            <div class="team-grid">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
                 <div class="team-card">
                     <div class="team-avatar">MZ</div>
                     <h3>Mauro Zapata</h3>
-                    <p class="team-role">Scrum Master & Desarrollador</p>
-                    <p class="team-description">
-                        Responsable de la gestión ágil del proyecto, definición de arquitectura de software, 
-                        desarrollo Android con Kotlin/Jetpack Compose, e integración con servicios en la nube.
-                    </p>
+                    <p style="color: var(--primary); font-weight: 700;">Scrum Master & Dev</p>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Responsable de la gestión ágil del proyecto,
+                        definición de arquitectura de software, e
+                        integración con servicios en la nube.</p>
                 </div>
-                
                 <div class="team-card">
                     <div class="team-avatar">CS</div>
                     <h3>Carlos Salvo</h3>
-                    <p class="team-role">Desarrollador Full Stack</p>
-                    <p class="team-description">
-                        Encargado del desarrollo de funcionalidades móviles, integración con Firebase y Mapbox, 
-                        diseño de interfaz de usuario y experiencia de accesibilidad.
-                    </p>
-                </div>
-            </div>
-
-            <div class="stats-grid" style="margin-top: 4rem;">
-                <div class="stat-card">
-                    <div class="stat-number">2</div>
-                    <div class="stat-label">Desarrolladores Comprometidos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Metodología SCRUM</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Semanas de Desarrollo</div>
+                    <p style="color: var(--primary); font-weight: 700;">Desarrollador Full Stack</p>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Encargado del desarrollo de funcionalidades
+                        móviles, integración con Flutter y Mapbox, diseño de interfaz de usuario y experiencia de
+                        accesibilidad. Desarrollador principal del Software.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="objetivo" style="background: var(--bg);">
-        <div class="container">
-            <h2>Objetivo General del Software</h2>
-            <p class="section-subtitle">
-                La razón de ser del proyecto y el impacto que busca generar en la sociedad chilena.
-            </p>
+    <section id="objetivo" style="background: var(--bg-alt);">
+        <div class="container fade-in">
+            <h2>Objetivo General</h2>
+            <p class="section-subtitle">La razón de ser del proyecto y el impacto que busca generar en la sociedad
+                chilena.</p>
 
             <div class="objective-box">
-                <div class="objective-icon">
-                    <i class="fas fa-bullseye"></i>
-                </div>
+                <div class="objective-icon"><i class="fas fa-bullseye"></i></div>
                 <p class="objective-text">
-                    "Diseñar y desarrollar una aplicación móvil colaborativa que permita a los usuarios 
-                    <strong>identificar, registrar, consultar y compartir</strong> información actualizada sobre 
-                    puntos de accesibilidad urbana en Chile, contribuyendo a la <strong>autonomía, movilidad 
-                    e inclusión social</strong> de personas con discapacidad, adultos mayores y familias."
+                    "Diseñar y desarrollar una aplicación móvil colaborativa que permita a los
+                    usuarios <strong>identificar, registrar, consultar y compartir</strong> información actualizada
+                    sobre puntos de accesibilidad urbana en Chile, contribuyendo a la <strong>autonomía,
+                        movilidad e inclusión social</strong> de personas con discapacidad, adultos mayores y familias."
                 </p>
             </div>
 
-            <div style="margin-top: 4rem; text-align: center;">
-                <h3 style="font-size: 1.8rem; color: var(--secondary); margin-bottom: 2rem;">Impacto Esperado</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">2.7M+</div>
-                        <div class="stat-label">Personas con discapacidad beneficiadas</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">17%</div>
-                        <div class="stat-label">De la población adulta chilena</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Puntos colaborativos registrables</div>
-                    </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2.7M+</div>
+                    <div class="stat-label">Personas beneficiadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">17%</div>
+                    <div class="stat-label">Población adulta</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Puntos colaborativos</div>
                 </div>
             </div>
         </div>
@@ -383,363 +129,241 @@
         <div class="container fade-in">
             <h2>Menú Principal del Software</h2>
             <p class="section-subtitle">
-                La aplicación está estructurada mediante una <strong>Barra de Navegación Inferior</strong> 
+                La aplicación está estructurada mediante una <strong>Barra de Navegación Inferior</strong>
                 que permite acceso rápido a las tres secciones principales del sistema.
             </p>
-
             <div class="menu-showcase">
                 <div class="menu-card">
                     <div class="menu-number">1</div>
-                    <div class="menu-icon">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <h3>Descubrir</h3>
-                    <p>
-                        Pantalla principal con <strong>mapa interactivo</strong> que muestra todos los puntos 
-                        de accesibilidad georreferenciados. Incluye sistema de filtros dinámicos y función 
-                        para añadir nuevos lugares.
+                    <div class="menu-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>Mapa</h3>
+                    <p style="color: var(--text-muted);">
+                        Pantalla principal con <strong>mapa interactivo</strong> que muestra
+                        todos los puntos de accesibilidad georreferenciados. Incluye sistema de filtros dinámicos
+                        y función para añadir nuevos lugares.
                     </p>
                 </div>
-
                 <div class="menu-card">
                     <div class="menu-number">2</div>
-                    <div class="menu-icon">
-                        <i class="fas fa-route"></i>
-                    </div>
+                    <div class="menu-icon"><i class="fas fa-route"></i></div>
                     <h3>Mis Rutas</h3>
-                    <p>
-                        Listado personalizado de todos los <strong>puntos registrados por el usuario</strong>. 
+                    <p style="color: var(--text-muted);">
+                        Listado personalizado de todos los <strong>puntos registrados por el usuario</strong>.
                         Permite editar, actualizar o eliminar los aportes realizados a la comunidad.
                     </p>
                 </div>
-
                 <div class="menu-card">
                     <div class="menu-number">3</div>
-                    <div class="menu-icon">
-                        <i class="fas fa-user-circle"></i>
-                    </div>
+                    <div class="menu-icon"><i class="fas fa-user-circle"></i></div>
                     <h3>Perfil</h3>
-                    <p>
-                        Gestión de cuenta de usuario, <strong>configuración de accesibilidad</strong> 
-                        de la propia app (contraste, tamaño de texto) y opciones de seguridad.
+                    <p style="color: var(--text-muted);">
+                        Gestión de cuenta de usuario, <strong>configuración de accesibilidad</strong>
+                        de la propia app y opciones de seguridad.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="funcionalidades" style="background: var(--bg);">
+    <section id="funcionalidades" style="background: var(--bg-alt);">
         <div class="container fade-in">
             <h2>Funcionalidades del Software</h2>
-            <p class="section-subtitle">
-                Explicación detallada de todas las opciones disponibles en el sistema, cumpliendo con 
-                lo especificado en el informe de especificación de software.
-            </p>
+            <p class="section-subtitle">Explora las pantallas principales de la aplicación.</p>
 
             <div class="feature-block">
-                <div class="phone-mockup" style="max-width: 280px; margin: 0 auto;">
+                <div class="phone-mockup" style="max-width: 280px;">
                     <div class="phone-frame">
                         <div class="phone-screen">
-                            <img src="layouts/main_screen.jpeg" alt="Mapa Principal">
+                            <img src="/layouts/light/detail.jpg" data-name="detail" alt="Detalle" class="app-screen">
                         </div>
                     </div>
                 </div>
                 <div class="feature-text">
-                    <h3><i class="fas fa-map"></i> Mapa Interactivo (Descubrir)</h3>
+                    <h3><i class="fas fa-info-circle"></i> Detalle Completo del Lugar </h3>
                     <ul class="feature-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Geolocalización GPS:</strong> Detecta automáticamente la ubicación del usuario y centra el mapa en tiempo real usando Mapbox SDK.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Información Completa:</strong> Nombre, dirección exacta, coordenadas GPS
+                                yfecha de registro.</span>
+                        </li>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Características de Accesibilidad:</strong> Listado visual de todas las
+                                características disponibles (iconos + texto).</span>
+                        </li>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Navegación Externa:</strong> Botón para abrir el lugar en Google Maps y
+                                obtener direcciones.</span>
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            <span><strong>Visualización de Marcadores:</strong> Muestra todos los puntos de accesibilidad cercanos con iconos diferenciados según categoría.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Detalle al Tocar:</strong> Al seleccionar un marcador, despliega información completa del lugar (dirección, características, fotos).</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Navegación Fluida:</strong> Zoom, desplazamiento y rotación del mapa con gestos táctiles optimizados.</span>
+                            <span><strong>Información del Contribuidor:</strong> Muestra
+                                quién registró el punto y cuándo fue la última actualización.</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="feature-block reverse">
-                <div class="phone-mockup" style="max-width: 280px; margin: 0 auto;">
+                <div class="phone-mockup" style="max-width: 280px;">
                     <div class="phone-frame">
                         <div class="phone-screen">
-                            <img src="layouts/Filtros.jpeg" alt="Sistema de Filtros">
+                            <img src="/layouts/light/filter.jpg" data-name="filter" alt="Filtros" class="app-screen">
                         </div>
                     </div>
                 </div>
                 <div class="feature-text">
-                    <h3><i class="fas fa-filter"></i> Sistema de Filtros Dinámicos</h3>
+                    <h3><i class="fas fa-filter"></i> Filtros Dinámicos</h3>
                     <ul class="feature-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Filtro por Tipo:</strong> Rampas, ascensores, baños adaptados, estacionamientos, puertas anchas, personal capacitado.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Filtro por Tipo:</strong> Rampas, ascensores, baños adaptados,
+                                estacionamientos, puertas anchas, personal capacitado.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Filtros Múltiples:</strong> Posibilidad de combinar varios criterios simultáneamente para búsquedas específicas.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Filtros Múltiples:</strong> Posibilidad de combinar varios criterios
+                                simultáneamente para búsquedas específicas.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Actualización en Tiempo Real:</strong> El mapa se actualiza instantáneamente al aplicar o quitar filtros.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Actualización en Tiempo Real:</strong> El mapa se actualiza instantáneamente
+                                al aplicar o quitar filtros.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Guardado de Preferencias:</strong> El sistema recuerda los últimos filtros aplicados por el usuario.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Guardado de Preferencias:</strong> El sistema recuerda los últimos filtros
+                                aplicados por el usuario.</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="feature-block">
-                <div class="phone-mockup" style="max-width: 280px; margin: 0 auto;">
-                    <div class="phone-frame">
+                <div class="phone-mockup" style="max-width: 280px;">
+                    <div class="phone-colab">
                         <div class="phone-screen">
-                            <img src="layouts/Agregar_direccion.jpeg" alt="Añadir Punto">
+                            <img src="/layouts/light/newPoint.jpg" data-name="newPoint" alt="Añadir Punto"
+                                class="app-screen">
                         </div>
                     </div>
                 </div>
                 <div class="feature-text">
-                    <h3><i class="fas fa-plus-circle"></i> Añadir Nuevo Punto</h3>
+                    <h3><i class="fas fa-plus-circle"></i> Colaboración</h3>
                     <ul class="feature-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Formulario Completo:</strong> Registro de dirección, nombre del lugar, tipo de accesibilidad y características específicas.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Formulario Completo:</strong> Registro de dirección, nombre del lugar, tipo de
+                                accesibilidad y características específicas.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Ubicación Precisa:</strong> Selección manual en el mapa o uso de GPS para georreferenciar automáticamente.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Ubicación Precisa:</strong> Selección manual en el mapa o uso de GPS para
+                                georreferenciar automáticamente.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Características Detalladas:</strong> Ancho de puertas, presencia de rampas, desniveles, servicios disponibles.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Características Detalladas:</strong> Ancho de puertas, presencia de rampas,
+                                desniveles, servicios disponibles.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Validación de Datos:</strong> El sistema verifica que todos los campos obligatorios estén completos antes de guardar.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Validación de Datos:</strong> El sistema verifica
+                                que todos los campos obligatorios estén completos antes de guardar.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Almacenamiento en Firestore:</strong> Los datos se sincronizan en tiempo real con la base de datos en la nube.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Almacenamiento de los Datos:</strong> Los datos se sincronizan en tiempo real
+                                con la base de datos en la nube.</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="feature-block reverse">
-                <div class="phone-mockup" style="max-width: 280px; margin: 0 auto;">
+                <div class="phone-mockup" style="max-width: 280px;">
                     <div class="phone-frame">
                         <div class="phone-screen">
-                            <img src="layouts/Rutas.jpeg" alt="Mis Rutas">
+                            <img src="/layouts/light/routes.jpg" data-name="routes" alt="Mis Rutas" class="app-screen">
                         </div>
                     </div>
                 </div>
                 <div class="feature-text">
-                    <h3><i class="fas fa-list-alt"></i> Gestión de Mis Rutas (CRUD)</h3>
+                    <h3><i class="fas fa-list-alt"></i> Gestión de Aportes</h3>
                     <ul class="feature-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Listado Personal:</strong> Vista de todos los puntos registrados por el usuario con información resumida.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Listado Personal:</strong> Vista de todos los puntos registrados por el
+                                usuario con información resumida.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Editar Información:</strong> Actualizar cualquier dato del punto (dirección, características, fotos) manteniendo el historial.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Editar Información:</strong> Actualizar cualquier dato del punto (dirección,
+                                características, fotos) manteniendo el historial.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Eliminar Punto:</strong> Borrado lógico (soft delete) que mantiene la integridad referencial de la base de datos.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Navegación Rápida:</strong> Acceso directo desde la lista al detalle completo del punto en el mapa.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Estadísticas Personales:</strong> Contador de contribuciones totales realizadas por el usuario.</span>
+                        <li><i class="fas fa-check-circle"></i>
+                            <span><strong>Navegación Rápida:</strong> Acceso directo desde la lista al detalle completo
+                                del punto en el mapa.</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="feature-block">
-                <div class="phone-mockup" style="max-width: 280px; margin: 0 auto;">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <img src="layouts/Perfil.jpeg" alt="Perfil de Usuario">
+            <h3 style="text-align: center; margin-top: 4rem; color: var(--secondary);">Configuración y Acceso</h3>
+            <div class="extra-screens-grid">
+                <div class="mini-screen-card">
+                    <div class="phone-mockup" style="max-width: 220px;">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <img src="/layouts/light/login.jpg" data-name="login" alt="Login" class="app-screen">
+                            </div>
                         </div>
                     </div>
+                    <h4>Login Seguro</h4>
                 </div>
-                <div class="feature-text">
-                    <h3><i class="fas fa-user-cog"></i> Perfil y Configuración</h3>
-                    <ul class="feature-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Autenticación Segura:</strong> Login mediante correo electrónico/contraseña o Google Sign-In (Firebase Authentication).</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Gestión de Perfil:</strong> Edición de nombre de usuario, foto de perfil y tipo de discapacidad (opcional).</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Configuración de Accesibilidad:</strong> Ajustes de tamaño de texto (pequeño, mediano, grande) y modo alto contraste.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Recuperación de Contraseña:</strong> Sistema de reseteo de contraseña vía correo electrónico.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Cierre de Sesión Seguro:</strong> Opción para desconectar la cuenta manteniendo los datos sincronizados.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="feature-block reverse">
-                <div class="phone-mockup" style="max-width: 280px; margin: 0 auto;">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <img src="layouts/definicion_de_lugar.jpeg" alt="Detalle de Lugar">
+                <div class="mini-screen-card">
+                    <div class="phone-mockup" style="max-width: 220px;">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <img src="/layouts/light/profile.jpg" data-name="profile" alt="Perfil"
+                                    class="app-screen">
+                            </div>
                         </div>
                     </div>
+                    <h4>Vista Perfil</h4>
                 </div>
-                <div class="feature-text">
-                    <h3><i class="fas fa-info-circle"></i> Detalle Completo del Lugar</h3>
-                    <ul class="feature-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Información Completa:</strong> Nombre, dirección exacta, coordenadas GPS y fecha de registro.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Características de Accesibilidad:</strong> Listado visual de todas las características disponibles (iconos + texto).</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Navegación Externa:</strong> Botón para abrir el lugar en Google Maps y obtener direcciones.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Información del Contribuidor:</strong> Muestra quién registró el punto y cuándo fue la última actualización.</span>
-                        </li>
-                    </ul>
+                <div class="mini-screen-card">
+                    <div class="phone-mockup" style="max-width: 220px;">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <img src="/layouts/light/settings.jpg" data-name="settings" alt="Ajustes"
+                                    class="app-screen">
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Ajustes</h4>
+                </div>
+                <div class="mini-screen-card">
+                    <div class="phone-mockup" style="max-width: 220px;">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <img src="/layouts/light/editProfile.jpg" data-name="editProfile" alt="Editar"
+                                    class="app-screen">
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Editar Datos</h4>
                 </div>
             </div>
         </div>
     </section>
-<!--
-    <section id="tecnologia" style="background: var(--bg);">
-        <div class="container fade-in">
-            <h2>Stack Tecnológico</h2>
-            <p class="section-subtitle">
-                Tecnologías modernas y escalables utilizadas en el desarrollo del proyecto.
-            </p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s;">
-                    <i class="fab fa-android" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Kotlin</h3>
-                    <p style="color: #64748b; font-size: 0.95rem;">Lenguaje nativo para Android</p>
-                </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); text-align: center;">
-                    <i class="fas fa-layer-group" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Jetpack Compose</h3>
-                    <p style="color: #64748b; font-size: 0.95rem;">UI declarativa moderna</p>
-                </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); text-align: center;">
-                    <i class="fas fa-fire" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Firebase</h3>
-                    <p style="color: #64748b; font-size: 0.95rem;">Backend y autenticación</p>
-                </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); text-align: center;">
-                    <i class="fas fa-map" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Mapbox SDK</h3>
-                    <p style="color: #64748b; font-size: 0.95rem;">Mapas interactivos</p>
-                </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); text-align: center;">
-                    <i class="fas fa-database" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Cloud Firestore</h3>
-                    <p style="color: #64748b; font-size: 0.95rem;">Base de datos NoSQL</p>
-                </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); text-align: center;">
-                    <i class="fas fa-code-branch" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">MVVM</h3>
-                    <p style="color: #64748b; font-size: 0.95rem;">Arquitectura limpia</p>
-                </div>
-            </div>
-
-            <div style="margin-top: 4rem; background: white; padding: 2.5rem; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
-                <h3 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.8rem;">
-                    <i class="fas fa-rocket"></i> Arquitectura del Sistema
-                </h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                    <div>
-                        <h4 style="color: var(--secondary); margin-bottom: 0.8rem;">Capa de Presentación</h4>
-                        <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">
-                            Jetpack Compose para UI declarativa y reactiva, ViewModels para gestión de estado.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--secondary); margin-bottom: 0.8rem;">Capa de Dominio</h4>
-                        <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">
-                            Casos de uso y lógica de negocio independiente del framework.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--secondary); margin-bottom: 0.8rem;">Capa de Datos</h4>
-                        <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">
-                            Repositorios que gestionan Firebase, Firestore y servicios de geolocalización.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
--->
     <section style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white;">
         <div class="container" style="text-align: center;">
-            <h2 style="color: white;">Próximos Pasos del Proyecto</h2>
-            <h2 style="display: none;"></h2>
-            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Funcionalidades y mejoras planificadas para futuras versiones de Rutas Abiertas.
-            </p>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: left;">
-                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="fas fa-camera" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 0.8rem;">Fotografías</h3>
-                    <p style="font-size: 0.95rem; color: rgba(255,255,255,0.9);">
-                        Integración de Firebase Storage para que los usuarios suban fotos de los lugares accesibles.
-                    </p>
+            <h2 style="color: white;">Próximos Pasos</h2>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; text-align: left;">
+                <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 16px;">
+                    <i class="fas fa-star" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <h3>Sistema de Valoración</h3>
+                    <p style="opacity: 0.9;">Reseñas comunitarias para validar la información.</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="fas fa-star" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 0.8rem;">Sistema de Valoración</h3>
-                    <p style="font-size: 0.95rem; color: rgba(255,255,255,0.9);">
-                        Reseñas y calificación comunitaria para validar la información de los puntos.
-                    </p>
+                <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 16px;">
+                    <i class="fas fa-route" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <h3>Rutas Optimizadas</h3>
+                    <p style="opacity: 0.9;">Algoritmos para calcular el trayecto más accesible.</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="fas fa-route" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 0.8rem;">Rutas Optimizadas</h3>
-                    <p style="font-size: 0.95rem; color: rgba(255,255,255,0.9);">
-                        Planificación de rutas accesibles entre múltiples puntos con algoritmos de optimización.
-                    </p>
-                </div>
-                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="fas fa-bell" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 0.8rem;">Notificaciones Push</h3>
-                    <p style="font-size: 0.95rem; color: rgba(255,255,255,0.9);">
-                        Alertas sobre nuevos puntos cercanos y actualizaciones de lugares guardados.
-                    </p>
+                <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 16px;">
+                    <i class="fas fa-bell" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <h3>Notificaciones</h3>
+                    <p style="opacity: 0.9;">Alertas de nuevos puntos cercanos.</p>
                 </div>
             </div>
         </div>
@@ -748,7 +372,7 @@
     <footer>
         <div class="container">
             <div class="footer-logo">
-                <i class="fas fa-route"></i> Rutas Abiertas
+                <img src="/logo/logo_sin_fondo.png" height="90"> Rutas Abiertas
             </div>
             <p style="font-size: 1.1rem; margin: 1rem 0; color: rgba(255,255,255,0.9);">
                 Construyendo un Chile más accesible e inclusivo
@@ -756,82 +380,13 @@
             <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-top: 1.5rem;">
                 Desarrollado por Mauro Zapata y Carlos Salvo
             </p>
-            <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 0.5rem;">
-                Instituto Profesional Virginio Gómez - Universidad de Concepción
-            </p>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
-                © 2025 Rutas Abiertas. Todos los derechos reservados.
+            <p
+                style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                © 2026 Rutas Abiertas. Todos los derechos reservados.
             </p>
         </div>
     </footer>
-
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
-            });
-        });
-
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.15)';
-            } else {
-                navbar.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
-            }
-        });
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -80px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        document.querySelectorAll('[style*="transition: transform"]').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px)';
-            });
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-    </script>
+    <script src="/script.js"></script>
 </body>
+
 </html>
