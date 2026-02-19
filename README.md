@@ -1,8 +1,8 @@
-# 🌿 Rutas Abiertas — Presentación Web
+# Rutas Abiertas — Presentación Web
 
 <div align="center">
   
-  ![Logo Rutas Abiertas](logo/logo_contraste_sin_fondo.png)
+  ![Logo Rutas Abiertas](logo/logo_sin_fondo.png)
   
   **Una plataforma web para presentar el proyecto Rutas Abiertas**
   
@@ -38,40 +38,9 @@ Esta **página de presentación web** muestra el proyecto de forma interactiva, 
 
 ---
 
-## 🚀 Tecnologías Utilizadas
-
-- **HTML5** — Estructura semántica
-- **CSS3** — Estilos personalizados con variables CSS
-- **Bootstrap 5.3.2** — Framework responsive
-- **AOS Library** — Animaciones on scroll
-- **JavaScript Vanilla** — Interactividad y funcionalidades
-
----
-
-## 📂 Estructura del Proyecto
-
-```
-RutasAbiertasPresentacion/
-├── Index.html              # Página principal
-├── README.md              # Este archivo
-├── layouts/               # Capturas de pantalla de la app
-│   ├── main_screen.png
-│   ├── Login.png
-│   ├── Registro.png
-│   ├── Agregar_direccion.png
-│   ├── Filtros.png
-│   └── Perfil.png
-└── logo/                  # Recursos de marca
-    └── logo_contraste_sin_fondo.png
-```
-
----
-
 ## 🌐 Visualización
 
-Puedes ver la presentación en vivo visitando: [GitHub Pages](#) *(si está configurado)*
-
-O abre el archivo `Index.html` directamente en tu navegador.
+Puedes ver la presentación en vivo visitando: [presentacion.rutasabiertas.app] 
 
 ---
 
@@ -98,20 +67,9 @@ O abre el archivo `Index.html` directamente en tu navegador.
 ## 📱 Sobre la Aplicación Móvil
 
 La app móvil está desarrollada en:
-- **Kotlin** con Jetpack Compose
-- **Firebase** (Auth, Firestore, Storage)
-- **Material Design 3**
-- Arquitectura modular y escalable
-
----
-
-## 🔜 Próximos Pasos
-
-- [ ] Finalizar autenticación Firebase
-- [ ] Integrar sistema de filtros avanzados
-- [ ] Implementar notificaciones push
-- [ ] Realizar pruebas de usabilidad con usuarios reales
-- [ ] Expandir el mapa a nivel nacional
+- **Dart** con Flutter
+- **MongoDB** Para almacenar los datos
+- **Python**
 
 ---
 
@@ -129,7 +87,7 @@ Este proyecto es parte de un trabajo académico enfocado en accesibilidad e incl
 
 <div align="center">
   
-  **© 2025 Rutas Abiertas**
+  **© 2026 Rutas Abiertas**
   
   *Desarrollado con 💚 para construir un Chile más accesible e inclusivo*
   
