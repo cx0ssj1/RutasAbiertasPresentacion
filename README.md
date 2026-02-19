@@ -40,7 +40,7 @@ Esta **página de presentación web** muestra el proyecto de forma interactiva, 
 
 ## 🌐 Visualización
 
-Puedes ver la presentación en vivo visitando: <presentacion.rutasabiertas.app> 
+Puedes ver la presentación en vivo visitando: [Rutas Abiertas](https://presentacion.rutasabiertas.app) 
 
 ---
 
