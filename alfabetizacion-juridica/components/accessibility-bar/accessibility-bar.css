@@ -1,0 +1,53 @@
+/**
+ * =================================================================
+ * accessibility-bar.css
+ * =================================================================
+ */
+
+/* === Barra de Accesibilidad Principal === */
+#accessibility-bar {
+    position: fixed;
+    top: 20%;
+    right: 0;
+    background-color: rgba(33, 37, 41, 0.95); /* Fondo oscuro semitransparente */
+    border-radius: 10px 0 0 10px; /* Bordes redondeados a la izquierda */
+    z-index: 1050; /* Z-index alto para que esté sobre otros elementos */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+}
+
+/* === Botones dentro de la Barra === */
+.btn-ucsc-a11y {
+    background-color: transparent;
+    color: white;
+    border: none; /* Sin bordes */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 5px;
+    font-size: 12px;
+    line-height: 1.2;
+    height: 60px;
+    width: 70px;
+    cursor: pointer; /* Cursor de puntero para indicar que es clickeable */
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Efecto al pasar el mouse sobre los botones */
+.btn-ucsc-a11y:hover {
+    background-color: var(--primary-color); /* Usa el color primario de la marca */
+    color: white;
+}
+
+/* Estilo para cuando un botón está "activo" (ej. Contraste o Lectura) */
+.btn-ucsc-a11y.active {
+    background-color: var(--primary-color); /* Verde para indicar estado activo */
+    color: white;
+}
+
+/* Estilo para los iconos dentro de los botones */
+.btn-ucsc-a11y i {
+    font-size: 18px;
+    margin-bottom: 4px;
+}

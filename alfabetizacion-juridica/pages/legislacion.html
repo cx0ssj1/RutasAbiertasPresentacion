@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../icons/favicon.ico" sizes="any">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco Legal — Alfabetización Jurídica</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../components/navbar/navbar.css">
+    <link rel="stylesheet" href="../components/accessibility-bar/accessibility-bar.css">
+    <link rel="stylesheet" href="../css/high-constrast.css">
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/inyectarComponentesLegis.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link visually-hidden-focusable">Saltar al contenido principal</a>
+    <div id="navbar-container" style="min-height: 80px;"></div>
+    <div id="accessibility-bar-container"></div>
+
+    <main id="main-content">
+
+        <!-- ========================
+             HERO
+        ========================= -->
+        <section class="hero-section">
+            <div class="container text-center">
+                <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">
+                    <i class="fas fa-gavel me-3" aria-hidden="true"></i>Marco Legal sobre Discapacidad
+                </h1>
+                <p class="lead animate__animated animate__fadeInUp col-lg-8 mx-auto">
+                    Conoce las leyes y tratados internacionales que protegen los derechos de las personas con discapacidad en Chile. El conocimiento de tus derechos es el primer paso para ejercerlos.
+                </p>
+                <div class="mt-4 animate__animated animate__fadeInUp animate__delay-1s d-flex flex-wrap gap-2 justify-content-center">
+                    <span class="badge bg-light text-dark fs-6">
+                        <i class="fas fa-globe me-1" aria-hidden="true"></i>CDPD — ONU 2006
+                    </span>
+                    <span class="badge bg-light text-dark fs-6">
+                        <i class="fas fa-balance-scale me-1" aria-hidden="true"></i>Ley 20.422 — 2010
+                    </span>
+                    <span class="badge bg-light text-dark fs-6">
+                        <i class="fas fa-flag-checkered me-1" aria-hidden="true"></i>Ley 21.545 — 2023
+                    </span>
+                    <span class="badge bg-light text-dark fs-6">
+                        <i class="fas fa-shield-alt me-1" aria-hidden="true"></i>Ley Zamudio — 2012
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             NAVEGACIÓN RÁPIDA
+        ========================= -->
+        <section class="py-3 bg-white border-bottom shadow-sm" style="position: sticky; top: 76px; z-index: 1010;">
+            <div class="container">
+                <div class="d-flex flex-wrap gap-2 justify-content-center" role="navigation" aria-label="Secciones del marco legal">
+                    <a href="#marco-internacional" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-globe me-1" aria-hidden="true"></i>Internacional
+                    </a>
+                    <a href="#ley-20422" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-balance-scale me-1" aria-hidden="true"></i>Ley 20.422
+                    </a>
+                    <a href="#ley-21545" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-brain me-1" aria-hidden="true"></i>Ley 21.545
+                    </a>
+                    <a href="#ley-20609" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-shield-alt me-1" aria-hidden="true"></i>Ley Zamudio
+                    </a>
+                    <a href="#ley-21015" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-briefcase me-1" aria-hidden="true"></i>Inclusión Laboral
+                    </a>
+                    <a href="#conceptos" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-book me-1" aria-hidden="true"></i>Conceptos Clave
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             MARCO INTERNACIONAL
+        ========================= -->
+        <section class="py-5 bg-light" id="marco-internacional">
+            <div class="container">
+                <h2 class="section-heading text-center">Marco Internacional</h2>
+                <p class="text-center text-muted col-lg-7 mx-auto mb-5">Chile es parte de los principales instrumentos internacionales que garantizan los derechos de las personas con discapacidad.</p>
+
+                <div class="row g-4">
+                    <div class="col-lg-8 hidden">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header background-primary-color text-white">
+                                <h4 class="mb-0 fw-bold">
+                                    <i class="fas fa-globe me-2" aria-hidden="true"></i>
+                                    Convención sobre los Derechos de las Personas con Discapacidad (CDPD)
+                                </h4>
+                                <small class="opacity-75">Naciones Unidas, 2006 · Ratificada por Chile en 2008</small>
+                            </div>
+                            <div class="card-body p-4">
+                                <p class="lead">El tratado internacional más importante en materia de discapacidad. Reconoce que la discapacidad es una construcción social y no una característica individual, y obliga a los Estados a eliminar las barreras que impiden la inclusión.</p>
+
+                                <h6 class="fw-bold text-primary-color mt-3">Principios generales (Artículo 3):</h6>
+                                <div class="row g-2">
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>Respeto de la dignidad inherente y la autonomía individual</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>No discriminación</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>Participación e inclusión plenas en la sociedad</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>Respeto por la diferencia y aceptación de la discapacidad como parte de la diversidad humana</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>Igualdad de oportunidades</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>Accesibilidad universal y diseño universal</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>Igualdad entre hombres y mujeres con discapacidad</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-check-circle text-success me-2 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                                            <small>Respeto a la evolución de las facultades de niños/as con discapacidad</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info mt-4 mb-0" role="note">
+                                    <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+                                    <strong>Fuerza vinculante:</strong> Al ser ratificada por Chile, la CDPD tiene rango supralegal. Sus disposiciones son directamente invocables ante tribunales nacionales.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 hidden">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-file-contract me-2" aria-hidden="true"></i>
+                                    Protocolo Facultativo CDPD
+                                </h5>
+                                <small class="opacity-75">Ratificado por Chile en 2008</small>
+                            </div>
+                            <div class="card-body p-4">
+                                <p class="text-muted">Permite a personas o grupos de personas presentar comunicaciones al Comité de la ONU sobre la Convención si consideran que sus derechos han sido vulnerados.</p>
+                                <hr>
+                                <h6 class="fw-bold">Convenio 159 OIT</h6>
+                                <p class="text-muted small">Establece principios de política de readaptación profesional y empleo de personas con discapacidad. Chile lo ratificó en 1994.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             LEY 20.422
+        ========================= -->
+        <section class="py-5 bg-white" id="ley-20422">
+            <div class="container">
+                <h2 class="section-heading text-center">Ley 20.422 (2010)</h2>
+                <p class="text-center text-muted col-lg-7 mx-auto mb-5">Normas sobre Igualdad de Oportunidades e Inclusión Social de las Personas con Discapacidad. La ley base del sistema chileno de discapacidad.</p>
+
+                <div class="row g-4">
+                    <div class="col-md-6 hidden">
+                        <div class="card border-start border-danger border-3 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold text-primary-color"><i class="fas fa-book-open me-2" aria-hidden="true"></i>¿Qué establece?</h5>
+                                <p class="text-muted">Define los conceptos fundamentales del sistema, crea el SENADIS y regula la calificación y certificación de la discapacidad.</p>
+                                <ul class="text-muted">
+                                    <li>Define discapacidad, inclusión social, accesibilidad universal y diseño universal</li>
+                                    <li>Crea el Servicio Nacional de la Discapacidad (SENADIS)</li>
+                                    <li>Regula la calificación y certificación a través de COMPIN</li>
+                                    <li>Crea el Registro Nacional de Discapacidad</li>
+                                    <li>Establece el Fondo Nacional de la Discapacidad (FONADIS, hoy integrado a SENADIS)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 hidden">
+                        <div class="card border-start border-danger border-3 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold text-primary-color"><i class="fas fa-user-graduate me-2" aria-hidden="true"></i>Derechos en Educación</h5>
+                                <p class="text-muted">El Párrafo 3° del Título III regula específicamente el derecho a la educación:</p>
+                                <ul class="text-muted">
+                                    <li><strong>Ajustes razonables:</strong> Las instituciones deben realizar las adaptaciones necesarias para garantizar el aprendizaje en igualdad de condiciones</li>
+                                    <li><strong>No discriminación:</strong> Está prohibido negar el acceso a la educación por razón de discapacidad</li>
+                                    <li><strong>Materiales accesibles:</strong> El material de estudio debe estar disponible en formatos accesibles</li>
+                                    <li><strong>Intérpretes:</strong> Derecho a intérpretes en lengua de señas cuando corresponda</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 hidden">
+                        <div class="card border-start border-danger border-3 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold text-primary-color"><i class="fas fa-wheelchair me-2" aria-hidden="true"></i>Accesibilidad Universal</h5>
+                                <p class="text-muted">La ley exige que el entorno físico, el transporte, la información y las comunicaciones sean accesibles para todas las personas:</p>
+                                <ul class="text-muted">
+                                    <li>Edificios públicos y privados de uso público</li>
+                                    <li>Vías y espacios públicos</li>
+                                    <li>Transporte público</li>
+                                    <li>Tecnologías de la información y comunicación</li>
+                                    <li>Sitios web de organismos públicos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 hidden">
+                        <div class="card border-start border-danger border-3 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold text-primary-color"><i class="fas fa-briefcase me-2" aria-hidden="true"></i>Derechos Laborales</h5>
+                                <p class="text-muted">El Párrafo 4° establece el derecho al trabajo en igualdad de condiciones:</p>
+                                <ul class="text-muted">
+                                    <li>Prohibición de discriminación en selección y contratación</li>
+                                    <li>Obligación de realizar ajustes razonables en el puesto de trabajo</li>
+                                    <li>Acceso a programas de formación y capacitación</li>
+                                    <li>Igualdad de condiciones de trabajo y remuneración</li>
+                                </ul>
+                                <div class="alert alert-warning mt-3 mb-0 py-2" role="note">
+                                    <small><i class="fas fa-exclamation-triangle me-1" aria-hidden="true"></i>Complementada por la <strong>Ley 21.015</strong> que establece la cuota de inclusión laboral del 1%.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             LEY 21.545
+        ========================= -->
+        <section class="py-5 bg-light" id="ley-21545">
+            <div class="container">
+                <h2 class="section-heading text-center">Ley 21.545 (2023)</h2>
+                <p class="text-center text-muted col-lg-7 mx-auto mb-5">Establece la promoción de la inclusión, la atención integral y la protección de los derechos de las personas con Trastorno del Espectro Autista (TEA).</p>
+
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-5 hidden">
+                        <div class="card-ucsc p-4">
+                            <div class="text-primary-color fs-1 mb-3"><i class="fas fa-brain" aria-hidden="true"></i></div>
+                            <h4 class="fw-bold">¿A quién protege?</h4>
+                            <p class="text-muted">A todas las personas diagnosticadas con Trastorno del Espectro Autista (TEA), con independencia de su grado de soporte o nivel de funcionamiento.</p>
+                            <div class="alert alert-success" role="note">
+                                <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                                <strong>Vigencia:</strong> Publicada en el Diario Oficial el 15 de febrero de 2023. Sus reglamentos comenzaron a regir progresivamente.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 hidden">
+                        <div class="accordion" id="acordionTEA">
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tea1" aria-expanded="true" aria-controls="tea1">
+                                        <i class="fas fa-heartbeat me-2" aria-hidden="true"></i>Derecho a Atención en Salud
+                                    </button>
+                                </h3>
+                                <div id="tea1" class="accordion-collapse collapse show" data-bs-parent="#acordionTEA">
+                                    <div class="accordion-body text-muted">
+                                        Las personas con TEA tienen derecho a recibir prestaciones de salud oportunas y adecuadas a sus necesidades. FONASA y ISAPRES deben cubrir las prestaciones de salud mental asociadas al diagnóstico TEA.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tea2" aria-expanded="false" aria-controls="tea2">
+                                        <i class="fas fa-school me-2" aria-hidden="true"></i>Atención Educativa
+                                    </button>
+                                </h3>
+                                <div id="tea2" class="accordion-collapse collapse" data-bs-parent="#acordionTEA">
+                                    <div class="accordion-body text-muted">
+                                        Establece la obligación de contar con planes de apoyo individualizados en establecimientos educacionales, capacitación docente en TEA, y medios alternativos de comunicación cuando sea necesario.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tea3" aria-expanded="false" aria-controls="tea3">
+                                        <i class="fas fa-store me-2" aria-hidden="true"></i>Atención Preferente en Servicios
+                                    </button>
+                                </h3>
+                                <div id="tea3" class="accordion-collapse collapse" data-bs-parent="#acordionTEA">
+                                    <div class="accordion-body text-muted">
+                                        Las personas con TEA tienen derecho a atención preferente en todos los servicios públicos y privados de atención al público (bancos, comercio, servicios de salud, organismos públicos, etc.).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tea4" aria-expanded="false" aria-controls="tea4">
+                                        <i class="fas fa-gavel me-2" aria-hidden="true"></i>No Discriminación
+                                    </button>
+                                </h3>
+                                <div id="tea4" class="accordion-collapse collapse" data-bs-parent="#acordionTEA">
+                                    <div class="accordion-body text-muted">
+                                        Prohíbe expresamente la discriminación arbitraria hacia personas con TEA en todos los ámbitos de la vida social, incluyendo la educación, el trabajo, la salud y el acceso a servicios.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             LEY 20.609 — ZAMUDIO
+        ========================= -->
+        <section class="py-5 bg-white" id="ley-20609">
+            <div class="container">
+                <h2 class="section-heading text-center">Ley 20.609 — Ley Zamudio (2012)</h2>
+                <p class="text-center text-muted col-lg-7 mx-auto mb-5">Establece medidas contra la discriminación. Proporciona el mecanismo legal para denunciar y reparar actos de discriminación arbitraria.</p>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3 hidden">
+                        <div class="card-ucsc p-4 text-center h-100">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-ban" aria-hidden="true"></i></div>
+                            <h6 class="fw-bold">¿Qué prohíbe?</h6>
+                            <p class="text-muted small">Toda distinción, exclusión o restricción sin causa justificada que prive a una persona del goce o ejercicio de sus derechos, basada en la discapacidad u otras causales.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 hidden">
+                        <div class="card-ucsc p-4 text-center h-100">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-flag" aria-hidden="true"></i></div>
+                            <h6 class="fw-bold">Acción Legal</h6>
+                            <p class="text-muted small">Cualquier persona que sufra discriminación puede presentar una denuncia ante el Juzgado de Letras en lo Civil. El plazo es de 90 días corridos desde el acto discriminatorio.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 hidden">
+                        <div class="card-ucsc p-4 text-center h-100">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-gavel" aria-hidden="true"></i></div>
+                            <h6 class="fw-bold">Sanciones</h6>
+                            <p class="text-muted small">El tribunal puede ordenar el cese de la discriminación, adopción de medidas para no repetirla, y multas de 5 a 50 UTM. Si hay dolo, la multa puede duplicarse.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 hidden">
+                        <div class="card-ucsc p-4 text-center h-100">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-handshake" aria-hidden="true"></i></div>
+                            <h6 class="fw-bold">Apoyo SENADIS</h6>
+                            <p class="text-muted small">El programa "Acceso a la Justicia" de SENADIS ofrece asesoría y patrocinio gratuito a personas con discapacidad que hayan sido discriminadas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             LEY 21.015 — INCLUSIÓN LABORAL
+        ========================= -->
+        <section class="py-5 bg-light" id="ley-21015">
+            <div class="container">
+                <h2 class="section-heading text-center">Ley 21.015 (2017) — Inclusión Laboral</h2>
+                <p class="text-center text-muted col-lg-7 mx-auto mb-5">Incentiva la inclusión de personas con discapacidad en el mundo laboral estableciendo cuotas obligatorias de contratación.</p>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4 hidden">
+                        <div class="card border-0 shadow-sm text-center p-4 h-100">
+                            <div class="display-4 fw-bold text-primary-color">1%</div>
+                            <h6 class="fw-bold mt-2">Cuota de Contratación</h6>
+                            <p class="text-muted small">Las empresas con 100 o más trabajadores deben contratar al menos un 1% de personas con discapacidad o en situación de discapacidad mental.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hidden">
+                        <div class="card border-0 shadow-sm text-center p-4 h-100">
+                            <div class="display-4 fw-bold text-primary-color">100+</div>
+                            <h6 class="fw-bold mt-2">Trabajadores</h6>
+                            <p class="text-muted small">Aplica a empresas privadas y organismos públicos con 100 o más trabajadores. Se reporta anualmente a la Dirección del Trabajo.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hidden">
+                        <div class="card border-0 shadow-sm text-center p-4 h-100">
+                            <div class="display-4 fw-bold text-primary-color"><i class="fas fa-tools" aria-hidden="true"></i></div>
+                            <h6 class="fw-bold mt-2">Medidas Alternativas</h6>
+                            <p class="text-muted small">Si la empresa no puede cumplir la cuota, puede suscribir contratos de servicios con empresas que tengan trabajadores con discapacidad, o hacer donaciones a programas de inclusión laboral.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             CONCEPTOS CLAVE
+        ========================= -->
+        <section class="py-5 bg-white" id="conceptos">
+            <div class="container">
+                <h2 class="section-heading text-center">Conceptos Jurídicos Clave</h2>
+                <p class="text-center text-muted col-lg-7 mx-auto mb-5">Entender la terminología legal te permitirá invocar tus derechos con mayor precisión.</p>
+
+                <div class="row g-3">
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 bg-light p-3 h-100">
+                            <h6 class="fw-bold text-primary-color"><i class="fas fa-book me-2" aria-hidden="true"></i>Discapacidad (Ley 20.422, Art. 5°)</h6>
+                            <p class="text-muted small mb-0">«Persona con discapacidad es aquella que, teniendo una o más deficiencias físicas, mentales, sea por causa psíquica o intelectual, o sensoriales, de carácter temporal o permanente, al interactuar con diversas barreras presentes en el entorno, ve impedida o restringida su participación plena y efectiva en la sociedad, en igualdad de condiciones con las demás.»</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 bg-light p-3 h-100">
+                            <h6 class="fw-bold text-primary-color"><i class="fas fa-book me-2" aria-hidden="true"></i>Ajuste Razonable (CDPD, Art. 2°)</h6>
+                            <p class="text-muted small mb-0">«Las modificaciones y adaptaciones necesarias y adecuadas que no impongan una carga desproporcionada o indebida, cuando se requieran en un caso particular, para garantizar a las personas con discapacidad el goce o ejercicio, en igualdad de condiciones con las demás, de todos los derechos humanos y libertades fundamentales.»</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 bg-light p-3 h-100">
+                            <h6 class="fw-bold text-primary-color"><i class="fas fa-book me-2" aria-hidden="true"></i>Accesibilidad Universal (Ley 20.422, Art. 3°)</h6>
+                            <p class="text-muted small mb-0">«Condición que deben cumplir los entornos, procesos, bienes, productos y servicios, así como los objetos o instrumentos, herramientas y dispositivos, para ser comprensibles, utilizables y practicables por todas las personas en condiciones de seguridad y comodidad.»</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 bg-light p-3 h-100">
+                            <h6 class="fw-bold text-primary-color"><i class="fas fa-book me-2" aria-hidden="true"></i>Diseño Universal (Ley 20.422, Art. 3°)</h6>
+                            <p class="text-muted small mb-0">«Actividad por la que se conciben o proyectan desde el origen entornos, procesos, bienes, productos, servicios, objetos, instrumentos, dispositivos o herramientas, de tal forma que puedan ser utilizados por todas las personas o en su mayor extensión posible.»</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 bg-light p-3 h-100">
+                            <h6 class="fw-bold text-primary-color"><i class="fas fa-book me-2" aria-hidden="true"></i>Discriminación Arbitraria (Ley 20.609, Art. 2°)</h6>
+                            <p class="text-muted small mb-0">«Toda distinción, exclusión o restricción que carezca de justificación razonable, efectuada por agentes del Estado o particulares, y que cause privación, perturbación o amenaza en el ejercicio legítimo de los derechos fundamentales establecidos en la Constitución Política de la República o en los tratados internacionales sobre derechos humanos ratificados por Chile.»</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 bg-light p-3 h-100">
+                            <h6 class="fw-bold text-primary-color"><i class="fas fa-book me-2" aria-hidden="true"></i>Inclusión Social (Ley 20.422, Art. 3°)</h6>
+                            <p class="text-muted small mb-0">«Proceso que asegura que todas las personas tengan las mismas oportunidades, y la posibilidad real y efectiva de acceder, participar, relacionarse y disfrutar de un bien, servicio o ambiente, junto con los demás ciudadanos.»</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-5 background-primary-color text-white text-center">
+            <div class="container">
+                <h2 class="fw-bold mb-3">¿Necesitas apoyo para ejercer tus derechos?</h2>
+                <p class="lead mb-4 col-lg-7 mx-auto">Conoce los programas, beneficios y organismos disponibles para
+                    ayudarte a hacer valer cada uno de estos derechos en tu vida cotidiana.</p>
+                <a href="apoyo.html" class="btn btn-light btn-lg fw-bold me-2">
+                    <i class="fas fa-hands-helping me-2" aria-hidden="true"></i>Ver Recursos y Apoyo
+                </a>
+                <a href="../index.html" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-home me-2" aria-hidden="true"></i>Volver al Inicio
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-container" style="min-height: 200px;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/accessibility-bar.js"></script>
+    <script>
+        // Animaciones de scroll para esta página
+        document.addEventListener('DOMContentLoaded', function () {
+            const obs = new IntersectionObserver((entries, observer) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('show'); observer.unobserve(e.target); }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            document.querySelectorAll('.hidden').forEach(el => obs.observe(el));
+        });
+    </script>
+</body>
+</html>

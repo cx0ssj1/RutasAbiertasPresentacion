@@ -1,0 +1,49 @@
+/* === Buscador de recursos === */
+.search-box .form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 1.1rem;
+}
+
+.search-box .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(209, 36, 33, 0.25);
+}
+
+/* === Botones de filtro === */
+.filter-btn {
+    border: 2px solid #dee2e6;
+    background-color: var(--white);
+    color: var(--secondary-color);
+    border-radius: 20px;
+    padding: 6px 16px;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* === Ocultar items filtrados === */
+.resource-item.filtered-out {
+    display: none;
+}
+
+/* === Tarjetas de enlace institucional === */
+.institution-link {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.institution-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    color: var(--primary-color) !important;
+}

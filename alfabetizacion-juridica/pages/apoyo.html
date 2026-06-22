@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../icons/favicon.ico" sizes="any">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos y Apoyo — Alfabetización Jurídica</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/apoyo.css">
+    <link rel="stylesheet" href="../components/navbar/navbar.css">
+    <link rel="stylesheet" href="../components/accessibility-bar/accessibility-bar.css">
+    <link rel="stylesheet" href="../css/high-constrast.css">
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/inyectarComponentesApoyo.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link visually-hidden-focusable">Saltar al contenido principal</a>
+    <div id="navbar-container" style="min-height: 80px;"></div>
+    <div id="accessibility-bar-container"></div>
+
+    <main id="main-content">
+
+        <!-- ========================
+             HERO + BUSCADOR
+        ========================= -->
+        <section class="hero-section">
+            <div class="container text-center">
+                <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">
+                    <i class="fas fa-hands-helping me-3" aria-hidden="true"></i>Recursos y Apoyo
+                </h1>
+                <p class="lead animate__animated animate__fadeInUp">
+                    Guías, beneficios y programas de apoyo para personas con discapacidad en Chile.
+                </p>
+                <div class="mt-4 animate__animated animate__fadeInUp animate__delay-1s" style="max-width: 600px; margin: 0 auto;">
+                    <div class="input-group input-group-lg shadow">
+                        <input type="search" class="form-control border-0 rounded-start" id="searchInput"
+                               placeholder="Buscar recursos, beneficios, programas..."
+                               aria-label="Buscar recursos">
+                        <button class="btn btn-light fw-bold px-4" type="button" id="searchBtn" aria-label="Buscar">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             BARRA DE FILTROS
+        ========================= -->
+        <section class="py-3 bg-white shadow-sm" style="position: sticky; top: 76px; z-index: 1010;">
+            <div class="container">
+                <div class="d-flex flex-wrap gap-2 justify-content-center" role="group" aria-label="Filtros de recursos">
+                    <button type="button" class="btn btn-sm filter-btn active" data-filter="all">
+                        <i class="fas fa-th-large me-1" aria-hidden="true"></i>Todos
+                    </button>
+                    <button type="button" class="btn btn-sm filter-btn" data-filter="credencial">
+                        <i class="fas fa-id-card me-1" aria-hidden="true"></i>Credencial
+                    </button>
+                    <button type="button" class="btn btn-sm filter-btn" data-filter="beneficios">
+                        <i class="fas fa-gift me-1" aria-hidden="true"></i>Beneficios
+                    </button>
+                    <button type="button" class="btn btn-sm filter-btn" data-filter="programas">
+                        <i class="fas fa-project-diagram me-1" aria-hidden="true"></i>Programas
+                    </button>
+                    <button type="button" class="btn btn-sm filter-btn" data-filter="guias">
+                        <i class="fas fa-book-open me-1" aria-hidden="true"></i>Guías
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             RECURSOS PRÁCTICOS
+        ========================= -->
+        <section class="py-5 bg-light" id="recursos-practicos">
+            <div class="container">
+                <h2 class="section-heading text-center">Recursos Prácticos</h2>
+
+                <div class="row g-4 mt-3" id="resources-grid">
+
+                    <!-- Credencial de Discapacidad -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="credencial guias">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-id-card-alt" aria-hidden="true"></i></div>
+                            <span class="badge bg-danger mb-2 align-self-start">Credencial</span>
+                            <h5 class="fw-bold">Obtener Credencial de Discapacidad</h5>
+                            <p class="flex-grow-1 text-muted">Guía completa paso a paso para solicitar tu Credencial de Discapacidad a través de COMPIN y acceder a todos los beneficios del Estado.</p>
+                            <div class="mt-auto pt-3">
+                                <button class="btn btn-ucsc w-100" data-bs-toggle="modal" data-bs-target="#credencialModal">
+                                    <i class="fas fa-arrow-right me-2" aria-hidden="true"></i>Ver Guía Completa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Registro Nacional -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="credencial">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-database" aria-hidden="true"></i></div>
+                            <span class="badge bg-danger mb-2 align-self-start">Credencial</span>
+                            <h5 class="fw-bold">Registro Nacional de Discapacidad (RNPD)</h5>
+                            <p class="flex-grow-1 text-muted">Administrado por el Servicio de Registro Civil e Identificación. La inscripción es automática al obtener la Credencial de Discapacidad.</p>
+                            <ul class="text-muted small">
+                                <li>Gratuito y automático al calificar</li>
+                                <li>Válido en todo el territorio nacional</li>
+                                <li>Renovación según vigencia COMPIN</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="https://www.registrocivil.cl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-danger w-100">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Registro Civil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pensión Básica Solidaria -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="beneficios">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-hand-holding-usd" aria-hidden="true"></i></div>
+                            <span class="badge bg-primary mb-2 align-self-start">Beneficio</span>
+                            <h5 class="fw-bold">Pensión Básica Solidaria de Invalidez</h5>
+                            <p class="flex-grow-1 text-muted">Beneficio mensual para personas con discapacidad entre 18 y 65 años que no puedan trabajar y pertenezcan al 60% más vulnerable de la población.</p>
+                            <ul class="text-muted small">
+                                <li>Requiere calificación de invalidez</li>
+                                <li>Postulación a través del IPS</li>
+                                <li>Compatible con otras prestaciones</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="https://www.ips.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Instituto de Previsión Social
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Becas de Estudio -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="beneficios">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
+                            <span class="badge bg-primary mb-2 align-self-start">Beneficio</span>
+                            <h5 class="fw-bold">Becas y Financiamiento para Educación</h5>
+                            <p class="flex-grow-1 text-muted">Opciones de financiamiento para estudiantes con discapacidad en educación superior, incluyendo gratuidad y becas del MINEDUC.</p>
+                            <ul class="text-muted small">
+                                <li>Gratuidad de Educación Superior</li>
+                                <li>Beca Juan Gómez Millas</li>
+                                <li>Beca Bicentenario</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="https://portal.becasychile.cl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Portal Becas Chile
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ayudas Técnicas -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="beneficios">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-wheelchair" aria-hidden="true"></i></div>
+                            <span class="badge bg-primary mb-2 align-self-start">Beneficio</span>
+                            <h5 class="fw-bold">Ayudas Técnicas SENADIS</h5>
+                            <p class="flex-grow-1 text-muted">Financiamiento para adquirir dispositivos y equipos que compensan limitaciones funcionales: sillas de ruedas, audífonos, bastones, software lector, entre otros.</p>
+                            <ul class="text-muted small">
+                                <li>Postulación anual en SENADIS</li>
+                                <li>Evaluación según tipo de discapacidad</li>
+                                <li>Requiere Credencial de Discapacidad</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="https://www.senadis.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Postular en SENADIS
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subsidio Habitacional -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="beneficios">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-home" aria-hidden="true"></i></div>
+                            <span class="badge bg-primary mb-2 align-self-start">Beneficio</span>
+                            <h5 class="fw-bold">Subsidio Habitacional para Discapacidad</h5>
+                            <p class="flex-grow-1 text-muted">El MINVU otorga puntaje adicional en postulaciones habitacionales y subsidios de acondicionamiento para personas con discapacidad y sus familias.</p>
+                            <ul class="text-muted small">
+                                <li>Puntaje adicional en postulaciones</li>
+                                <li>Subsidio de Acondicionamiento Físico</li>
+                                <li>Requiere Registro Social de Hogares</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="https://www.minvu.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Ministerio de Vivienda
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acceso a la Justicia -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="programas">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-balance-scale" aria-hidden="true"></i></div>
+                            <span class="badge bg-success mb-2 align-self-start">Programa</span>
+                            <h5 class="fw-bold">Programa Acceso a la Justicia — SENADIS</h5>
+                            <p class="flex-grow-1 text-muted">Asesoría jurídica y patrocinio legal gratuito para personas con discapacidad que hayan sufrido discriminación arbitraria o vulneración de sus derechos.</p>
+                            <ul class="text-muted small">
+                                <li>Asesoría legal gratuita</li>
+                                <li>Patrocinio en acciones legales</li>
+                                <li>Mediación extrajudicial</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="https://www.senadis.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success w-100">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Contactar SENADIS
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inclusión Laboral -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="programas">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-briefcase" aria-hidden="true"></i></div>
+                            <span class="badge bg-success mb-2 align-self-start">Programa</span>
+                            <h5 class="fw-bold">Inclusión Laboral — Ley 21.015</h5>
+                            <p class="flex-grow-1 text-muted">Desde 2018, la Ley 21.015 obliga a empresas con 100 o más trabajadores a contratar al menos un 1% de personas con discapacidad. SENADIS apoya la inserción laboral.</p>
+                            <ul class="text-muted small">
+                                <li>Apoyo en búsqueda de empleo</li>
+                                <li>Capacitación laboral inclusiva</li>
+                                <li>Intermediación con empleadores</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="https://www.senadis.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success w-100">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Ver Programa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ajustes Razonables en Universidad -->
+                    <div class="col-md-6 col-lg-4 resource-item hidden" data-category="guias">
+                        <div class="card-ucsc p-4 h-100 d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-2"><i class="fas fa-university" aria-hidden="true"></i></div>
+                            <span class="badge bg-warning text-dark mb-2 align-self-start">Guía</span>
+                            <h5 class="fw-bold">Ajustes Razonables en tu Universidad</h5>
+                            <p class="flex-grow-1 text-muted">Los ajustes razonables son modificaciones necesarias para que las personas con discapacidad participen en igualdad de condiciones. Son un derecho reconocido por la Ley 20.422 y la CDPD.</p>
+                            <ul class="text-muted small">
+                                <li>Solicítalo a la Dirección de Asuntos Estudiantiles</li>
+                                <li>Incluye adaptaciones en evaluaciones y materiales</li>
+                                <li>No puede imponerse carga desproporcionada</li>
+                            </ul>
+                            <div class="mt-auto pt-3">
+                                <a href="legislacion.html#ley-20422" class="btn btn-outline-warning w-100">
+                                    <i class="fas fa-gavel me-2" aria-hidden="true"></i>Ver Marco Legal
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Mensaje sin resultados -->
+                <div id="no-results" class="text-center py-5 d-none">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <p class="lead text-muted">No se encontraron recursos que coincidan con tu búsqueda.</p>
+                    <button class="btn btn-outline-secondary" id="clearSearch">
+                        <i class="fas fa-times me-1"></i>Limpiar búsqueda
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             ORGANISMOS DE APOYO
+        ========================= -->
+        <section class="py-5 bg-white" id="programas-apoyo">
+            <div class="container">
+                <h2 class="section-heading text-center">Organismos de Apoyo</h2>
+                <p class="text-center text-muted mb-5 col-lg-7 mx-auto">Instituciones públicas dedicadas a la inclusión y apoyo de personas con discapacidad en Chile.</p>
+
+                <div class="row g-4">
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="rounded-circle p-3 me-3 background-primary-color">
+                                        <i class="fas fa-building text-white fa-lg" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0 fw-bold">SENADIS</h4>
+                                        <small class="text-muted">Servicio Nacional de la Discapacidad</small>
+                                    </div>
+                                </div>
+                                <p class="text-muted">Organismo del Estado chileno encargado de promover la igualdad de oportunidades, la inclusión social y el pleno ejercicio de los derechos de las personas con discapacidad.</p>
+                                <ul class="text-muted small mb-3">
+                                    <li>Oficinas en todas las regiones del país</li>
+                                    <li>Atención presencial y en línea</li>
+                                    <li>Programas de financiamiento, capacitación y apoyo jurídico</li>
+                                </ul>
+                                <a href="https://www.senadis.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-ucsc">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Visitar SENADIS
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="rounded-circle p-3 me-3 background-primary-color">
+                                        <i class="fas fa-heartbeat text-white fa-lg" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0 fw-bold">COMPIN</h4>
+                                        <small class="text-muted">Comisión de Medicina Preventiva e Invalidez</small>
+                                    </div>
+                                </div>
+                                <p class="text-muted">Dependiente del Ministerio de Salud, es el organismo encargado de calificar y certificar la discapacidad y emitir la Credencial de Discapacidad en Chile.</p>
+                                <ul class="text-muted small mb-3">
+                                    <li>Calificación y certificación gratuita</li>
+                                    <li>Disponible en todas las regiones</li>
+                                    <li>Trámite disponible en línea</li>
+                                </ul>
+                                <a href="https://compin.cerofilas.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-ucsc">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>COMPIN en Línea
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="rounded-circle p-3 me-3 background-primary-color">
+                                        <i class="fas fa-gavel text-white fa-lg" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0 fw-bold">Corporación de Asistencia Judicial</h4>
+                                        <small class="text-muted">Asesoría jurídica gratuita</small>
+                                    </div>
+                                </div>
+                                <p class="text-muted">Ofrece asesoría y representación jurídica gratuita a personas de escasos recursos, incluyendo aquellas con discapacidad que necesiten apoyo legal en materias civiles, familia o laboral.</p>
+                                <ul class="text-muted small mb-3">
+                                    <li>Representación en tribunales</li>
+                                    <li>Consultas en materias civiles y familia</li>
+                                    <li>Consultas laborales</li>
+                                </ul>
+                                <a href="https://cajbiobio.cl" target="_blank" rel="noopener noreferrer" class="btn btn-ucsc">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>CAJ Bío Bío
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 hidden">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="rounded-circle p-3 me-3 background-primary-color">
+                                        <i class="fas fa-balance-scale text-white fa-lg" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0 fw-bold">SENADIS — Acceso a la Justicia</h4>
+                                        <small class="text-muted">Asesoría y patrocinio jurídico gratuito</small>
+                                    </div>
+                                </div>
+                                <p class="text-muted">El programa "Acceso a la Justicia" de SENADIS entrega orientación, asesoría y, en casos de discriminación o vulneración de derechos, patrocinio jurídico gratuito para personas con discapacidad.</p>
+                                <ul class="text-muted small mb-3">
+                                    <li>Asesoría legal gratuita y confidencial</li>
+                                    <li>Patrocinio en acciones legales</li>
+                                    <li>Mediación y orientación en todo Chile</li>
+                                </ul>
+                                <a href="https://www.senadis.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-ucsc">
+                                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Visitar SENADIS
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             CÓMO EXIGIR TUS DERECHOS
+        ========================= -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="section-heading text-center">¿Cómo Exigir tus Derechos?</h2>
+                <p class="text-center text-muted mb-5 col-lg-7 mx-auto">Mecanismos legales disponibles para defenderte ante la vulneración de tus derechos como persona con discapacidad.</p>
+
+                <div class="row g-4">
+                    <div class="col-md-4 hidden">
+                        <div class="card-ucsc p-4 h-100 text-center d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-3"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
+                            <h5 class="fw-bold">Recurso de Protección</h5>
+                            <p class="text-muted flex-grow-1">Acción constitucional que ampara derechos fundamentales vulnerados. Se interpone ante la Corte de Apelaciones dentro de 30 días desde que se toma conocimiento del acto u omisión.</p>
+                            <a href="legislacion.html" class="btn btn-ucsc mt-auto">
+                                <i class="fas fa-info-circle me-1" aria-hidden="true"></i>Más información
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hidden">
+                        <div class="card-ucsc p-4 h-100 text-center d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-3"><i class="fas fa-flag" aria-hidden="true"></i></div>
+                            <h5 class="fw-bold">Acción de No Discriminación</h5>
+                            <p class="text-muted flex-grow-1">La Ley 20.609 (Ley Zamudio) permite demandar discriminación arbitraria ante el Juzgado de Letras en lo Civil. El plazo para interponer la acción es de 90 días corridos.</p>
+                            <a href="legislacion.html#ley-20609" class="btn btn-ucsc mt-auto">
+                                <i class="fas fa-gavel me-1" aria-hidden="true"></i>Ver Ley Zamudio
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hidden">
+                        <div class="card-ucsc p-4 h-100 text-center d-flex flex-column">
+                            <div class="text-primary-color fs-1 mb-3"><i class="fas fa-phone-alt" aria-hidden="true"></i></div>
+                            <h5 class="fw-bold">Asesoría Legal en SENADIS</h5>
+                            <p class="text-muted flex-grow-1">El programa "Acceso a la Justicia" de SENADIS entrega orientación, asesoría y en algunos casos patrocinio jurídico gratuito para personas con discapacidad.</p>
+                            <a href="https://www.senadis.gob.cl" target="_blank" rel="noopener noreferrer" class="btn btn-ucsc mt-auto">
+                                <i class="fas fa-external-link-alt me-1" aria-hidden="true"></i>Contactar SENADIS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             ENLACES INSTITUCIONALES
+        ========================= -->
+        <section class="py-5 bg-white" id="enlaces-utiles">
+            <div class="container">
+                <h2 class="section-heading text-center">Portales Institucionales</h2>
+                <p class="text-center text-muted mb-5">Acceso directo a los portales oficiales del Estado de Chile para gestionar trámites y obtener información.</p>
+
+                <div class="row g-3">
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://www.senadis.gob.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-building text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">SENADIS</h6>
+                                <small class="text-muted">Servicio Nacional de la Discapacidad</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://compin.cerofilas.gob.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-hospital text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">COMPIN</h6>
+                                <small class="text-muted">Calificación de Discapacidad</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://portal.becasychile.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-graduation-cap text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">Becas Chile</h6>
+                                <small class="text-muted">Becas y Financiamiento</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://www.chileatiende.gob.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-info-circle text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">ChileAtiende</h6>
+                                <small class="text-muted">Portal Único del Estado</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://www.ips.gob.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-hand-holding-usd text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">IPS</h6>
+                                <small class="text-muted">Instituto de Previsión Social</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://www.registrocivil.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-id-card text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">Registro Civil</h6>
+                                <small class="text-muted">Registro Nacional de Discapacidad</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://www.minvu.gob.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-home text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">MINVU</h6>
+                                <small class="text-muted">Ministerio de Vivienda</small>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-3 hidden">
+                        <a href="https://www.mintrab.gob.cl" target="_blank" rel="noopener noreferrer" class="card border-0 shadow-sm text-decoration-none text-dark institution-link h-100">
+                            <div class="card-body p-3 text-center">
+                                <i class="fas fa-briefcase text-primary-color fs-2 mb-2" aria-hidden="true"></i>
+                                <h6 class="fw-bold mb-1">MINTRAB</h6>
+                                <small class="text-muted">Ministerio del Trabajo</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-5 background-primary-color text-white text-center">
+            <div class="container">
+                <h2 class="fw-bold mb-3">¿Necesitas conocer tus derechos?</h2>
+                <p class="lead mb-4 col-lg-7 mx-auto">Comprender el marco legal es el primer paso para acceder a estos
+                    beneficios y exigir su cumplimiento. Explora la legislación vigente en Chile.</p>
+                <a href="legislacion.html" class="btn btn-light btn-lg fw-bold me-2">
+                    <i class="fas fa-gavel me-2" aria-hidden="true"></i>Ver Marco Legal
+                </a>
+                <a href="../index.html" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-home me-2" aria-hidden="true"></i>Volver al Inicio
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-container" style="min-height: 200px;"></div>
+    <div id="modal-guia"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/apoyo.js"></script>
+    <script src="../js/accessibility-bar.js"></script>
+</body>
+</html>

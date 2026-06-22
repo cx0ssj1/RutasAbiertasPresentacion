@@ -4,388 +4,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rutas Abiertas - Inclusión y Movilidad</title>
+    <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+    <title>Rutas Abiertas — App de Accesibilidad Urbana</title>
+    <meta name="description"
+        content="Rutas Abiertas: app móvil colaborativa para mapear y compartir puntos de accesibilidad urbana en Chile.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="/icons/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-    <nav class="navbar">
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar" id="navbar">
         <div class="nav-content">
-            <div class="logo">
-                <img src="/logo/logo_sin_fondo.png" height="60"> <span>Rutas Abiertas</span>
-            </div>
-            <ul class="nav-links">
+            <a class="logo" href="#inicio" aria-label="Rutas Abiertas — inicio">
+                <img src="/logo/logo_sin_fondo.png" alt=""> <span>Rutas Abiertas</span>
+            </a>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#equipo">Equipo</a></li>
-                <li><a href="#objetivo">Objetivo</a></li>
-                <li><a href="#menus">Menús</a></li>
+                <li><a href="#menus">La App</a></li>
                 <li><a href="#funcionalidades">Funciones</a></li>
+                <li><a href="#equipo">Equipo</a></li>
+                <li><a class="nav-cta" href="/alfabetizacion-juridica/index.html">Alfabetización Jurídica</a></li>
             </ul>
-            <button class="theme-toggle" id="theme-btn" aria-label="Cambiar tema">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-btn" aria-label="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <section class="hero" id="inicio">
+    <!-- ================= HERO ================= -->
+    <header class="hero" id="inicio">
         <div class="hero-content">
             <div class="hero-text">
-                <div class="hero-badge">
-                    <i class="fas fa-tools"></i> Proyecto en Desarrollo
+                <h1>Una ciudad <span class="grad">sin barreras</span>, en la palma de tu mano.</h1>
+                <p>Rutas Abiertas es la app móvil colaborativa para identificar, registrar y compartir puntos de
+                    accesibilidad urbana en Chile.</p>
+                <div class="hero-actions">
+                    <a href="#funcionalidades" class="btn btn-primary"><i class="fas fa-mobile-screen-button"></i> Ver
+                        la app</a>
+                    <a href="/alfabetizacion-juridica/index.html" class="btn btn-ghost"><i class="fas fa-scale-balanced"></i>
+                        Alfabetización Jurídica</a>
                 </div>
-                <h1>Rutas Abiertas</h1>
-                <p>Aplicación móvil colaborativa para mapear y compartir puntos de accesibilidad urbana en Chile,
-                    promoviendo la inclusión y autonomía de personas con movilidad reducida.</p>
-            </div>
-            <div class="hero-phone">
-                <div class="phone-mockup">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <img src="/layouts/light/map.jpg" data-name="map" alt="Pantalla de inicio"
-                                class="app-screen">
-                        </div>
+                <div class="hero-mini-stats">
+                    <div>
+                        <div class="num">2.7M+</div>
+                        <div class="lbl">Personas beneficiadas</div>
+                    </div>
+                    <div>
+                        <div class="num">∞</div>
+                        <div class="lbl">Puntos colaborativos</div>
+                    </div>
+                    <div>
+                        <div class="num">100%</div>
+                        <div class="lbl">Comunitaria y gratuita</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="equipo">
-        <div class="container fade-in">
-            <div class="team-intro">
-                <h3><i class="fas fa-users"></i> Presentación del Equipo</h3>
-                <p style="font-size: 1.2rem; color: var(--text-muted); margin-top: 0.5rem;">
-                    El proyecto <strong>Rutas Abiertas</strong> está siendo desarrollado por estudiantes de
-                    <strong>Ingeniería en Informática</strong> del Instituto Profesional Virginio Gómez.
-                </p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
-                <div class="team-card">
-                    <div class="team-avatar">MZ</div>
-                    <h3>Mauro Zapata</h3>
-                    <p style="color: var(--primary); font-weight: 700;">Scrum Master & Dev</p>
-                    <p style="color: var(--text-muted); margin-top: 1rem;">Responsable de la gestión ágil del proyecto,
-                        definición de arquitectura de software, e
-                        integración con servicios en la nube.</p>
-                </div>
-                <div class="team-card">
-                    <div class="team-avatar">CS</div>
-                    <h3>Carlos Salvo</h3>
-                    <p style="color: var(--primary); font-weight: 700;">Desarrollador Full Stack</p>
-                    <p style="color: var(--text-muted); margin-top: 1rem;">Encargado del desarrollo de funcionalidades
-                        móviles, integración con Flutter y Mapbox, diseño de interfaz de usuario y experiencia de
-                        accesibilidad. Desarrollador principal del Software.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="objetivo" style="background: var(--bg-alt);">
-        <div class="container fade-in">
-            <h2>Objetivo General</h2>
-            <p class="section-subtitle">La razón de ser del proyecto y el impacto que busca generar en la sociedad
-                chilena.</p>
-
-            <div class="objective-box">
-                <div class="objective-icon"><i class="fas fa-bullseye"></i></div>
-                <p class="objective-text">
-                    "Diseñar y desarrollar una aplicación móvil colaborativa que permita a los
-                    usuarios <strong>identificar, registrar, consultar y compartir</strong> información actualizada
-                    sobre puntos de accesibilidad urbana en Chile, contribuyendo a la <strong>autonomía,
-                        movilidad e inclusión social</strong> de personas con discapacidad, adultos mayores y familias."
-                </p>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">2.7M+</div>
-                    <div class="stat-label">Personas beneficiadas</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">17%</div>
-                    <div class="stat-label">Población adulta</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">∞</div>
-                    <div class="stat-label">Puntos colaborativos</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="menus">
-        <div class="container fade-in">
-            <h2>Menú Principal del Software</h2>
-            <p class="section-subtitle">
-                La aplicación está estructurada mediante una <strong>Barra de Navegación Inferior</strong>
-                que permite acceso rápido a las tres secciones principales del sistema.
-            </p>
-            <div class="menu-showcase">
-                <div class="menu-card">
-                    <div class="menu-number">1</div>
-                    <div class="menu-icon"><i class="fas fa-map-marked-alt"></i></div>
-                    <h3>Mapa</h3>
-                    <p style="color: var(--text-muted);">
-                        Pantalla principal con <strong>mapa interactivo</strong> que muestra
-                        todos los puntos de accesibilidad georreferenciados. Incluye sistema de filtros dinámicos
-                        y función para añadir nuevos lugares.
-                    </p>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-number">2</div>
-                    <div class="menu-icon"><i class="fas fa-route"></i></div>
-                    <h3>Mis Rutas</h3>
-                    <p style="color: var(--text-muted);">
-                        Listado personalizado de todos los <strong>puntos registrados por el usuario</strong>.
-                        Permite editar, actualizar o eliminar los aportes realizados a la comunidad.
-                    </p>
-                </div>
-                <div class="menu-card">
-                    <div class="menu-number">3</div>
-                    <div class="menu-icon"><i class="fas fa-user-circle"></i></div>
-                    <h3>Perfil</h3>
-                    <p style="color: var(--text-muted);">
-                        Gestión de cuenta de usuario, <strong>configuración de accesibilidad</strong>
-                        de la propia app y opciones de seguridad.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="funcionalidades" style="background: var(--bg-alt);">
-        <div class="container fade-in">
-            <h2>Funcionalidades del Software</h2>
-            <p class="section-subtitle">Explora las pantallas principales de la aplicación.</p>
-
-            <div class="feature-block">
-                <div class="phone-mockup" style="max-width: 280px;">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <img src="/layouts/light/detail.jpg" data-name="detail" alt="Detalle" class="app-screen">
-                        </div>
-                    </div>
-                </div>
-                <div class="feature-text">
-                    <h3><i class="fas fa-info-circle"></i> Detalle Completo del Lugar </h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Información Completa:</strong> Nombre, dirección exacta, coordenadas GPS
-                                yfecha de registro.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Características de Accesibilidad:</strong> Listado visual de todas las
-                                características disponibles (iconos + texto).</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Navegación Externa:</strong> Botón para abrir el lugar en Google Maps y
-                                obtener direcciones.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span><strong>Información del Contribuidor:</strong> Muestra
-                                quién registró el punto y cuándo fue la última actualización.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="feature-block reverse">
-                <div class="phone-mockup" style="max-width: 280px;">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <img src="/layouts/light/filter.jpg" data-name="filter" alt="Filtros" class="app-screen">
-                        </div>
-                    </div>
-                </div>
-                <div class="feature-text">
-                    <h3><i class="fas fa-filter"></i> Filtros Dinámicos</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Filtro por Tipo:</strong> Rampas, ascensores, baños adaptados,
-                                estacionamientos, puertas anchas, personal capacitado.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Filtros Múltiples:</strong> Posibilidad de combinar varios criterios
-                                simultáneamente para búsquedas específicas.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Actualización en Tiempo Real:</strong> El mapa se actualiza instantáneamente
-                                al aplicar o quitar filtros.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Guardado de Preferencias:</strong> El sistema recuerda los últimos filtros
-                                aplicados por el usuario.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="feature-block">
-                <div class="phone-mockup" style="max-width: 280px;">
-                    <div class="phone-colab">
-                        <div class="phone-screen">
-                            <img src="/layouts/light/newPoint.jpg" data-name="newPoint" alt="Añadir Punto"
-                                class="app-screen">
-                        </div>
-                    </div>
-                </div>
-                <div class="feature-text">
-                    <h3><i class="fas fa-plus-circle"></i> Colaboración</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Formulario Completo:</strong> Registro de dirección, nombre del lugar, tipo de
-                                accesibilidad y características específicas.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Ubicación Precisa:</strong> Selección manual en el mapa o uso de GPS para
-                                georreferenciar automáticamente.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Características Detalladas:</strong> Ancho de puertas, presencia de rampas,
-                                desniveles, servicios disponibles.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Validación de Datos:</strong> El sistema verifica
-                                que todos los campos obligatorios estén completos antes de guardar.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Almacenamiento de los Datos:</strong> Los datos se sincronizan en tiempo real
-                                con la base de datos en la nube.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="feature-block reverse">
-                <div class="phone-mockup" style="max-width: 280px;">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <img src="/layouts/light/routes.jpg" data-name="routes" alt="Mis Rutas" class="app-screen">
-                        </div>
-                    </div>
-                </div>
-                <div class="feature-text">
-                    <h3><i class="fas fa-list-alt"></i> Gestión de Aportes</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Listado Personal:</strong> Vista de todos los puntos registrados por el
-                                usuario con información resumida.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Editar Información:</strong> Actualizar cualquier dato del punto (dirección,
-                                características, fotos) manteniendo el historial.</span>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <span><strong>Navegación Rápida:</strong> Acceso directo desde la lista al detalle completo
-                                del punto en el mapa.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3 style="text-align: center; margin-top: 4rem; color: var(--secondary);">Configuración y Acceso</h3>
-            <div class="extra-screens-grid">
-                <div class="mini-screen-card">
-                    <div class="phone-mockup" style="max-width: 220px;">
+            <div class="hero-visual">
+                <div class="device-stage" id="device-stage">
+                    <div class="glow"></div>
+                    <div class="device device--left">
                         <div class="phone-frame">
                             <div class="phone-screen">
-                                <img src="/layouts/light/login.jpg" data-name="login" alt="Login" class="app-screen">
+                                <img src="/layouts/light/routes.jpg" data-name="routes" alt="Pantalla Mis Rutas"
+                                    class="app-screen">
+                                <span class="glare"></span>
                             </div>
                         </div>
                     </div>
-                    <h4>Login Seguro</h4>
+                    <div class="device device--right">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <img src="/layouts/light/detail.jpg" data-name="detail" alt="Pantalla de detalle"
+                                    class="app-screen">
+                                <span class="glare"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device device--main">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <img src="/layouts/light/map.jpg" data-name="map" alt="Mapa de accesibilidad"
+                                    class="app-screen">
+                                <span class="glare"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= STATS / OBJETIVO ================= -->
+    <section class="stats-strip" id="objetivo">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">El propósito</span>
+                <h2>Tecnología con impacto social</h2>
+                <p class="section-subtitle">Una herramienta para la autonomía, la movilidad y la inclusión de personas
+                    con discapacidad, adultos mayores y familias.</p>
+            </div>
+
+            <div class="objective-box reveal">
+                <p class="objective-text">
+                    "Diseñar una app móvil colaborativa que permita <strong>identificar, registrar, consultar y
+                        compartir</strong> información sobre puntos de accesibilidad urbana en Chile, contribuyendo a la
+                    <strong>autonomía e inclusión social</strong> de quienes más lo necesitan."
+                </p>
+            </div>
+
+            <div class="stats-grid reveal" style="margin-top: 3rem;">
+                <div class="stat-card">
+                    <div class="stat-number">2.7M+</div>
+                    <div class="stat-label">Personas con discapacidad en Chile</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">17%</div>
+                    <div class="stat-label">De la población adulta</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Puntos aportados por la comunidad</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MENÚ / LA APP ================= -->
+    <section id="menus">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">La app</span>
+                <h2>Tres secciones, todo lo que necesitas</h2>
+                <p class="section-subtitle">Una barra de navegación inferior da acceso rápido a las funciones
+                    principales del sistema.</p>
+            </div>
+            <div class="menu-showcase">
+                <div class="menu-card reveal">
+                    <span class="menu-number">01</span>
+                    <div class="menu-icon"><i class="fas fa-map-location-dot"></i></div>
+                    <h3>Mapa</h3>
+                    <p>Mapa interactivo con todos los puntos de accesibilidad georreferenciados, filtros dinámicos y la
+                        opción de añadir nuevos lugares.</p>
+                </div>
+                <div class="menu-card reveal">
+                    <span class="menu-number">02</span>
+                    <div class="menu-icon"><i class="fas fa-route"></i></div>
+                    <h3>Mis Rutas</h3>
+                    <p>Listado personal de los puntos que registraste. Edita, actualiza o elimina tus aportes a la
+                        comunidad cuando quieras.</p>
+                </div>
+                <div class="menu-card reveal">
+                    <span class="menu-number">03</span>
+                    <div class="menu-icon"><i class="fas fa-user-gear"></i></div>
+                    <h3>Perfil</h3>
+                    <p>Gestión de cuenta, configuración de accesibilidad de la propia app y opciones de seguridad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FUNCIONALIDADES ================= -->
+    <section id="funcionalidades" style="background: var(--bg-alt);">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">Funcionalidades</span>
+                <h2>Diseñada hasta el último detalle</h2>
+                <p class="section-subtitle">Explora las pantallas principales de la aplicación.</p>
+            </div>
+
+            <div class="bento reveal">
+                <div class="bento-cell bento-shot c-shot-lg">
+                    <img src="/layouts/light/map.jpg" data-name="map" alt="Mapa de accesibilidad" class="app-screen">
+                    <div class="shot-cap">
+                        <h4><i class="fas fa-map-location-dot"></i> Mapa interactivo</h4>
+                        <p>Todos los puntos accesibles, georreferenciados y filtrables en tiempo real.</p>
+                    </div>
+                </div>
+
+                <div class="bento-cell bento-feature c-detalle">
+                    <div class="b-icon"><i class="fas fa-circle-info"></i></div>
+                    <h3>Detalle completo del lugar</h3>
+                    <p>Nombre, dirección, coordenadas GPS, características de accesibilidad y quién lo registró. Abre el
+                        lugar en Google Maps con un solo toque.</p>
+                    <ul class="bento-tags">
+                        <li>GPS</li>
+                        <li>Accesibilidad</li>
+                        <li>Google Maps</li>
+                        <li>Contribuidor</li>
+                    </ul>
+                </div>
+
+                <div class="bento-cell bento-feature c-filtros">
+                    <div class="b-icon"><i class="fas fa-sliders"></i></div>
+                    <h3>Filtros dinámicos</h3>
+                    <p>Combina criterios —rampas, ascensores, baños adaptados— y el mapa se actualiza al instante.</p>
+                    <ul class="bento-tags">
+                        <li>Tiempo real</li>
+                        <li>Multi-filtro</li>
+                    </ul>
+                </div>
+
+                <div class="bento-cell bento-feature c-colab">
+                    <div class="b-icon"><i class="fas fa-circle-plus"></i></div>
+                    <h3>Colaboración</h3>
+                    <p>Aporta lugares con ubicación precisa y validación de datos.</p>
+                    <ul class="bento-tags">
+                        <li>Comunidad</li>
+                    </ul>
+                </div>
+
+                <div class="bento-cell bento-feature c-gestion">
+                    <div class="b-icon"><i class="fas fa-list-check"></i></div>
+                    <h3>Gestión de tus aportes</h3>
+                    <p>Listado personal de los puntos que registraste. Edita, actualiza o elimina cuando quieras, con
+                        acceso directo al detalle en el mapa y todo tu historial.</p>
+                    <ul class="bento-tags">
+                        <li>Editar</li>
+                        <li>Historial</li>
+                        <li>Acceso rápido</li>
+                    </ul>
+                </div>
+
+                <div class="bento-cell bento-shot c-shot-sm">
+                    <img src="/layouts/light/newPoint.jpg" data-name="newPoint" alt="Añadir punto" class="app-screen">
+                    <div class="shot-cap">
+                        <h4><i class="fas fa-circle-plus"></i> Añadir un punto</h4>
+                        <p>Formulario guiado y sincronización en la nube.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="extra-title reveal" style="margin-top: 5rem;">Configuración y acceso</div>
+            <div class="extra-screens-grid reveal">
+                <div class="mini-screen-card">
+                    <div class="phone-mockup">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <img src="/layouts/light/login.jpg" data-name="login" alt="Login" class="app-screen">
+                                <span class="glare"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Login seguro</h4>
                 </div>
                 <div class="mini-screen-card">
-                    <div class="phone-mockup" style="max-width: 220px;">
+                    <div class="phone-mockup">
                         <div class="phone-frame">
                             <div class="phone-screen">
                                 <img src="/layouts/light/profile.jpg" data-name="profile" alt="Perfil"
                                     class="app-screen">
+                                <span class="glare"></span>
                             </div>
                         </div>
                     </div>
-                    <h4>Vista Perfil</h4>
+                    <h4>Vista de perfil</h4>
                 </div>
                 <div class="mini-screen-card">
-                    <div class="phone-mockup" style="max-width: 220px;">
+                    <div class="phone-mockup">
                         <div class="phone-frame">
                             <div class="phone-screen">
                                 <img src="/layouts/light/settings.jpg" data-name="settings" alt="Ajustes"
                                     class="app-screen">
+                                <span class="glare"></span>
                             </div>
                         </div>
                     </div>
                     <h4>Ajustes</h4>
                 </div>
                 <div class="mini-screen-card">
-                    <div class="phone-mockup" style="max-width: 220px;">
+                    <div class="phone-mockup">
                         <div class="phone-frame">
                             <div class="phone-screen">
-                                <img src="/layouts/light/editProfile.jpg" data-name="editProfile" alt="Editar"
+                                <img src="/layouts/light/editProfile.jpg" data-name="editProfile" alt="Editar datos"
                                     class="app-screen">
+                                <span class="glare"></span>
                             </div>
                         </div>
                     </div>
-                    <h4>Editar Datos</h4>
+                    <h4>Editar datos</h4>
                 </div>
             </div>
         </div>
     </section>
 
-    <section style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white;">
-        <div class="container" style="text-align: center;">
-            <h2 style="color: white;">Próximos Pasos</h2>
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; text-align: left;">
-                <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 16px;">
-                    <i class="fas fa-star" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <h3>Sistema de Valoración</h3>
-                    <p style="opacity: 0.9;">Reseñas comunitarias para validar la información.</p>
+    <!-- ================= BANNER ALFABETIZACIÓN ================= -->
+    <section id="alfabetizacion">
+        <div class="container">
+            <div class="legal-banner reveal">
+                <div class="legal-banner-text">
+                    <span class="eyebrow">Conoce tus derechos</span>
+                    <h2>Alfabetización Jurídica</h2>
+                    <p>Un espacio accesible para comprender los derechos de las personas con discapacidad en Chile:
+                        legislación, recursos y guías de trámites, explicados de forma clara.</p>
+                    <a href="/alfabetizacion-juridica/index.html" class="btn btn-light"><i class="fas fa-scale-balanced"></i>
+                        Explorar la plataforma</a>
                 </div>
-                <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 16px;">
-                    <i class="fas fa-route" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <h3>Rutas Optimizadas</h3>
-                    <p style="opacity: 0.9;">Algoritmos para calcular el trayecto más accesible.</p>
+                <ul class="legal-points">
+                    <li><i class="fas fa-gavel"></i> Marco legal explicado</li>
+                    <li><i class="fas fa-hand-holding-heart"></i> Recursos y beneficios</li>
+                    <li><i class="fas fa-universal-access"></i> Totalmente accesible</li>
+                    <li><i class="fas fa-volume-high"></i> Lectura en voz alta</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= EQUIPO ================= -->
+    <section id="equipo" style="background: var(--bg-alt);">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">El equipo</span>
+                <h2>Quiénes lo construyen</h2>
+                <p class="section-subtitle">Desarrollado por estudiantes de Ingeniería en Informática del Instituto
+                    Profesional Virginio Gómez.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card reveal">
+                    <div class="team-avatar">MZ</div>
+                    <h3>Mauro Zapata</h3>
+                    <p class="team-role">Scrum Master & Dev</p>
+                    <p class="bio">Responsable de la gestión ágil del proyecto, la arquitectura de software y la
+                        integración con servicios en la nube.</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 16px;">
-                    <i class="fas fa-bell" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <div class="team-card reveal">
+                    <div class="team-avatar">CS</div>
+                    <h3>Carlos Salvo</h3>
+                    <p class="team-role">Desarrollador Full Stack</p>
+                    <p class="bio">Desarrollador principal del software: funcionalidades móviles, integración con Flutter
+                        y Mapbox, interfaz y experiencia de accesibilidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PRÓXIMOS PASOS ================= -->
+    <section id="proximos">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">Roadmap</span>
+                <h2>Lo que viene</h2>
+            </div>
+            <div class="next-grid">
+                <div class="next-card reveal">
+                    <div class="ic"><i class="fas fa-star"></i></div>
+                    <h3>Sistema de valoración</h3>
+                    <p>Reseñas comunitarias para validar la información de cada punto.</p>
+                </div>
+                <div class="next-card reveal">
+                    <div class="ic"><i class="fas fa-route"></i></div>
+                    <h3>Rutas optimizadas</h3>
+                    <p>Algoritmos que calculan el trayecto más accesible entre dos lugares.</p>
+                </div>
+                <div class="next-card reveal">
+                    <div class="ic"><i class="fas fa-bell"></i></div>
                     <h3>Notificaciones</h3>
-                    <p style="opacity: 0.9;">Alertas de nuevos puntos cercanos.</p>
+                    <p>Alertas de nuevos puntos accesibles cercanos a tu ubicación.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ================= FOOTER ================= -->
     <footer>
         <div class="container">
             <div class="footer-logo">
-                <img src="/logo/logo_sin_fondo.png" height="90"> Rutas Abiertas
+                <img src="/logo/logo_sin_fondo.png" alt=""> Rutas Abiertas
             </div>
-            <p style="font-size: 1.1rem; margin: 1rem 0; color: rgba(255,255,255,0.9);">
-                Construyendo un Chile más accesible e inclusivo
-            </p>
-            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-top: 1.5rem;">
-                Desarrollado por Mauro Zapata y Carlos Salvo
-            </p>
-            <p
-                style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
-                © 2026 Rutas Abiertas. Todos los derechos reservados.
-            </p>
+            <p class="footer-tag">Construyendo un Chile más accesible e inclusivo.</p>
+            <p style="color: rgba(255,255,255,0.7);">Desarrollado por Mauro Zapata y Carlos Salvo</p>
+            <p class="footer-bottom">© 2026 Rutas Abiertas. Todos los derechos reservados.</p>
         </div>
     </footer>
+
     <script src="/script.js"></script>
 </body>
 

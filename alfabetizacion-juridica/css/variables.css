@@ -1,0 +1,69 @@
+:root {
+    /* === Colores de Marca (verde Rutas Abiertas) === */
+    --primary-color:    #2E7D58;
+    --primary-dark:     #1e523a;
+    --primary-light:    #EAF5EE;
+    --primary-muted:    rgba(46, 125, 88, 0.10);
+    --secondary-color:  #4CA77B;
+    --accent-soft:      #8FD3B0;
+
+    /* === Texto === */
+    --text-dark:        #14241C;
+    --text-body:        #374151;
+    --text-muted:       #5C6B63;
+
+    /* === Superficies === */
+    --white:            #ffffff;
+    --light-bg:         #F4F8F5;
+    --surface-2:        #EEF4F0;
+
+    /* === Bordes === */
+    --border-color:     #E3EBE6;
+    --border-light:     #EEF4F0;
+
+    /* === Sombras === */
+    --shadow-xs:  0 1px 3px rgba(16,51,36,0.06), 0 1px 2px rgba(16,51,36,0.04);
+    --shadow-sm:  0 4px 12px rgba(16,51,36,0.08);
+    --shadow-md:  0 8px 24px rgba(16,51,36,0.10);
+    --shadow-lg:  0 16px 40px rgba(16,51,36,0.12);
+    --shadow-red: 0 6px 20px rgba(46, 125, 88, 0.35);
+
+    /* === Bordes redondeados === */
+    --radius-sm:   8px;
+    --radius-md:   14px;
+    --radius-lg:   20px;
+    --radius-xl:   28px;
+    --radius-pill: 50px;
+
+    /* === Transiciones === */
+    --transition-fast: 0.2s ease;
+    --transition:      0.25s ease;
+    --transition-slow: 0.45s ease;
+}
+
+/* === Modo oscuro === */
+[data-theme="dark"] {
+    --primary-color:    #57BE8E;
+    --primary-dark:     #2E7D58;
+    --primary-light:    #16271E;
+    --primary-muted:    rgba(87, 190, 142, 0.14);
+    --secondary-color:  #2E7D58;
+    --accent-soft:      #2E7D58;
+
+    --text-dark:        #EAF3EE;
+    --text-body:        #C7D6CD;
+    --text-muted:       #9BB0A4;
+
+    --white:            #14211A;
+    --light-bg:         #0F1A14;
+    --surface-2:        #1A2C22;
+
+    --border-color:     #213328;
+    --border-light:     #1A2C22;
+
+    --shadow-xs:  0 1px 3px rgba(0,0,0,0.3);
+    --shadow-sm:  0 4px 12px rgba(0,0,0,0.35);
+    --shadow-md:  0 8px 24px rgba(0,0,0,0.45);
+    --shadow-lg:  0 16px 40px rgba(0,0,0,0.55);
+    --shadow-red: 0 6px 20px rgba(87, 190, 142, 0.3);
+}
