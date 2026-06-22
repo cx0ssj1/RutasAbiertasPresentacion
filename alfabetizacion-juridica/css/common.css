@@ -314,3 +314,160 @@ body.high-contrast .reading-highlight {
 }
 
 [data-theme="dark"] .form-control::placeholder { color: var(--text-muted); }
+
+/* =================================================================
+   MEJORAS DE DISEÑO — capa visual compartida
+   ================================================================= */
+
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
+/* --- Hero más inmersivo --- */
+.hero-section {
+    position: relative;
+    padding: 132px 0 118px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    text-shadow: none;
+    background:
+        radial-gradient(42% 55% at 82% 6%, rgba(255, 255, 255, 0.18), transparent 62%),
+        radial-gradient(58% 65% at 4% 110%, rgba(0, 0, 0, 0.22), transparent 60%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='3' cy='3' r='1.5' fill='%23ffffff' fill-opacity='0.10'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+.hero-section h1 {
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+}
+
+.hero-section .lead {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-section .btn-light {
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+/* --- Encabezados de sección --- */
+.section-heading {
+    font-size: clamp(1.8rem, 3.4vw, 2.45rem);
+    letter-spacing: -0.01em;
+}
+
+/* --- Botón de marca con degradado --- */
+.btn-ucsc {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border: none;
+}
+
+/* --- Tarjetas: acento superior + chip de icono --- */
+.card-ucsc {
+    position: relative;
+}
+
+.card-ucsc::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+
+.card-ucsc:hover::after {
+    transform: scaleX(1);
+}
+
+.card-ucsc > .fs-1 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    font-size: 1.55rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: var(--shadow-red);
+}
+
+.card-ucsc > .fs-1,
+.card-ucsc > .fs-1 i {
+    color: #fff !important;
+}
+
+/* --- Contadores con número en degradado --- */
+.counter-box {
+    border: 1px solid var(--border-color);
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+}
+
+.animated-counter {
+    font-size: 3rem;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Acordeón como tarjetas separadas --- */
+.accordion-item {
+    margin-bottom: 0.7rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm) !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-xs);
+}
+
+/* --- Tarjetas e imágenes redondeadas --- */
+.card {
+    border-radius: var(--radius-md);
+}
+
+.img-fluid.rounded {
+    border-radius: var(--radius-lg) !important;
+}
+
+/* --- Filtros y grupos de botones como píldoras separadas --- */
+.filter-btn {
+    border-radius: var(--radius-pill) !important;
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-group.flex-wrap {
+    gap: 0.5rem;
+}
+
+.btn-group.flex-wrap > .btn {
+    margin: 0 !important;
+    border-radius: var(--radius-pill) !important;
+}
+
+/* --- Badges más suaves --- */
+.badge {
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    padding: 0.4em 0.8em;
+}
