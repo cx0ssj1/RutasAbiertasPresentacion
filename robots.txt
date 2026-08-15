@@ -1,0 +1,13 @@
+# robots.txt — Rutas Abiertas
+# https://presentacion.rutasabiertas.app
+#
+# Sin Disallow a propósito: las páginas de Alfabetización Jurídica inyectan
+# navbar, footer y modales por fetch desde /alfabetizacion-juridica/components/,
+# y el estilo/JS vive en /css/ y /js/. Bloquear esas rutas impediría que
+# Googlebot renderice la página completa.
+# Ref: https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+
+User-agent: *
+Allow: /
+
+Sitemap: https://presentacion.rutasabiertas.app/sitemap.xml

@@ -5,18 +5,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-    <title>Rutas Abiertas — App de Accesibilidad Urbana</title>
+    <title>Rutas Abiertas — App de Accesibilidad Urbana en Chile</title>
     <meta name="description"
-        content="Rutas Abiertas: app móvil colaborativa para mapear y compartir puntos de accesibilidad urbana en Chile.">
+        content="Rutas Abiertas: app móvil colaborativa para mapear y compartir puntos de accesibilidad urbana en Chile. Rampas, ascensores y baños adaptados, registrados por la comunidad.">
+    <link rel="canonical" href="https://presentacion.rutasabiertas.app/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="author" content="Rutas Abiertas">
+    <meta name="theme-color" content="#2E7D58">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- ===== Open Graph ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rutas Abiertas">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:url" content="https://presentacion.rutasabiertas.app/">
+    <meta property="og:title" content="Rutas Abiertas — App de Accesibilidad Urbana en Chile">
+    <meta property="og:description"
+        content="App móvil colaborativa para identificar, registrar y compartir puntos de accesibilidad urbana en Chile.">
+    <meta property="og:image" content="https://presentacion.rutasabiertas.app/logo/logo.png">
+    <meta property="og:image:width" content="2048">
+    <meta property="og:image:height" content="2048">
+    <meta property="og:image:alt" content="Logo de Rutas Abiertas">
+
+    <!-- ===== Twitter / X ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rutas Abiertas — App de Accesibilidad Urbana en Chile">
+    <meta name="twitter:description"
+        content="App móvil colaborativa para identificar, registrar y compartir puntos de accesibilidad urbana en Chile.">
+    <meta name="twitter:image" content="https://presentacion.rutasabiertas.app/logo/logo.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="/icons/favicon.ico" sizes="any">
+    <link rel="icon" href="/icons/icon-192.png" type="image/png" sizes="192x192">
+    <link rel="icon" href="/icons/icon-512.png" type="image/png" sizes="512x512">
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
+
+    <!-- ===== Datos estructurados ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://presentacion.rutasabiertas.app/#website",
+          "url": "https://presentacion.rutasabiertas.app/",
+          "name": "Rutas Abiertas",
+          "description": "Presentación del proyecto Rutas Abiertas, app móvil colaborativa de accesibilidad urbana en Chile.",
+          "inLanguage": "es-CL",
+          "publisher": { "@id": "https://presentacion.rutasabiertas.app/#organization" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://presentacion.rutasabiertas.app/#organization",
+          "name": "Rutas Abiertas",
+          "url": "https://presentacion.rutasabiertas.app/",
+          "logo": "https://presentacion.rutasabiertas.app/logo/logo.png",
+          "areaServed": "CL",
+          "member": [
+            { "@type": "Person", "name": "Mauro Zapata", "jobTitle": "Scrum Master" },
+            { "@type": "Person", "name": "Carlos Salvo", "jobTitle": "Desarrollador móvil" }
+          ]
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://presentacion.rutasabiertas.app/#app",
+          "name": "Rutas Abiertas",
+          "applicationCategory": "TravelApplication",
+          "operatingSystem": "Android",
+          "inLanguage": "es-CL",
+          "description": "App móvil colaborativa para identificar, registrar y compartir puntos de accesibilidad urbana en Chile: rampas, ascensores y baños adaptados.",
+          "url": "https://presentacion.rutasabiertas.app/",
+          "image": "https://presentacion.rutasabiertas.app/logo/logo.png",
+          "author": { "@id": "https://presentacion.rutasabiertas.app/#organization" },
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body>
@@ -31,7 +102,7 @@
                 <li><a href="#menus">La App</a></li>
                 <li><a href="#funcionalidades">Funciones</a></li>
                 <li><a href="#equipo">Equipo</a></li>
-                <li><a class="nav-cta" href="/alfabetizacion-juridica/index.html">Alfabetización Jurídica</a></li>
+                <li><a class="nav-cta" href="/alfabetizacion-juridica/">Alfabetización Jurídica</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="theme-toggle" id="theme-btn" aria-label="Cambiar tema">
@@ -54,7 +125,7 @@
                 <div class="hero-actions">
                     <a href="#funcionalidades" class="btn btn-primary"><i class="fas fa-mobile-screen-button"></i> Ver
                         la app</a>
-                    <a href="/alfabetizacion-juridica/index.html" class="btn btn-ghost"><i class="fas fa-scale-balanced"></i>
+                    <a href="/alfabetizacion-juridica/" class="btn btn-ghost"><i class="fas fa-scale-balanced"></i>
                         Alfabetización Jurídica</a>
                 </div>
                 <div class="hero-mini-stats">
@@ -310,7 +381,7 @@
                     <h2>Alfabetización Jurídica</h2>
                     <p>Un espacio accesible para comprender los derechos de las personas con discapacidad en Chile:
                         legislación, recursos y guías de trámites, explicados de forma clara.</p>
-                    <a href="/alfabetizacion-juridica/index.html" class="btn btn-light"><i class="fas fa-scale-balanced"></i>
+                    <a href="/alfabetizacion-juridica/" class="btn btn-light"><i class="fas fa-scale-balanced"></i>
                         Explorar la plataforma</a>
                 </div>
                 <ul class="legal-points">
