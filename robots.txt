@@ -1,5 +1,5 @@
 # robots.txt — Rutas Abiertas
-# https://presentacion.rutasabiertas.app
+# https://rutasabiertas.cl
 #
 # Sin Disallow a propósito: las páginas de Alfabetización Jurídica inyectan
 # navbar, footer y modales por fetch desde /alfabetizacion-juridica/components/,
@@ -10,4 +10,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://presentacion.rutasabiertas.app/sitemap.xml
+Sitemap: https://rutasabiertas.cl/sitemap.xml
