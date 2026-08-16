@@ -462,15 +462,16 @@ h2 {
     position: relative;
     height: 600px;
     perspective: 1800px;
-    transform-style: preserve-3d;
+    /* sin preserve-3d: evita que los planos rotados se intersecten entre sí */
+    transform-style: flat;
 }
 
 .device-stage .glow {
     position: absolute;
     inset: 12% 8%;
-    background: radial-gradient(circle, var(--accent), transparent 68%);
-    filter: blur(40px);
-    opacity: .55;
+    background: radial-gradient(circle, var(--accent), transparent 70%);
+    filter: blur(56px);
+    opacity: .38;
     z-index: 0;
 }
 
@@ -493,16 +494,16 @@ h2 {
 /* teléfono trasero izquierdo */
 .device--left {
     z-index: 2;
-    transform: translate(-80%, -44%) rotateY(-24deg) rotateX(5deg) rotateZ(-3deg) scale(.8);
-    opacity: .9;
+    transform: translate(-103%, -44%) rotateY(-24deg) rotateX(5deg) rotateZ(-3deg) scale(.8);
+    filter: brightness(.94);
     animation: floatB 8s ease-in-out infinite;
 }
 
 /* teléfono trasero derecho */
 .device--right {
     z-index: 3;
-    transform: translate(-22%, -54%) rotateY(-13deg) rotateX(2deg) rotateZ(3deg) scale(.84);
-    opacity: .94;
+    transform: translate(-2%, -54%) rotateY(-13deg) rotateX(2deg) rotateZ(3deg) scale(.84);
+    filter: brightness(.97);
     animation: floatC 6.5s ease-in-out infinite;
 }
 
@@ -576,7 +577,11 @@ h2 {
 .phone-screen .glare {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 40%);
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.13) 0%,
+            rgba(255, 255, 255, 0.06) 22%,
+            rgba(255, 255, 255, 0.015) 42%,
+            transparent 62%);
     pointer-events: none;
 }
 
@@ -1052,39 +1057,71 @@ h2 {
     color: #9FE7BF;
 }
 
-/* ---------- NEXT STEPS ---------- */
-.next-grid {
+/* ---------- ACCESIBILIDAD ---------- */
+.a11y-badges {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-bottom: 3rem;
+}
+
+.a11y-badges li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.a11y-badges li i {
+    color: var(--primary);
+}
+
+.a11y-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
 }
 
-.next-card {
+.a11y-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 2.2rem;
     box-shadow: var(--shadow-sm);
-    transition: transform .3s var(--ease);
+    transition: transform .3s var(--ease), border-color .3s ease;
 }
 
-.next-card:hover {
+.a11y-card:hover {
     transform: translateY(-6px);
+    border-color: var(--primary);
 }
 
-.next-card .ic {
-    font-size: 1.8rem;
+.a11y-card .ic {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--primary) 12%, transparent);
     color: var(--primary);
-    margin-bottom: 1rem;
+    font-size: 1.35rem;
+    margin-bottom: 1.1rem;
 }
 
-.next-card h3 {
+.a11y-card h3 {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
 
-.next-card p {
+.a11y-card p {
     color: var(--text-muted);
 }
 
@@ -1163,7 +1200,7 @@ footer {
     .device-stage {
         height: 480px;
         margin-top: 1rem;
-        transform: scale(.82);
+        transform: scale(.72);
     }
 
     .feature-block,
