@@ -5,15 +5,15 @@
 /* ------------------------------------------------------------
    CONFIGURACIÓN — lo único que hay que tocar para recibir datos
    ------------------------------------------------------------
-   FORM_ENDPOINT: URL que recibe la inscripción por POST (JSON).
-     · Formspree:  'https://formspree.io/f/TU_ID'
-     · Supabase:   'https://TU_PROYECTO.supabase.co/rest/v1/testers'
-     · n8n / API propia: la URL del webhook.
+   FORM_ENDPOINT: recibe la inscripción por POST (JSON) y la reenvía
+   por correo al equipo. No guarda nada: el formulario recoge datos
+   de discapacidad y no retenerlos es la forma más simple de
+   tratarlos bien.
    Si se deja vacío, el formulario abre el cliente de correo del
    usuario con los datos ya escritos, dirigido a CONTACT_EMAIL.
    ------------------------------------------------------------ */
-const FORM_ENDPOINT = '';
-const CONTACT_EMAIL = 'contacto@rutasabiertas.cl';
+const FORM_ENDPOINT = 'https://api.rutasabiertas.cl/api/testers';
+const CONTACT_EMAIL = 'rutas.abiertas1@gmail.com';
 
 // ---------- MENÚ MÓVIL ----------
 const menuToggle = document.querySelector('.menu-toggle');
@@ -205,7 +205,9 @@ function collect() {
         perfil: perfiles.join(', '),
         accesibilidad: (data.get('accesibilidad') || '').trim(),
         origen: 'rutasabiertas.cl/testers-form',
-        fecha: new Date().toISOString()
+        // Campo trampa: el servidor lo revisa también, porque un bot que hable
+        // directo con la API nunca ejecuta este script.
+        empresa: (data.get('empresa') || '').trim()
     };
 }
 
@@ -272,13 +274,21 @@ form.addEventListener('submit', async ev => {
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify(payload)
         });
+        if (res.status === 429) {
+            throw new Error('Ya recibimos varias inscripciones desde tu conexión. '
+                + 'Espera un rato o escríbenos por correo.');
+        }
         if (!res.ok) throw new Error('HTTP ' + res.status);
         showSuccess(payload.sistema === 'iOS'
             ? 'Anotamos tu correo en la lista de espera. Te avisaremos apenas exista la versión para iPhone.'
             : null);
     } catch (err) {
         setLoading(false);
-        errorList.innerHTML = '<li>No pudimos enviar la inscripción. Revisa tu conexión e inténtalo otra vez, o escríbenos a <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>.</li>';
+        const detalle = err && err.message && !err.message.startsWith('HTTP')
+            ? err.message
+            : 'Revisa tu conexión e inténtalo otra vez';
+        errorList.innerHTML = '<li>No pudimos enviar la inscripción. ' + detalle
+            + ', o escríbenos a <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>.</li>';
         errorBox.hidden = false;
         errorBox.focus();
     }
