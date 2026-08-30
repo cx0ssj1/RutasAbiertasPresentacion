@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fuera de los buscadores: es una herramienta interna, no una página del
+         sitio. El noindex no es seguridad —la protección real está en el token
+         que exige la API— pero evita que la URL aparezca en resultados. -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Panel de administración — Rutas Abiertas</title>
+
+    <link rel="icon" href="../icons/favicon.ico" sizes="any">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <a class="saltar" href="#principal">Saltar al contenido</a>
+
+    <!-- La barra y las pestañas son hermanas de <main>, no hijas: son
+         navegación del panel, no su contenido. Ambas nacen ocultas y aparecen
+         al iniciar sesión. -->
+    <header class="barra" id="barra" hidden>
+        <div class="barra-izq">
+            <span class="marca">Rutas Abiertas</span>
+            <span class="marca-sub">Panel</span>
+        </div>
+        <div class="barra-der">
+            <span class="quien" id="quien"></span>
+            <button type="button" id="theme-btn" class="icono"
+                aria-label="Cambiar entre tema claro y oscuro">
+                <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            </button>
+            <button type="button" id="btn-salir" class="btn btn-tenue">
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                Salir
+            </button>
+        </div>
+    </header>
+
+    <nav class="pestanas" id="pestanas" aria-label="Secciones del panel" hidden>
+        <button type="button" class="pestana activa" data-vista="resumen" aria-current="page">
+            <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Resumen
+        </button>
+        <button type="button" class="pestana" data-vista="usuarios">
+            <i class="fa-solid fa-users" aria-hidden="true"></i> Usuarios
+        </button>
+        <button type="button" class="pestana" data-vista="reportes">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Reportes
+        </button>
+    </nav>
+
+    <!-- Un solo <main> en todo el documento: tener dos, aunque uno esté
+         oculto, deja al lector de pantalla con dos regiones "principal". -->
+    <main id="principal">
+
+        <!-- ====================================================
+             INICIO DE SESIÓN
+             ==================================================== -->
+        <div id="vista-login" class="login">
+            <form class="login-caja" id="form-login" novalidate>
+                <img src="../logo/logo.png" alt="" class="login-logo" onerror="this.remove()">
+                <h1>Panel de administración</h1>
+                <p class="login-sub">Acceso restringido al equipo de Rutas Abiertas.</p>
+
+                <div class="campo">
+                    <label for="login-email">Correo</label>
+                    <input type="email" id="login-email" name="email" autocomplete="username"
+                        required autocapitalize="off" spellcheck="false">
+                </div>
+
+                <div class="campo">
+                    <label for="login-pass">Contraseña</label>
+                    <div class="campo-pass">
+                        <input type="password" id="login-pass" name="password"
+                            autocomplete="current-password" required>
+                        <button type="button" id="ver-pass" class="ver-pass"
+                            aria-label="Mostrar contraseña" aria-pressed="false">
+                            <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primario" id="btn-entrar">Entrar</button>
+
+                <!-- role=alert para que el lector de pantalla anuncie el error
+                     sin que la persona tenga que ir a buscarlo. -->
+                <p class="aviso aviso-error" id="login-error" role="alert" hidden></p>
+
+                <a class="login-volver" href="../Index.html">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Volver al sitio
+                </a>
+            </form>
+        </div>
+
+        <!-- ====================================================
+             PANEL
+             ==================================================== -->
+        <div id="vista-panel" class="contenido" hidden>
+
+            <!-- ---------- RESUMEN ---------- -->
+            <section id="vista-resumen" class="vista" aria-labelledby="t-resumen">
+                <div class="vista-cabecera">
+                    <h1 id="t-resumen">Resumen</h1>
+                    <label class="campo-linea">
+                        <span>Período</span>
+                        <select id="dias">
+                            <option value="7">Últimos 7 días</option>
+                            <option value="30" selected>Últimos 30 días</option>
+                            <option value="90">Últimos 90 días</option>
+                            <option value="365">Último año</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="tarjetas" id="tarjetas"></div>
+
+                <div class="graficos">
+                    <article class="panel">
+                        <h2>Registros por día</h2>
+                        <div id="graf-usuarios" class="grafico"></div>
+                    </article>
+                    <article class="panel">
+                        <h2>Reportes por día</h2>
+                        <div id="graf-reportes" class="grafico"></div>
+                    </article>
+                </div>
+
+                <article class="panel">
+                    <h2>Reportes por categoría</h2>
+                    <div id="por-categoria" class="barras"></div>
+                </article>
+            </section>
+
+            <!-- ---------- USUARIOS ---------- -->
+            <section id="vista-usuarios" class="vista" aria-labelledby="t-usuarios" hidden>
+                <div class="vista-cabecera">
+                    <h1 id="t-usuarios">Usuarios</h1>
+                    <div class="filtros">
+                        <label class="campo-linea">
+                            <span class="visualmente-oculto">Buscar usuario</span>
+                            <input type="search" id="buscar-usuarios"
+                                placeholder="Buscar por nombre o correo">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="tabla-scroll">
+                    <table class="tabla">
+                        <caption class="visualmente-oculto">
+                            Personas registradas, con la cantidad de aportes y
+                            validaciones de cada una.
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Persona</th>
+                                <th scope="col">Perfil</th>
+                                <th scope="col">Aportes</th>
+                                <th scope="col">Validaciones</th>
+                                <th scope="col">Registro</th>
+                                <th scope="col"><span class="visualmente-oculto">Acciones</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-usuarios"></tbody>
+                    </table>
+                </div>
+                <div class="paginacion" id="pag-usuarios"></div>
+            </section>
+
+            <!-- ---------- REPORTES ---------- -->
+            <section id="vista-reportes" class="vista" aria-labelledby="t-reportes" hidden>
+                <div class="vista-cabecera">
+                    <h1 id="t-reportes">Reportes</h1>
+                    <div class="filtros">
+                        <label class="campo-linea">
+                            <span class="visualmente-oculto">Buscar reporte</span>
+                            <input type="search" id="buscar-reportes"
+                                placeholder="Buscar por título o descripción">
+                        </label>
+                        <label class="campo-linea">
+                            <span class="visualmente-oculto">Categoría</span>
+                            <select id="categoria">
+                                <option value="">Todas las categorías</option>
+                            </select>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="con-foto">
+                            <span>Solo con foto</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="tabla-scroll">
+                    <table class="tabla">
+                        <caption class="visualmente-oculto">
+                            Aportes publicados en el mapa, con su autor y sus votos.
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Lugar</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Autor</th>
+                                <th scope="col">Votos</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col"><span class="visualmente-oculto">Acciones</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-reportes"></tbody>
+                    </table>
+                </div>
+                <div class="paginacion" id="pag-reportes"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ============================================================
+         CONFIRMACIÓN DE BORRADO
+         Nada se borra sin pasar por acá: la eliminación es en cascada y
+         no tiene vuelta atrás.
+         ============================================================ -->
+    <div class="modal-fondo" id="modal" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo"
+            aria-describedby="modal-texto">
+            <h2 id="modal-titulo">Confirmar eliminación</h2>
+            <p id="modal-texto"></p>
+            <div class="modal-acciones">
+                <button type="button" class="btn btn-tenue" id="modal-cancelar">Cancelar</button>
+                <button type="button" class="btn btn-peligro" id="modal-confirmar">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Los avisos de resultado se anuncian solos al lector de pantalla. -->
+    <div class="brindis" id="brindis" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
