@@ -380,11 +380,17 @@ function dibujarSerie(caja, serie, etiqueta) {
 
     const ancho = 600, alto = 180, margen = 26;
     const maximo = Math.max(...serie.map(p => p.total), 1);
+
+    // El techo lleva un 15% de aire sobre el máximo. Sin eso, cuando todos los
+    // días valen lo mismo —el caso normal al principio, un registro por día— la
+    // línea queda clavada en el borde superior y parece un gráfico roto o algo
+    // saturado, cuando en realidad no pasa nada.
+    const techo = maximo * 1.15;
     const paso = serie.length > 1 ? (ancho - margen * 2) / (serie.length - 1) : 0;
 
     const puntos = serie.map((p, i) => {
         const x = margen + i * paso;
-        const y = alto - margen - ((p.total / maximo) * (alto - margen * 2));
+        const y = alto - margen - ((p.total / techo) * (alto - margen * 2));
         return { x, y, p };
     });
 
@@ -407,6 +413,22 @@ function dibujarSerie(caja, serie, etiqueta) {
     base.setAttribute('stroke', 'currentColor');
     base.setAttribute('stroke-opacity', '.15');
     svg.appendChild(base);
+
+    // Referencia numérica del máximo y del rango de fechas: sin esto la altura
+    // de la línea no significa nada para quien la mira.
+    const marca = (x, y, texto, ancla) => {
+        const n = document.createElementNS(ns, 'text');
+        n.setAttribute('class', 'serie-marca');
+        n.setAttribute('x', x); n.setAttribute('y', y);
+        n.setAttribute('text-anchor', ancla || 'start');
+        n.textContent = texto;
+        svg.appendChild(n);
+    };
+    marca(margen, margen - 8, numero(maximo));
+    marca(margen, alto - 8, fecha(serie[0].fecha));
+    if (serie.length > 1) {
+        marca(ancho - margen, alto - 8, fecha(serie[serie.length - 1].fecha), 'end');
+    }
 
     // El color sale de una clase CSS, no de un atributo con el valor leido de
     // la variable: asi el grafico cambia solo al alternar el tema, sin volver
@@ -513,7 +535,7 @@ function filaUsuario(u) {
 
     tr.appendChild(el('td', null, numero(u.aportes)));
     tr.appendChild(el('td', null, numero(u.validaciones)));
-    tr.appendChild(el('td', null, fecha(u.created_at)));
+    tr.appendChild(el('td', 'celda-fecha', fecha(u.created_at)));
 
     const acciones = document.createElement('td');
     if (!u.is_admin) {
@@ -621,7 +643,7 @@ function filaReporte(r) {
         el('span', 'voto-no', `▼ ${numero(r.rejects)}`));
     tr.appendChild(votos);
 
-    tr.appendChild(el('td', null, fecha(r.created_at)));
+    tr.appendChild(el('td', 'celda-fecha', fecha(r.created_at)));
 
     const acciones = document.createElement('td');
     const boton = el('button', 'btn-fila', 'Eliminar');

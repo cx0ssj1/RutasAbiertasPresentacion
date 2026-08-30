@@ -56,6 +56,16 @@
     box-sizing: border-box;
 }
 
+/* El atributo `hidden` lo pisa cualquier regla propia que declare `display`:
+   la del navegador es `[hidden] { display: none }`, un selector de atributo,
+   y pierde por especificidad contra un selector de clase.
+   Sin esta línea, .barra (flex), .pestanas (flex), .login (grid) y
+   .modal-fondo (grid) se pintan igual estando marcadas como ocultas, y el
+   panel arranca mostrando la barra, el login y el modal de borrado a la vez. */
+[hidden] {
+    display: none !important;
+}
+
 body {
     margin: 0;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -494,6 +504,12 @@ select:focus {
     fill: var(--primary);
 }
 
+.serie-marca {
+    fill: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+}
+
 .grafico .vacio,
 .barras .vacio {
     color: var(--text-muted);
@@ -531,6 +547,13 @@ select:focus {
 /* ---------------------------------------------- TABLAS */
 .tabla-scroll {
     overflow-x: auto;
+    /* Necesario, no decorativo: los <span class="visualmente-oculto"> de las
+       cabeceras son `position: absolute`, y sin un ancestro posicionado se
+       anclan a la página en vez de a este contenedor. Escapan del overflow, se
+       plantan más allá del borde derecho y hacen scrollear horizontalmente al
+       documento entero — en móvil la barra superior se corre y el botón Salir
+       queda fuera de pantalla. */
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -567,6 +590,14 @@ select:focus {
     background: var(--surface-2);
 }
 
+/* La primera columna es la que se lee para identificar la fila. Sin un ancho
+   mínimo el navegador la comprime hasta partir cada palabra en su propia
+   línea; la tabla ya scrollea, así que el espacio no falta. */
+.tabla th:first-child,
+.tabla td:first-child {
+    min-width: 16rem;
+}
+
 .celda-principal {
     font-weight: 600;
 }
@@ -591,6 +622,10 @@ select:focus {
     background: var(--primary);
     border-color: var(--primary);
     color: #fff;
+}
+
+.celda-fecha {
+    white-space: nowrap;
 }
 
 .votos {
