@@ -1,0 +1,287 @@
+/* ============================================================
+   Página legal — política de privacidad
+   ------------------------------------------------------------
+   Hereda los tokens de /style.css. Acá solo va la tipografía de
+   lectura larga, que la landing no necesita.
+   ============================================================ */
+
+/* El atributo `hidden` pierde por especificidad contra cualquier regla de
+   clase que declare `display`. Una sola línea evita esa clase de bug. */
+[hidden] {
+    display: none !important;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------------------------------------------- CABECERA */
+.legal-top {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.legal-top-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.legal-marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.legal-marca img {
+    height: 34px;
+    width: auto;
+}
+
+.legal-volver {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: .92rem;
+    font-weight: 600;
+}
+
+.legal-volver:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* ---------------------------------------------- CUERPO */
+.legal {
+    background: var(--bg);
+    padding: 3rem 0 4.5rem;
+}
+
+/* Medida de lectura: más ancho que esto y el ojo pierde el renglón al
+   volver. Es un texto largo que la gente lee de verdad, no un adorno. */
+.legal-container {
+    max-width: 46rem;
+}
+
+.legal h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    color: var(--text-main);
+    margin: 0 0 .5rem;
+    line-height: 1.15;
+}
+
+.legal-fecha {
+    color: var(--text-muted);
+    font-size: .95rem;
+    margin: 0 0 2.5rem;
+}
+
+.legal h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.45rem;
+    color: var(--text-main);
+    margin: 3rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    line-height: 1.25;
+}
+
+.legal h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin: 2rem 0 .75rem;
+}
+
+.legal p,
+.legal li {
+    color: var(--text-main);
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+
+.legal p {
+    margin: 0 0 1.1rem;
+}
+
+.legal ul {
+    margin: 0 0 1.3rem;
+    padding-left: 1.35rem;
+}
+
+.legal li {
+    margin-bottom: .6rem;
+}
+
+.legal a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.legal strong {
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+/* ---------------------------------------------- RESUMEN */
+.legal-resumen {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.legal-resumen h2 {
+    margin: 0 0 .85rem;
+    padding: 0;
+    border: 0;
+    font-size: 1.15rem;
+}
+
+.legal-resumen ul {
+    margin: 0;
+}
+
+.legal-resumen li:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------------------------------------------- LLAMADOS */
+.legal-nota {
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    margin: 1.75rem 0;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.legal-nota h3 {
+    margin-top: 0;
+}
+
+.legal-nota> :last-child {
+    margin-bottom: 0;
+}
+
+.legal-nota-sensible {
+    border-left: 4px solid var(--primary);
+}
+
+.legal-nota-sensible h3 i {
+    color: var(--primary);
+    margin-right: .4rem;
+}
+
+/* Borrar la cuenta es irreversible: se marca en rojo porque el resto del
+   documento es informativo y esto es una advertencia. */
+.legal-nota-aviso {
+    border-left: 4px solid #B3261E;
+    background: #FDECEA;
+}
+
+.legal-nota-aviso p {
+    color: #7F1D1B;
+}
+
+[data-theme="dark"] .legal-nota-aviso {
+    background: #2A1614;
+    border-left-color: #F2857C;
+}
+
+[data-theme="dark"] .legal-nota-aviso p {
+    color: #F7C9C4;
+}
+
+.legal-destacado {
+    background: var(--surface-2);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+}
+
+/* ---------------------------------------------- TABLAS */
+/* Scroll propio: la tabla nunca debe empujar el ancho de la página. */
+.legal-tabla {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.75rem;
+    font-size: .96rem;
+}
+
+.legal-tabla thead {
+    background: var(--surface-2);
+}
+
+.legal-tabla th,
+.legal-tabla td {
+    text-align: left;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+    min-width: 8rem;
+}
+
+.legal-tabla th {
+    font-weight: 700;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.legal-tabla tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* ---------------------------------------------- CONTACTO */
+.legal-contacto {
+    margin-top: 3rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface-2);
+    border-radius: var(--radius);
+    text-align: center;
+    font-weight: 600;
+}
+
+.legal-contacto i {
+    color: var(--primary);
+    margin-right: .4rem;
+}
+
+@media (max-width: 40rem) {
+    .legal {
+        padding: 2rem 0 3rem;
+    }
+
+    .legal-resumen,
+    .legal-nota {
+        padding: 1.15rem 1.25rem;
+    }
+
+    .legal-volver span {
+        display: none;
+    }
+}

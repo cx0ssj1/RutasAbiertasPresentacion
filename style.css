@@ -1286,3 +1286,31 @@ footer {
         scroll-behavior: auto;
     }
 }
+
+/* ------------------------------------------------------------
+   Salto al contenido
+   ------------------------------------------------------------
+   Vive acá y no dentro de una página porque lo necesita cualquiera:
+   estaba solo en testers-form/styles.css y la página de privacidad
+   nació mostrando el enlace siempre visible, en vez de solo al
+   enfocarlo con el teclado.
+   Es el primer control que encuentra quien navega sin mouse.
+   ------------------------------------------------------------ */
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 200;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.8rem 1.4rem;
+    border-radius: 0 0 12px 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: top 0.2s var(--ease);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    top: 0;
+}
