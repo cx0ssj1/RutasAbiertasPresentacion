@@ -765,3 +765,146 @@ select:focus {
         animation-duration: .01ms !important;
     }
 }
+
+/* ---------------------------------------------- BETA TESTERS */
+
+/* Cuántos esperan respuesta, sobre la pestaña. */
+.chincheta {
+    display: inline-block;
+    min-width: 1.35rem;
+    padding: 0 .4rem;
+    margin-left: .4rem;
+    border-radius: 999px;
+    background: var(--peligro);
+    color: #fff;
+    font-size: .72rem;
+    font-weight: 700;
+    line-height: 1.35rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Acciones que salen a la red y le escriben a personas reales. Van separadas
+   de los filtros a propósito: mezclar "buscar" con "mandar 40 correos" hace
+   que el segundo se apriete sin pensar. */
+.acciones-lote {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.acciones-texto {
+    margin: 0;
+    font-size: .95rem;
+    color: var(--text-muted);
+}
+
+.acciones-texto strong {
+    color: var(--text-main);
+}
+
+.acciones-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+}
+
+/* `.btn-primario` es ancho completo porque nació para el formulario de
+   ingreso. Acá va junto a otro botón. */
+.btn-auto {
+    width: auto;
+}
+
+/* Estado del contacto. Verde y gris, no verde y rojo: no haberle respondido
+   todavía a alguien no es un error. */
+.estado {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .82rem;
+    font-weight: 600;
+    padding: .2rem .65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.estado-pendiente {
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+
+.estado-respondido {
+    background: var(--primary);
+    color: #fff;
+}
+
+.estado-detalle {
+    display: block;
+    font-size: .78rem;
+    color: var(--text-muted);
+    margin-top: .25rem;
+}
+
+/* Acciones de fila: la de escribir es la principal, borrar es destructiva. */
+.acciones-fila {
+    display: flex;
+    gap: .4rem;
+    white-space: nowrap;
+}
+
+.btn-fila-accion {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--primary);
+    cursor: pointer;
+    padding: .4rem .7rem;
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 600;
+}
+
+.btn-fila-accion:hover:not(:disabled) {
+    background: var(--surface-2);
+    border-color: var(--primary);
+}
+
+.btn-fila-accion:disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+.modal-sub {
+    margin-top: -.35rem;
+}
+
+.opcional {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+/* El formulario del modal es más alto que la ventana en un teléfono. */
+.modal {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 40rem) {
+    .acciones-lote {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .acciones-botones .btn {
+        flex: 1;
+        justify-content: center;
+    }
+}

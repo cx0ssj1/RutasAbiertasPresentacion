@@ -316,6 +316,7 @@ function cambiarVista(nombre) {
     if (nombre === 'resumen') cargarResumen();
     if (nombre === 'usuarios') cargarUsuarios();
     if (nombre === 'reportes') cargarReportes();
+    if (nombre === 'testers') cargarTesters();
 }
 
 /* ------------------------------------------------------------
@@ -739,14 +740,28 @@ function esperar(fn, ms) {
    exactamente qué se pierde antes de que alguien apriete el botón.
    ------------------------------------------------------------ */
 let alConfirmarActual = null;
+let etiquetaAccionActual = 'Eliminar';
 let focoPrevio = null;
 
-function confirmar({ titulo, texto, alConfirmar }) {
+function confirmar({ titulo, texto, alConfirmar, etiquetaConfirmar, peligro = true }) {
     $('#modal-titulo').textContent = titulo;
     $('#modal-texto').textContent = texto;
+
+    // Un botón rojo que dice "Eliminar" para confirmar el envío de un correo
+    // confunde más de lo que ayuda: el color y el texto tienen que decir lo
+    // que va a pasar.
+    const boton = $('#modal-confirmar');
+    etiquetaAccionActual = etiquetaConfirmar || 'Eliminar';
+    boton.textContent = etiquetaAccionActual;
+    boton.classList.toggle('btn-peligro', peligro);
+    boton.classList.toggle('btn-primario', !peligro);
+    boton.classList.toggle('btn-auto', !peligro);
+
     alConfirmarActual = alConfirmar;
     focoPrevio = document.activeElement;
     $('#modal').hidden = false;
+    // El foco arranca en Cancelar, nunca en la acción: un Enter de más no
+    // debe disparar algo que no tiene vuelta atrás.
     $('#modal-cancelar').focus();
 }
 
@@ -775,7 +790,7 @@ $('#modal-confirmar').addEventListener('click', async () => {
     if (!accion) return;
     const boton = $('#modal-confirmar');
     boton.disabled = true;
-    boton.textContent = 'Eliminando…';
+    boton.textContent = 'Un momento…';
     try {
         await accion();
         cerrarModal();
@@ -784,12 +799,13 @@ $('#modal-confirmar').addEventListener('click', async () => {
         brindis(e.message);
     } finally {
         boton.disabled = false;
-        boton.textContent = 'Eliminar';
+        boton.textContent = etiquetaAccionActual;
     }
 });
 
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !$('#modal').hidden) cerrarModal();
+    if (e.key === 'Escape' && !$('#modal-tester').hidden) cerrarModalTester();
 
     // El foco no debe escaparse del modal mientras está abierto.
     if (e.key === 'Tab' && !$('#modal').hidden) {
@@ -805,6 +821,302 @@ document.addEventListener('keydown', e => {
 
 $('#modal').addEventListener('click', e => {
     if (e.target === $('#modal')) cerrarModal();
+});
+
+
+/* ------------------------------------------------------------
+   BETA TESTERS
+   ------------------------------------------------------------
+   Es la única pantalla del panel que le escribe a personas reales, así que
+   todo acá está pensado alrededor de un solo error: mandarle el correo
+   equivocado, o dos veces, a alguien que se anotó de buena fe.
+
+   Por eso: la plantilla la elige el servidor según el sistema declarado, el
+   estado de cada fila dice si ya se le respondió, y el envío masivo nunca
+   toca a quien ya fue contactado.
+   ------------------------------------------------------------ */
+
+const estadoTesters = {
+    offset: 0,
+    buscar: '',
+    sistema: '',
+    soloPendientes: false,
+};
+
+$('#buscar-testers').addEventListener('input', esperar(e => {
+    estadoTesters.buscar = e.target.value.trim();
+    estadoTesters.offset = 0;
+    cargarTesters();
+}, 350));
+
+$('#filtro-sistema').addEventListener('change', e => {
+    estadoTesters.sistema = e.target.value;
+    estadoTesters.offset = 0;
+    cargarTesters();
+});
+
+$('#solo-pendientes').addEventListener('change', e => {
+    estadoTesters.soloPendientes = e.target.checked;
+    estadoTesters.offset = 0;
+    cargarTesters();
+});
+
+async function cargarTesters() {
+    const params = new URLSearchParams({
+        limit: POR_PAGINA,
+        offset: estadoTesters.offset,
+    });
+    if (estadoTesters.buscar) params.set('buscar', estadoTesters.buscar);
+    if (estadoTesters.sistema) params.set('sistema', estadoTesters.sistema);
+    if (estadoTesters.soloPendientes) params.set('solo_pendientes', 'true');
+
+    const cuerpo = $('#tbody-testers');
+    cuerpo.replaceChildren(filaMensaje(6, 'Cargando…'));
+
+    let pagina;
+    try {
+        pagina = await api(`/api/admin/testers?${params}`);
+    } catch (e) {
+        cuerpo.replaceChildren(filaMensaje(6, e.message));
+        return;
+    }
+
+    if (!pagina.items.length) {
+        cuerpo.replaceChildren(filaMensaje(6,
+            estadoTesters.buscar || estadoTesters.sistema || estadoTesters.soloPendientes
+                ? 'Nadie coincide con esos filtros.'
+                : 'Todavía no hay inscripciones.'));
+    } else {
+        cuerpo.replaceChildren(...pagina.items.map(filaTester));
+    }
+
+    pintarResumenTesters(pagina);
+    pintarPaginacion($('#pag-testers'), pagina, estadoTesters, cargarTesters, 'inscripciones');
+}
+
+/** Cuántos esperan respuesta, arriba de la tabla y en la pestaña. */
+function pintarResumenTesters(pagina) {
+    const resumen = $('#resumen-testers');
+    const chincheta = $('#chincheta-testers');
+    const boton = $('#btn-responder-todos');
+
+    resumen.replaceChildren();
+    if (pagina.pendientes > 0) {
+        const n = el('strong', null, numero(pagina.pendientes));
+        resumen.append(
+            n,
+            document.createTextNode(
+                pagina.pendientes === 1
+                    ? ' inscripción esperando respuesta.'
+                    : ' inscripciones esperando respuesta.'),
+        );
+        chincheta.textContent = numero(pagina.pendientes);
+        chincheta.hidden = false;
+        boton.disabled = false;
+    } else {
+        resumen.textContent = pagina.total
+            ? 'Todas las inscripciones fueron respondidas.'
+            : 'Sin inscripciones todavía.';
+        // Sin pendientes la chincheta desaparece: un cero permanente deja de
+        // mirarse a los dos días.
+        chincheta.hidden = true;
+        boton.disabled = true;
+    }
+}
+
+function filaTester(t) {
+    const tr = document.createElement('tr');
+
+    const persona = document.createElement('td');
+    persona.append(el('div', 'celda-principal', t.nombre),
+        el('div', 'celda-sub', t.email));
+    if (t.comuna) persona.appendChild(el('div', 'celda-sub', t.comuna));
+    tr.appendChild(persona);
+
+    const sistema = document.createElement('td');
+    sistema.appendChild(el('span', 'etiqueta', t.sistema || 'Sin indicar'));
+    tr.appendChild(sistema);
+
+    // El perfil y las necesidades de accesibilidad son datos sensibles. Se
+    // muestran porque son el criterio para elegir a quién invitar, pero el
+    // texto largo va recortado: la tabla no es el lugar para leerlo entero.
+    const perfil = document.createElement('td');
+    perfil.appendChild(el('div', null, t.perfil || '—'));
+    if (t.accesibilidad) {
+        const nota = el('div', 'celda-sub', recortar(t.accesibilidad, 70));
+        nota.title = t.accesibilidad;
+        perfil.appendChild(nota);
+    }
+    tr.appendChild(perfil);
+
+    const estado = document.createElement('td');
+    if (t.contactado_at) {
+        const etiqueta = el('span', 'estado estado-respondido', 'Respondido');
+        estado.appendChild(etiqueta);
+        estado.appendChild(el('span', 'estado-detalle',
+            `${t.contacto_tipo === 'ios' ? 'Plantilla iOS' : 'Plantilla Android'} · ${fecha(t.contactado_at)}`));
+    } else {
+        estado.appendChild(el('span', 'estado estado-pendiente', 'Sin responder'));
+    }
+    tr.appendChild(estado);
+
+    tr.appendChild(el('td', 'celda-fecha', fecha(t.created_at)));
+
+    // El contenedor flex va DENTRO del <td>, no en el <td>. Un `display:flex`
+    // sobre una celda le quita su comportamiento de celda y la fila se
+    // desarma: los botones se salen de la tabla.
+    const acciones = document.createElement('td');
+    const grupo = el('div', 'acciones-fila');
+
+    const responder = el('button', 'btn-fila-accion',
+        t.contactado_at ? 'Reenviar' : 'Responder');
+    responder.type = 'button';
+    responder.setAttribute('aria-label',
+        `${t.contactado_at ? 'Reenviar' : 'Responder'} el correo a ${t.nombre}`);
+    responder.addEventListener('click', () => responderA(t));
+    grupo.appendChild(responder);
+
+    const borrar = el('button', 'btn-fila', 'Eliminar');
+    borrar.type = 'button';
+    borrar.setAttribute('aria-label', `Eliminar la inscripción de ${t.nombre}`);
+    borrar.addEventListener('click', () => confirmar({
+        titulo: 'Eliminar inscripción',
+        texto: `Se eliminará la inscripción de ${t.nombre} (${t.email}), ` +
+            `incluidos su perfil y sus necesidades de accesibilidad. ` +
+            `Esta acción no se puede deshacer.`,
+        alConfirmar: async () => {
+            await api(`/api/admin/testers/${t.id}`, { method: 'DELETE' });
+            brindis('Inscripción eliminada.');
+            cargarTesters();
+        },
+    }));
+    grupo.appendChild(borrar);
+
+    acciones.appendChild(grupo);
+    tr.appendChild(acciones);
+    return tr;
+}
+
+/** Envía el correo a una persona, confirmando antes. */
+function responderA(t) {
+    const plantilla = (t.sistema || '').toLowerCase().includes('ios')
+        ? 'la de iOS (todavía no hay app para su teléfono)'
+        : 'la de Android (le avisamos si queda seleccionado)';
+
+    const yaRespondido = Boolean(t.contactado_at);
+
+    confirmar({
+        titulo: yaRespondido ? 'Reenviar el correo' : 'Enviar el correo',
+        texto: yaRespondido
+            ? `A ${t.nombre} ya se le respondió el ${fecha(t.contactado_at)}. ` +
+              `Si continúas, recibirá el mismo correo otra vez.`
+            : `Se enviará a ${t.email} la plantilla ${plantilla}.`,
+        etiquetaConfirmar: yaRespondido ? 'Reenviar' : 'Enviar',
+        peligro: yaRespondido,
+        alConfirmar: async () => {
+            const r = await api(`/api/admin/testers/${t.id}/responder`, {
+                method: 'POST',
+                body: JSON.stringify({ plantilla: 'auto', reenviar: yaRespondido }),
+            });
+            brindis(r.enviados
+                ? `Correo enviado a ${t.email}.`
+                : (r.detalle[0] || 'No se envió nada.'));
+            cargarTesters();
+        },
+    });
+}
+
+$('#btn-responder-todos').addEventListener('click', async () => {
+    // Se pide el número justo antes de confirmar, no el que se pintó hace
+    // rato: entre medio pudo entrar otra inscripción.
+    let pendientes = 0;
+    try {
+        const p = await api('/api/admin/testers?limit=1&solo_pendientes=true');
+        pendientes = p.pendientes;
+    } catch (e) {
+        return brindis(e.message);
+    }
+
+    if (!pendientes) {
+        cargarTesters();
+        return brindis('No hay inscripciones pendientes.');
+    }
+
+    confirmar({
+        titulo: 'Responder a los pendientes',
+        texto: `Se enviarán ${pendientes} correo(s), uno por persona, con la ` +
+            `plantilla que corresponda a su sistema. Quienes ya recibieron ` +
+            `respuesta no serán contactados de nuevo.`,
+        etiquetaConfirmar: 'Enviar',
+        alConfirmar: async () => {
+            const r = await api('/api/admin/testers/responder-pendientes', {
+                method: 'POST',
+                body: JSON.stringify({ plantilla: 'auto' }),
+            });
+            const partes = [`${r.enviados} enviado(s)`];
+            if (r.omitidos) partes.push(`${r.omitidos} omitido(s)`);
+            if (r.fallidos) partes.push(`${r.fallidos} fallido(s)`);
+            brindis(partes.join(', ') + '.');
+            cargarTesters();
+        },
+    });
+});
+
+/* ---------- ALTA MANUAL ---------- */
+$('#btn-agregar-tester').addEventListener('click', () => {
+    $('#form-tester').reset();
+    $('#tester-error').hidden = true;
+    $('#modal-tester').hidden = false;
+    $('#tester-nombre').focus();
+});
+
+$('#tester-cancelar').addEventListener('click', cerrarModalTester);
+
+$('#modal-tester').addEventListener('click', e => {
+    if (e.target === $('#modal-tester')) cerrarModalTester();
+});
+
+function cerrarModalTester() {
+    $('#modal-tester').hidden = true;
+}
+
+$('#form-tester').addEventListener('submit', async e => {
+    e.preventDefault();
+    const error = $('#tester-error');
+    const boton = $('#tester-guardar');
+    error.hidden = true;
+
+    const datos = {
+        nombre: $('#tester-nombre').value.trim(),
+        email: $('#tester-email').value.trim(),
+        sistema: $('#tester-sistema').value,
+        comuna: $('#tester-comuna').value.trim(),
+        perfil: $('#tester-perfil').value.trim(),
+    };
+
+    if (datos.nombre.length < 2 || !datos.email) {
+        error.textContent = 'El nombre y el correo son obligatorios.';
+        error.hidden = false;
+        return;
+    }
+
+    boton.disabled = true;
+    boton.textContent = 'Agregando…';
+    try {
+        await api('/api/admin/testers', {
+            method: 'POST',
+            body: JSON.stringify(datos),
+        });
+        cerrarModalTester();
+        brindis('Inscripción agregada.');
+        cargarTesters();
+    } catch (err) {
+        error.textContent = err.message;
+        error.hidden = false;
+    } finally {
+        boton.disabled = false;
+        boton.textContent = 'Agregar';
+    }
 });
 
 /* ------------------------------------------------------------

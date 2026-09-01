@@ -59,6 +59,12 @@
         <button type="button" class="pestana" data-vista="reportes">
             <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Reportes
         </button>
+        <button type="button" class="pestana" data-vista="testers">
+            <i class="fa-solid fa-flask-vial" aria-hidden="true"></i> Testers
+            <!-- Cuántos esperan respuesta. Vacío mientras no haya ninguno:
+                 un cero permanente deja de mirarse a los dos días. -->
+            <span class="chincheta" id="chincheta-testers" hidden></span>
+        </button>
     </nav>
 
     <!-- Un solo <main> en todo el documento: tener dos, aunque uno esté
@@ -221,8 +227,125 @@
                 </div>
                 <div class="paginacion" id="pag-reportes"></div>
             </section>
+
+            <!-- ---------- BETA TESTERS ---------- -->
+            <section id="vista-testers" class="vista" aria-labelledby="t-testers" hidden>
+                <div class="vista-cabecera">
+                    <h1 id="t-testers">Beta testers</h1>
+                    <div class="filtros">
+                        <label class="campo-linea">
+                            <span class="visualmente-oculto">Buscar tester</span>
+                            <input type="search" id="buscar-testers"
+                                placeholder="Buscar por nombre, correo o comuna">
+                        </label>
+                        <label class="campo-linea">
+                            <span class="visualmente-oculto">Sistema</span>
+                            <select id="filtro-sistema">
+                                <option value="">Todos los sistemas</option>
+                                <option value="Android">Android</option>
+                                <option value="iOS">iOS</option>
+                            </select>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="solo-pendientes">
+                            <span>Solo sin responder</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Acciones sobre el conjunto, separadas de los filtros: una
+                     manda correos a gente real y no debe quedar mezclada con
+                     controles que solo cambian lo que se ve. -->
+                <div class="acciones-lote" id="acciones-testers">
+                    <p class="acciones-texto" id="resumen-testers"></p>
+                    <div class="acciones-botones">
+                        <button type="button" class="btn btn-tenue" id="btn-agregar-tester">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                            Agregar a mano
+                        </button>
+                        <button type="button" class="btn btn-primario btn-auto"
+                            id="btn-responder-todos">
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                            Responder a los pendientes
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tabla-scroll">
+                    <table class="tabla">
+                        <caption class="visualmente-oculto">
+                            Personas inscritas al programa de pruebas, con el
+                            estado de la respuesta enviada a cada una.
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Persona</th>
+                                <th scope="col">Sistema</th>
+                                <th scope="col">Perfil</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Inscripción</th>
+                                <th scope="col"><span class="visualmente-oculto">Acciones</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-testers"></tbody>
+                    </table>
+                </div>
+                <div class="paginacion" id="pag-testers"></div>
+            </section>
         </div>
     </main>
+
+    <!-- ============================================================
+         ALTA MANUAL DE TESTER
+         Las inscripciones anteriores a esta pantalla solo existen en la
+         bandeja del equipo: el formulario no las guardaba.
+         ============================================================ -->
+    <div class="modal-fondo" id="modal-tester" hidden>
+        <form class="modal" id="form-tester" role="dialog" aria-modal="true"
+            aria-labelledby="tester-titulo" novalidate>
+            <h2 id="tester-titulo">Agregar inscripción</h2>
+            <p class="modal-sub">
+                Para cargar a mano a quienes se inscribieron antes de que el
+                formulario empezara a guardarlas.
+            </p>
+
+            <div class="campo">
+                <label for="tester-nombre">Nombre</label>
+                <input type="text" id="tester-nombre" required maxlength="120">
+            </div>
+            <div class="campo">
+                <label for="tester-email">Correo</label>
+                <input type="email" id="tester-email" required
+                    autocapitalize="off" spellcheck="false" maxlength="200">
+            </div>
+            <div class="campo">
+                <label for="tester-sistema">Sistema</label>
+                <select id="tester-sistema">
+                    <option value="Android">Android</option>
+                    <option value="iOS">iOS</option>
+                    <option value="">Sin indicar</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="tester-comuna">Comuna <span class="opcional">(opcional)</span></label>
+                <input type="text" id="tester-comuna" maxlength="120">
+            </div>
+            <div class="campo">
+                <label for="tester-perfil">Perfil <span class="opcional">(opcional)</span></label>
+                <input type="text" id="tester-perfil" maxlength="300"
+                    placeholder="Ej: Persona con discapacidad, Cuidador(a)">
+            </div>
+
+            <p class="aviso aviso-error" id="tester-error" role="alert" hidden></p>
+
+            <div class="modal-acciones">
+                <button type="button" class="btn btn-tenue" id="tester-cancelar">Cancelar</button>
+                <button type="submit" class="btn btn-primario btn-auto" id="tester-guardar">
+                    Agregar
+                </button>
+            </div>
+        </form>
+    </div>
 
     <!-- ============================================================
          CONFIRMACIÓN DE BORRADO
