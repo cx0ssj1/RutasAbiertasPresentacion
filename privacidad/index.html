@@ -55,19 +55,26 @@
 
             <h1>Política de privacidad</h1>
             <p class="legal-fecha">
-                Vigente desde el <time datetime="2026-08-31">31 de agosto de 2026</time>.
+                Vigente desde el <time datetime="2026-09-17">17 de septiembre de 2026</time>.
+                Reemplaza a la versión del 31 de agosto de 2026.
             </p>
 
             <div class="legal-resumen">
                 <h2>En resumen</h2>
                 <ul>
                     <li><strong>No vendemos ni cedemos tus datos</strong>, ni hoy ni bajo otro dueño.</li>
-                    <li><strong>No hay publicidad, analítica ni rastreadores</strong> dentro de la app.</li>
+                    <li><strong>No hay publicidad ni analítica nuestra</strong> dentro de la app. Lo
+                        único que mide algo es el módulo de telemetría que trae el kit de Mapbox
+                        para dibujar el mapa; lo explicamos en el punto 2.5.</li>
                     <li>Tu <strong>ubicación no se guarda</strong>. Se usa en el momento para
                         centrar el mapa; lo que se almacena es la ubicación del
-                        <em>lugar</em> que decides reportar.</li>
+                        <em>lugar</em> que decides reportar. Al buscar una dirección se le envía a
+                        Mapbox tu posición <strong>redondeada a un kilómetro</strong>, para ordenar
+                        los resultados por cercanía.</li>
                     <li>A las fotos <strong>se les borran los metadatos</strong>, incluido el GPS
                         que traen las cámaras de celular.</li>
+                    <li>Tus aportes y tus validaciones son <strong>públicos</strong>, y cualquiera
+                        puede consultarlos aunque no use la app.</li>
                     <li>Puedes <strong>borrar tu cuenta y todo lo tuyo</strong> desde la app, sin
                         escribirle a nadie.</li>
                 </ul>
@@ -119,6 +126,11 @@
                         <td>Entrar a tu cuenta</td>
                         <td>Solo si no usas Google</td>
                     </tr>
+                    <tr>
+                        <td>Identificador de tu cuenta de Google</td>
+                        <td>Reconocerte cuando vuelves a entrar con Google, sin depender de tu correo</td>
+                        <td>Solo si entras con Google</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -135,8 +147,12 @@
                     <li>La lista incluye <strong>«Ninguna / Acompañante»</strong>. La app también
                         la usan cuidadoras, familiares y vecinos, y nadie tiene que declarar una
                         discapacidad que no tiene para participar.</li>
-                    <li><strong>No se muestra junto a tus aportes.</strong> Queda en tu perfil.</li>
-                    <li>Puedes cambiarlo cuando quieras desde <em>Editar perfil</em>.</li>
+                    <li><strong>No se muestra junto a tus aportes</strong> ni lo ve ninguna otra
+                        persona que use la app. Queda en tu perfil, y lo vemos nosotros desde el
+                        panel con el que administramos el proyecto (punto 3).</li>
+                    <li>Puedes cambiarlo cuando quieras desde <em>Perfil → Editar Información</em>.
+                        Hoy la app te deja elegir otra opción de la lista, pero no dejarlo en
+                        blanco: si quieres retirarlo del todo, escríbenos y lo borramos.</li>
                 </ul>
             </div>
 
@@ -144,8 +160,15 @@
             <p>
                 Un aporte guarda su título, descripción, categoría, las
                 <strong>coordenadas del lugar</strong>, la fecha y, si la agregas, una foto.
-                Los aportes son <strong>públicos dentro de la app</strong>: esa es su razón de
-                ser. Se muestran con tu nombre.
+                Los aportes son <strong>públicos</strong>: esa es su razón de ser. Se muestran
+                con tu nombre.
+            </p>
+            <p class="legal-destacado">
+                Público quiere decir público de verdad, no solo dentro de la app: la lista de
+                aportes se puede consultar sin tener cuenta ni haberla instalado. Lo mismo vale
+                para las validaciones, que además se entregan con un identificador de la cuenta
+                que votó, así que los votos de una misma persona se pueden relacionar entre sí.
+                No se entrega tu correo.
             </p>
             <p>
                 Las validaciones —cuando confirmas o descartas que un lugar siga siendo
@@ -165,9 +188,11 @@
             </p>
             <p>
                 Hay una excepción que conviene conocer: al <strong>buscar una dirección</strong>,
-                se envía a Mapbox el texto que escribes junto con tu ubicación aproximada, para
-                que los resultados cercanos aparezcan primero. Si no usas el buscador, esto no
-                ocurre.
+                se envía a Mapbox el texto que escribes junto con tu ubicación, para que los
+                resultados cercanos aparezcan primero. Sale <strong>redondeada a dos
+                decimales</strong> —alrededor de un kilómetro— y el redondeo ocurre dentro del
+                teléfono, antes de enviarla: alcanza para ordenar por cercanía y no señala un
+                domicilio. Si no usas el buscador, esto no ocurre.
             </p>
 
             <h3>2.4 Fotos</h3>
@@ -181,17 +206,28 @@
                 dónde vives. Publicarla tal cual filtraría tu domicilio a cualquiera que
                 descargue el archivo.
             </p>
+            <p>
+                Ten presente que la foto queda en una dirección pública, como el resto del
+                aporte: quien tenga el enlace puede abrirla sin tener cuenta. Se borra cuando
+                borras el aporte o tu cuenta.
+            </p>
 
             <h3>2.5 Datos técnicos</h3>
             <p>
                 Guardamos tokens de sesión y códigos de recuperación de contraseña, siempre
                 <strong>cifrados con funciones de un solo sentido</strong> —ni nosotros podemos
                 revertirlos—, junto con sus fechas de creación y expiración. El servidor
-                registra errores para poder repararlos.
+                registra cada petición que recibe, con su dirección IP de origen, y los errores
+                para poder repararlos. Esos registros rotan y se conservan poco tiempo.
             </p>
             <p>
-                <strong>No usamos analítica, publicidad, perfilamiento ni rastreadores de
-                terceros.</strong> La app no incluye SDK de medición de ningún tipo.
+                <strong>No usamos analítica, publicidad ni perfilamiento, y no agregamos ningún
+                SDK de medición propio.</strong> Hay una salvedad que conviene que sepas: el kit
+                de desarrollo de Mapbox —el que dibuja el mapa— trae dentro su propio módulo de
+                telemetría, y le reporta a Mapbox eventos de uso del mapa y datos del
+                dispositivo. Eso lo recibe Mapbox bajo su propia política de privacidad: no pasa
+                por nuestro servidor, no lo guardamos ni lo asociamos a tu cuenta. Estamos
+                evaluando desactivarlo.
             </p>
 
             <h3>2.6 Lo que queda en tu teléfono</h3>
@@ -201,6 +237,34 @@
                 copia de seguridad automática de Android, así que
                 <strong>tu sesión no se respalda en Google Drive</strong>. Se borran al
                 desinstalar.
+            </p>
+
+            <h3>2.7 Si te inscribes al programa de pruebas</h3>
+            <p>
+                El formulario de este sitio para ser <em>beta tester</em> es un tratamiento
+                aparte del de la app, y conviene que lo sepas porque es el único lugar donde
+                pedimos datos de salud en texto libre.
+            </p>
+            <p>
+                Guardamos lo que escribes: nombre, correo, sistema del teléfono, comuna, tu
+                tipo de perfil y lo que quieras contarnos sobre tus necesidades de
+                accesibilidad. Los dos últimos son <strong>datos sensibles</strong>, son
+                opcionales, y los pedimos con tu autorización expresa —la casilla del
+                formulario— para armar un grupo de prueba diverso y poder revisar la app con
+                lectores de pantalla, contraste o uso a una mano.
+            </p>
+            <div class="legal-nota legal-nota-aviso">
+                <p>
+                    Cada inscripción nos llega además <strong>por correo</strong>, con esos
+                    mismos campos, a la casilla del equipo. Al cerrar el programa de pruebas
+                    borramos la tabla de inscripciones <strong>y esos correos</strong>. Si
+                    quieres que borremos los tuyos antes, escríbenos y lo hacemos.
+                </p>
+            </div>
+            <p>
+                Para controlar el envío automatizado de formularios, el servidor registra la
+                dirección IP desde la que se envía. Se usa para limitar cuántos envíos se
+                aceptan por hora y queda en los registros del servidor.
             </p>
 
             <h2 id="terceros">3. Con quién se comparten</h2>
@@ -219,12 +283,16 @@
                 <tbody>
                     <tr>
                         <td>Mapbox</td>
-                        <td>Zona del mapa que miras; al buscar, el texto y tu ubicación aproximada</td>
+                        <td>La zona del mapa que miras; al buscar, el texto y tu ubicación
+                            redondeada a un kilómetro; y, por el módulo de telemetría que viene
+                            dentro de su kit, eventos de uso del mapa y datos del dispositivo</td>
                         <td>Mostrar el mapa y buscar direcciones</td>
                     </tr>
                     <tr>
                         <td>Google</td>
-                        <td>Solo si eliges «Continuar con Google»: confirma tu identidad y nos entrega tu correo y nombre</td>
+                        <td>Solo si eliges «Continuar con Google»: Google sabe que iniciaste
+                            sesión en Rutas Abiertas y cuándo, y a nosotros nos entrega tu correo,
+                            tu nombre y el identificador de tu cuenta de Google</td>
                         <td>Iniciar sesión sin crear otra contraseña</td>
                     </tr>
                     <tr>
@@ -233,29 +301,50 @@
                         <td>Almacenamiento</td>
                     </tr>
                     <tr>
-                        <td>Vectork (servidor en Chile)</td>
+                        <td>Vectork (servidor de la aplicación)</td>
                         <td>Las fotos de los aportes y el procesamiento de las peticiones</td>
                         <td>Servidor de la aplicación</td>
                     </tr>
                     <tr>
                         <td>Gmail</td>
-                        <td>Tu correo, únicamente al pedir recuperar la contraseña</td>
-                        <td>Enviar el código de recuperación</td>
+                        <td>Tu correo y tu nombre al pedir recuperar la contraseña. Si te
+                            inscribes al programa de pruebas, también el contenido de ese
+                            formulario, porque el aviso de cada inscripción nos llega por correo</td>
+                        <td>Enviar el código de recuperación y avisarnos de las inscripciones</td>
                     </tr>
                 </tbody>
             </table>
 
             <p>
-                Los datos se almacenan en <strong>São Paulo, Brasil</strong> y en un servidor en
-                Chile. Al usar la app aceptas esa transferencia internacional, necesaria para
-                que el servicio funcione.
+                La base de datos está alojada en <strong>São Paulo, Brasil</strong>, y las fotos
+                en el servidor de la aplicación. Usar la app implica esa transferencia
+                internacional, necesaria para que el servicio funcione; si prefieres que tus
+                datos no salgan del país, la vía es no crear una cuenta o borrarla.
+            </p>
+
+            <h3>Quiénes somos nosotros, en concreto</h3>
+            <p>
+                Somos dos personas. Para sostener el proyecto usamos un panel de administración
+                desde el que vemos las cuentas registradas —correo, nombre, tipo de perfil y
+                fecha de registro—, los aportes con el correo de quien los publicó y las
+                inscripciones al programa de pruebas. Lo usamos para moderar contenido, resolver
+                problemas y responder inscripciones, no para otra cosa. Cuando este documento
+                dice que un dato «no se muestra», quiere decir que no lo ve ninguna otra persona
+                que use la app.
+            </p>
+            <p>
+                Esta página que estás leyendo carga tipografías desde Google Fonts y un conjunto
+                de iconos desde Cloudflare. Esos servicios ven tu dirección IP al entregar los
+                archivos, como ocurre con cualquier sitio que los use.
             </p>
 
             <h2 id="por-que">4. Con qué justificación</h2>
             <ul>
-                <li><strong>Tu consentimiento</strong>, para el tipo de perfil de accesibilidad
-                    y para el acceso a la ubicación. Puedes retirarlo cambiando el dato o
-                    revocando el permiso desde los ajustes de Android.</li>
+                <li><strong>Tu consentimiento</strong>, para el tipo de perfil de accesibilidad,
+                    para las respuestas del formulario de pruebas y para el acceso a la
+                    ubicación. El permiso de ubicación lo revocas desde los ajustes de Android.
+                    El tipo de perfil puedes cambiarlo en la app, y si quieres retirarlo por
+                    completo, escríbenos.</li>
                 <li><strong>La ejecución del servicio</strong> que pediste, para tu cuenta y tus
                     aportes: sin correo y nombre no hay cuenta que administrar.</li>
             </ul>
@@ -263,17 +352,31 @@
             <h2 id="cuanto">5. Cuánto tiempo</h2>
             <ul>
                 <li><strong>Tu cuenta y tus aportes</strong>: mientras tengas la cuenta abierta.</li>
-                <li><strong>Sesiones</strong>: caducan a los 90 días sin uso, o al cerrar sesión.</li>
-                <li><strong>Códigos de recuperación</strong>: minutos. Expiran solos.</li>
+                <li><strong>Sesiones</strong>: caducan a los 90 días sin uso. Al cerrar sesión se
+                    corta la renovación de inmediato, y la credencial que quedó en el teléfono
+                    deja de servir dentro de la hora siguiente.</li>
+                <li><strong>Códigos de recuperación</strong>: 15 minutos, o hasta que pidas uno
+                    nuevo. Después dejan de servir.</li>
+                <li><strong>Inscripciones al programa de pruebas</strong>: mientras dure el
+                    programa. Al cerrarlo las borramos, junto con los correos de aviso.</li>
+                <li><strong>Registros del servidor</strong>: rotan y se conservan poco tiempo.</li>
             </ul>
+            <p>
+                Te decimos con franqueza una deuda que tenemos: los registros ya vencidos de
+                sesiones y de códigos de recuperación —que no permiten entrar a ninguna cuenta,
+                porque están guardados de forma irreversible— siguen almacenados hasta que
+                pongamos en marcha una limpieza periódica. Está en nuestra lista de pendientes.
+            </p>
 
             <h2 id="derechos">6. Tus derechos</h2>
             <p>La ley 21.719 te reconoce los derechos de acceso, rectificación, supresión,
                 oposición y portabilidad. En la app se ejercen directamente:</p>
             <ul>
-                <li><strong>Ver y corregir</strong> tus datos: <em>Perfil → Editar perfil</em>.</li>
-                <li><strong>Borrar tu cuenta</strong>: <em>Ajustes → Eliminar cuenta</em>. Es
-                    inmediato y no requiere pedirlo por correo.</li>
+                <li><strong>Ver y corregir</strong> tus datos:
+                    <em>Perfil → Editar Información</em>.</li>
+                <li><strong>Borrar tu cuenta</strong>:
+                    <em>Perfil → Privacidad y Seguridad → Eliminar mi cuenta</em>. Es inmediato y
+                    no requiere pedirlo por correo.</li>
             </ul>
             <div class="legal-nota legal-nota-aviso">
                 <p>
