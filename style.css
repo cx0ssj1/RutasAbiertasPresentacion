@@ -1162,16 +1162,109 @@ footer {
     color: rgba(255, 255, 255, 0.55);
 }
 
+/* ---------- BETA TESTERS ---------- */
+/* Va justo antes del pie a propósito: quien llegó hasta acá ya leyó qué es la
+   app, y es el momento en que tiene sentido pedirle que la pruebe. */
+.beta-strip {
+    background: var(--bg-alt);
+}
+
+.beta-box {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(2rem, 4vw, 3.4rem);
+    box-shadow: var(--shadow-md);
+}
+
+.beta-box h2 {
+    margin: .6rem 0 1rem;
+}
+
+.beta-box p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.beta-detalle {
+    font-size: .95rem;
+}
+
+.beta-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9rem;
+    margin-top: 1.6rem;
+}
+
+.beta-pasos {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.beta-pasos li {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: 1rem 1.2rem;
+    background: var(--surface-2);
+    border-radius: var(--radius);
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* El número va como texto, no como ::before decorativo: es parte de la
+   instrucción y un lector de pantalla tiene que anunciarlo. */
+.beta-pasos span {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--white);
+    font-weight: 700;
+}
+
+@media (max-width: 968px) {
+    .beta-box {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ---------- REVEAL ANIMATION ---------- */
-.reveal {
+/* Ojo con el `.js`: sin él, todo lo que lleva .reveal arranca invisible y solo
+   lo revela el IntersectionObserver. Con JS bloqueado, o para un rastreador, la
+   página se vería casi vacía —son 23 bloques—. Por eso la animación vive dentro
+   de .js, que agrega el propio script del <head>: sin JS no hay animación, pero
+   el contenido está. */
+.js .reveal {
     opacity: 0;
     transform: translateY(36px);
     transition: opacity .7s var(--ease), transform .7s var(--ease);
 }
 
-.reveal.visible {
+.js .reveal.visible {
     opacity: 1;
     transform: none;
+}
+
+/* Quien pidió menos movimiento ve el contenido de una, sin desplazamiento. */
+@media (prefers-reduced-motion: reduce) {
+    .js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 /* ---------- RESPONSIVE ---------- */

@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+    <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}
+    /* Marca que hay JS. Las animaciones de aparición parten en opacity:0, así que
+       sin esta clase el contenido quedaría invisible para quien tenga JS bloqueado
+       o para un rastreador: la regla .reveal solo aplica dentro de .js. */
+    document.documentElement.classList.add('js');</script>
     <title>Rutas Abiertas — App de Accesibilidad Urbana en Chile</title>
     <meta name="description"
         content="Rutas Abiertas: app móvil colaborativa para mapear y compartir puntos de accesibilidad urbana en Chile. Rampas, ascensores y baños adaptados, registrados por la comunidad.">
@@ -102,6 +106,7 @@
                 <li><a href="#menus">La App</a></li>
                 <li><a href="#funcionalidades">Funciones</a></li>
                 <li><a href="#equipo">Equipo</a></li>
+                <li><a href="#beta">Sé tester</a></li>
                 <li><a class="nav-cta" href="/alfabetizacion-juridica/">Alfabetización Jurídica</a></li>
             </ul>
             <div class="nav-actions">
@@ -131,7 +136,7 @@
                 <div class="hero-mini-stats">
                     <div>
                         <div class="num">2.7M+</div>
-                        <div class="lbl">Personas beneficiadas</div>
+                        <div class="lbl">Personas con discapacidad en Chile</div>
                     </div>
                     <div>
                         <div class="num">∞</div>
@@ -150,7 +155,7 @@
                     <div class="device device--left">
                         <div class="phone-frame">
                             <div class="phone-screen">
-                                <img src="/layouts/light/routes.jpg" data-name="routes" alt="Pantalla Mis Rutas"
+                                <img src="/layouts/light/routes.jpg" data-name="routes" alt="Pantalla Mis Aportes"
                                     class="app-screen">
                                 <span class="glare"></span>
                             </div>
@@ -234,7 +239,7 @@
                 <div class="menu-card reveal">
                     <span class="menu-number">02</span>
                     <div class="menu-icon"><i class="fas fa-route"></i></div>
-                    <h3>Mis Rutas</h3>
+                    <h3>Mis Aportes</h3>
                     <p>Listado personal de los puntos que registraste. Edita, actualiza o elimina tus aportes a la
                         comunidad cuando quieras.</p>
                 </div>
@@ -262,14 +267,14 @@
                     <img src="/layouts/light/map.jpg" data-name="map" alt="Mapa de accesibilidad" class="app-screen">
                     <div class="shot-cap">
                         <h4><i class="fas fa-map-location-dot"></i> Mapa interactivo</h4>
-                        <p>Todos los puntos accesibles, georreferenciados y filtrables en tiempo real.</p>
+                        <p>Todos los puntos accesibles, georreferenciados y filtrables por categoría.</p>
                     </div>
                 </div>
 
                 <div class="bento-cell bento-feature c-detalle">
                     <div class="b-icon"><i class="fas fa-circle-info"></i></div>
                     <h3>Detalle completo del lugar</h3>
-                    <p>Nombre, dirección, coordenadas GPS, características de accesibilidad y quién lo registró. Abre el
+                    <p>Nombre, categoría, coordenadas, foto, la descripción de su accesibilidad y quién lo registró. Abre el
                         lugar en Google Maps con un solo toque.</p>
                     <ul class="bento-tags">
                         <li>GPS</li>
@@ -284,7 +289,7 @@
                     <h3>Filtros dinámicos</h3>
                     <p>Combina criterios —rampas, ascensores, baños adaptados— y el mapa se actualiza al instante.</p>
                     <ul class="bento-tags">
-                        <li>Tiempo real</li>
+                        <li>Al instante</li>
                         <li>Multi-filtro</li>
                     </ul>
                 </div>
@@ -433,7 +438,7 @@
             </div>
 
             <ul class="a11y-badges reveal">
-                <li><i class="fas fa-circle-check"></i> WCAG 2.1 nivel AA</li>
+                <li><i class="fas fa-circle-check"></i> Criterios WCAG 2.1 AA como guía</li>
                 <li><i class="fas fa-circle-check"></i> Compatible con TalkBack</li>
                 <li><i class="fas fa-circle-check"></i> Áreas táctiles de 48 dp</li>
             </ul>
@@ -454,8 +459,8 @@
                 <div class="a11y-card reveal">
                     <div class="ic"><i class="fas fa-text-height"></i></div>
                     <h3>Texto escalable</h3>
-                    <p>La interfaz respeta el tamaño de fuente del sistema y se reacomoda sin recortar contenido ni
-                        romper la maquetación.</p>
+                    <p>La app respeta el tamaño de letra que tengas configurado en el teléfono y le suma su propio
+                        control, del 80% al 150%, sin recortar contenido ni romper la maquetación.</p>
                 </div>
                 <div class="a11y-card reveal">
                     <div class="ic"><i class="fas fa-hand-pointer"></i></div>
@@ -475,6 +480,40 @@
                     <p>Textos directos, íconos siempre acompañados de etiqueta y ninguna información transmitida solo
                         mediante el color.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= BETA TESTERS ================= -->
+    <section id="beta" class="beta-strip">
+        <div class="container">
+            <div class="beta-box reveal">
+                <div class="beta-texto">
+                    <span class="eyebrow">Antes de publicarla</span>
+                    <h2>Buscamos gente que la pruebe de verdad</h2>
+                    <p>
+                        Rutas Abiertas está terminada y todavía no se publica. Antes de subirla a
+                        Google Play queremos que la use gente que no somos nosotros: quien se mueve
+                        en silla, quien acompaña, quien conoce su barrio mejor que cualquier mapa.
+                    </p>
+                    <p class="beta-detalle">
+                        Es para Android. En iPhone todavía no existe. Toma unos minutos inscribirse
+                        y te escribimos nosotros.
+                    </p>
+                    <div class="beta-acciones">
+                        <a class="btn btn-primary" href="/testers-form/">
+                            <i class="fas fa-mobile-screen-button" aria-hidden="true"></i> Quiero ser tester
+                        </a>
+                        <a class="btn btn-ghost" href="mailto:rutas.abiertas1@gmail.com">
+                            <i class="fas fa-envelope" aria-hidden="true"></i> Escribirnos
+                        </a>
+                    </div>
+                </div>
+                <ul class="beta-pasos">
+                    <li><span>1</span> Completas el formulario</li>
+                    <li><span>2</span> Te contactamos por correo</li>
+                    <li><span>3</span> Recibes la app y nos cuentas qué falla</li>
+                </ul>
             </div>
         </div>
     </section>
