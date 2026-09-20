@@ -908,3 +908,82 @@ select:focus {
         justify-content: center;
     }
 }
+
+/* ---------------------------------------------- APROBACIONES */
+
+/* Avance hacia las 12 personas que exige Google Play. Reusa la pista y el
+   relleno de los gráficos de categorías: es la misma barra. */
+.meta-cifra {
+    margin: 0 0 .75rem;
+    font-size: .95rem;
+    color: var(--text-muted);
+}
+
+.meta-cifra strong {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-right: .4rem;
+    vertical-align: -.1rem;
+}
+
+.meta .barra-pista {
+    height: .9rem;
+}
+
+.meta-nota {
+    margin: .9rem 0 0;
+    font-size: .85rem;
+    color: var(--text-muted);
+}
+
+/* Aviso que no es un error: falta configurar algo, no se rompió nada. Gris y
+   no rojo por eso mismo. El margen se declara acá porque `.aviso` lo deja
+   arriba, y esta caja va pegada sobre la tabla. */
+.aviso-atencion {
+    margin: 0 0 1.25rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+}
+
+/* Cuando el enlace sí está: qué URL va a salir. Se muestra entera —sin
+   recortar— porque el punto es poder revisarla antes de mandarla. */
+.nota-enlace {
+    margin: 0 0 1.25rem;
+    font-size: .85rem;
+    color: var(--text-muted);
+    word-break: break-all;
+}
+
+.nota-tabla {
+    margin: 1rem 0 0;
+    font-size: .85rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.campo-nota {
+    margin: .4rem 0 0;
+    font-size: .82rem;
+    color: var(--text-muted);
+}
+
+/* El botón del enlace se marca mientras falte configurarlo: es lo único que
+   se puede hacer en esta pantalla hasta que exista una URL. */
+.btn-pendiente {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Quien ya recibió el enlace se distingue de un vistazo, sin tener que leer
+   la columna de estado fila por fila. Una marca al costado en vez de un
+   fondo de color: el fondo pelearía con el `:hover` de la tabla. */
+.fila-aprobada td:first-child {
+    box-shadow: inset 3px 0 0 var(--primary);
+}
+
+/* Tres botones en el modal del enlace no entran en una línea de teléfono. */
+.modal-acciones {
+    flex-wrap: wrap;
+}

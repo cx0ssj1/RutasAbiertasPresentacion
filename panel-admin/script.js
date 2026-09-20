@@ -317,6 +317,7 @@ function cambiarVista(nombre) {
     if (nombre === 'usuarios') cargarUsuarios();
     if (nombre === 'reportes') cargarReportes();
     if (nombre === 'testers') cargarTesters();
+    if (nombre === 'aprobaciones') cargarAprobaciones();
 }
 
 /* ------------------------------------------------------------
@@ -806,6 +807,7 @@ $('#modal-confirmar').addEventListener('click', async () => {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !$('#modal').hidden) cerrarModal();
     if (e.key === 'Escape' && !$('#modal-tester').hidden) cerrarModalTester();
+    if (e.key === 'Escape' && !$('#modal-enlace').hidden) cerrarModalEnlace();
 
     // El foco no debe escaparse del modal mientras está abierto.
     if (e.key === 'Tab' && !$('#modal').hidden) {
@@ -1117,6 +1119,454 @@ $('#form-tester').addEventListener('submit', async e => {
         boton.disabled = false;
         boton.textContent = 'Agregar';
     }
+});
+
+/* ------------------------------------------------------------
+   APROBACIONES
+   ------------------------------------------------------------
+   El segundo correo: el que lleva el enlace para entrar a la prueba
+   cerrada de Google Play. Es otro mensaje y otra decisión que el acuse de
+   recibo de la pestaña Testers —responder no es seleccionar—, así que
+   vive en su propia pantalla y se marca en su propia columna.
+
+   Todo acá gira alrededor de dos errores caros:
+
+   1. Mandar el correo sin enlace, o con uno roto. El correo de aprobación
+      no dice nada más que "entrá por acá": sin enlace es peor que no
+      mandarlo, y no se puede retirar de cuarenta bandejas.
+   2. Mandárselo a quien tiene iPhone. La prueba es de Google Play; a esa
+      persona se le estarían dando instrucciones que no puede seguir.
+   ------------------------------------------------------------ */
+
+/* Google exige 12 personas en opt-in continuo durante 14 días seguidos para
+   dejar publicar desde una cuenta personal, y si una se sale el contador
+   vuelve a cero para todas. Por eso el número se mira acá y no en una
+   planilla aparte. */
+const META_TESTERS = 12;
+
+/* El tope que acepta la API en `limit`. Pedir más responde 422. */
+const TOPE_LISTA = 100;
+
+/* El enlace no se guarda en el servidor: viaja en cada petición y el panel lo
+   recuerda en el navegador. Va en localStorage —y no en sessionStorage como
+   los tokens— porque no es un secreto: es la misma URL pública que va dentro
+   de cada correo enviado. Tener que pegarla de nuevo en cada sesión es lo que
+   lleva a pegar cualquier cosa con tal de seguir. */
+const CLAVE_ENLACE = 'ra_enlace_prueba';
+
+/* Respaldo en memoria para el modo privado, donde `setItem` lanza. Sin esto
+   el enlace se "guardaría" sin guardarse y los botones quedarían apagados
+   para siempre sin explicación. */
+let enlaceEnMemoria = '';
+
+function leerEnlace() {
+    if (enlaceEnMemoria) return enlaceEnMemoria;
+    try { return (localStorage.getItem(CLAVE_ENLACE) || '').trim(); }
+    catch (e) { return ''; }
+}
+
+function guardarEnlace(url) {
+    enlaceEnMemoria = url;
+    try {
+        if (url) localStorage.setItem(CLAVE_ENLACE, url);
+        else localStorage.removeItem(CLAVE_ENLACE);
+    } catch (e) { /* modo privado: dura lo que la pestaña */ }
+}
+
+/**
+ * Mismo criterio que `_validar_enlace` en el servidor: http(s), con dominio y
+ * sin espacios en el medio.
+ *
+ * Se repite acá para que el error aparezca al pegarlo, y no después de pedir
+ * la confirmación de un envío a cuarenta personas. Un salto de línea adentro
+ * de la URL es lo que suele pasar al copiarla de Play Console, y pasa
+ * inadvertido hasta que alguien intenta abrirla.
+ */
+function enlaceValido(url) {
+    if (!url || /\s/.test(url)) return false;
+    // El `://` se exige a mano, antes de `new URL()`, porque los dos
+    // validadores tienen que coincidir con el del servidor y no coinciden
+    // solos: `new URL()` sigue la norma WHATWG y NORMALIZA `https:/play...`
+    // o `https:play...` a `https://play...`, mientras que el `urlparse` de
+    // Python los deja sin host y responde 400.
+    //
+    // Sin esta línea el panel guardaba tan tranquilo un enlace que el servidor
+    // iba a rechazar en cada envío, y quien lo pegó no tenía forma de saber
+    // por qué no salía ningún correo.
+    if (!/^https?:\/\//i.test(url)) return false;
+    try {
+        const u = new URL(url);
+        return (u.protocol === 'http:' || u.protocol === 'https:') && Boolean(u.host);
+    } catch (e) {
+        return false;
+    }
+}
+
+/**
+ * Normaliza el sistema declarado con el mismo criterio que usa el servidor,
+ * que compara `lower(sistema)` exacto.
+ *
+ * Importa que sea idéntico: si acá «Android 13» contara como Android y allá
+ * no, la pantalla prometería un envío que la tanda masiva no va a hacer.
+ */
+function sistemaDe(t) {
+    const s = (t.sistema || '').trim().toLowerCase();
+    return (s === 'android' || s === 'ios') ? s : '';
+}
+
+const estadoAprob = { sistema: 'android', soloPendientes: false, items: [], total: 0, cargando: false };
+
+$('#aprob-sistema').addEventListener('change', e => {
+    estadoAprob.sistema = e.target.value;
+    pintarAprobaciones();
+});
+
+$('#aprob-pendientes').addEventListener('change', e => {
+    estadoAprob.soloPendientes = e.target.checked;
+    pintarAprobaciones();
+});
+
+/**
+ * Trae la lista completa en una sola petición, sin paginar.
+ *
+ * El contador de aprobados tiene que ser global —saber si vas en 7 o en 13 es
+ * toda la información de esta pantalla—, y una prueba cerrada se cuenta en
+ * decenas de personas, no en miles. Paginar obligaría a pedir la cuenta
+ * aparte para algo que entra de una. Si alguna vez hay más de `TOPE_LISTA`,
+ * la nota bajo la tabla lo dice en vez de mentir con un número corto.
+ */
+async function cargarAprobaciones() {
+    const cuerpo = $('#tbody-aprobaciones');
+    estadoAprob.cargando = true;
+    cuerpo.replaceChildren(filaMensaje(5, 'Cargando…'));
+
+    let pagina;
+    try {
+        pagina = await api(`/api/admin/testers?limit=${TOPE_LISTA}&offset=0`);
+    } catch (e) {
+        estadoAprob.cargando = false;
+        cuerpo.replaceChildren(filaMensaje(5, e.message));
+        return;
+    }
+
+    estadoAprob.cargando = false;
+    estadoAprob.items = pagina.items || [];
+    estadoAprob.total = pagina.total || 0;
+    pintarAprobaciones();
+}
+
+function pintarAprobaciones() {
+    const items = estadoAprob.items;
+    const enlace = leerEnlace();
+    const hayEnlace = enlaceValido(enlace);
+
+    const visibles = items.filter(t => {
+        if (estadoAprob.sistema && sistemaDe(t) !== estadoAprob.sistema) return false;
+        if (estadoAprob.soloPendientes && t.aprobado_at) return false;
+        return true;
+    });
+
+    const cuerpo = $('#tbody-aprobaciones');
+    if (estadoAprob.cargando) {
+        cuerpo.replaceChildren(filaMensaje(5, 'Cargando…'));
+    } else if (!visibles.length) {
+        cuerpo.replaceChildren(filaMensaje(5, items.length
+            ? 'Nadie coincide con esos filtros.'
+            : 'Todavía no hay inscripciones.'));
+    } else {
+        cuerpo.replaceChildren(...visibles.map(t => filaAprobacion(t, hayEnlace)));
+    }
+
+    // Se cuenta sobre la lista entera, no sobre lo que se está viendo: el
+    // avance no cambia porque alguien mueva un filtro.
+    const aprobados = items.filter(t => t.aprobado_at).length;
+    const faltanAndroid = items.filter(
+        t => sistemaDe(t) === 'android' && !t.aprobado_at).length;
+
+    pintarMeta(aprobados);
+    pintarAvisoEnlace(enlace, hayEnlace);
+    pintarResumenAprobaciones(faltanAndroid, hayEnlace);
+
+    const nota = $('#nota-aprobaciones');
+    const avisos = [];
+    if (estadoAprob.total > items.length) {
+        avisos.push(`Se muestran las ${numero(items.length)} inscripciones más ` +
+            `recientes de ${numero(estadoAprob.total)}. Las anteriores no entran en esta cuenta.`);
+    }
+
+    // Quien se inscribió sin declarar sistema queda fuera por partida doble:
+    // no aparece con el filtro puesto, y la tanda masiva va por «android», así
+    // que tampoco la alcanza. Sin este aviso esa gente espera un correo que
+    // nadie va a mandar, y nadie se entera hasta que reclama.
+    const sinSistema = items.filter(t => !sistemaDe(t)).length;
+    if (sinSistema && estadoAprob.sistema) {
+        avisos.push(sinSistema === 1
+            ? '1 inscripción no declaró sistema: no aparece en esta lista ni entra ' +
+              'en el envío masivo. Para verla, elegí «Todos los sistemas».'
+            : `${numero(sinSistema)} inscripciones no declararon sistema: no aparecen ` +
+              'en esta lista ni entran en el envío masivo. Para verlas, elegí ' +
+              '«Todos los sistemas».');
+    }
+
+    nota.textContent = avisos.join(' ');
+    nota.hidden = avisos.length === 0;
+}
+
+/** El avance hacia los 12 que exige Google. */
+function pintarMeta(aprobados) {
+    const tope = Math.min(aprobados, META_TESTERS);
+    const faltan = META_TESTERS - aprobados;
+
+    $('#meta-numero').textContent = `${numero(aprobados)} de ${META_TESTERS}`;
+    $('#meta-texto').textContent = faltan > 0
+        ? `personas recibieron el enlace. ${faltan === 1 ? 'Falta 1.' : `Faltan ${faltan}.`}`
+        : 'personas recibieron el enlace. Alcanza, si todas se quedan los 14 días.';
+
+    const pista = $('#meta-pista');
+    // El máximo se escribe desde acá y no solo en el HTML: si alguna vez la
+    // meta cambia, `META_TESTERS` es el único lugar que hay que tocar.
+    pista.setAttribute('aria-valuemax', String(META_TESTERS));
+    pista.setAttribute('aria-valuenow', String(tope));
+    pista.setAttribute('aria-valuetext', `${aprobados} de ${META_TESTERS}`);
+    // Redondeado: un ancho con dieciséis decimales no se ve distinto y deja el
+    // atributo `style` ilegible para quien inspeccione la página.
+    $('#meta-barra').style.width = `${Math.round((tope / META_TESTERS) * 100)}%`;
+}
+
+/** Qué URL va a salir, o por qué no puede salir ninguna. */
+function pintarAvisoEnlace(enlace, hayEnlace) {
+    const aviso = $('#aviso-enlace');
+    if (hayEnlace) {
+        aviso.className = 'nota-enlace';
+        aviso.textContent = `Se enviará este enlace: ${enlace}`;
+    } else {
+        aviso.className = 'aviso aviso-atencion';
+        aviso.textContent = enlace
+            ? 'El enlace guardado no es una URL válida: tiene que empezar con ' +
+              'https:// y no llevar espacios. Corrígelo en «Enlace de la prueba».'
+            : 'Falta el enlace de la prueba. Sin él no se puede aprobar a nadie: ' +
+              'el correo de aprobación no dice nada más que por dónde entrar.';
+    }
+    aviso.hidden = false;
+    $('#btn-enlace').classList.toggle('btn-pendiente', !hayEnlace);
+}
+
+function pintarResumenAprobaciones(faltanAndroid, hayEnlace) {
+    const resumen = $('#resumen-aprobaciones');
+    resumen.replaceChildren();
+
+    if (faltanAndroid > 0) {
+        resumen.append(
+            el('strong', null, numero(faltanAndroid)),
+            document.createTextNode(faltanAndroid === 1
+                ? ' persona de Android espera el enlace.'
+                : ' personas de Android esperan el enlace.'),
+        );
+    } else {
+        resumen.textContent = estadoAprob.items.length
+            ? 'Todos los de Android ya recibieron el enlace.'
+            : 'Sin inscripciones todavía.';
+    }
+
+    $('#btn-aprobar-todos').disabled = !hayEnlace || faltanAndroid === 0;
+}
+
+function filaAprobacion(t, hayEnlace) {
+    const tr = document.createElement('tr');
+    const aprobado = Boolean(t.aprobado_at);
+    const sistema = sistemaDe(t);
+    if (aprobado) tr.className = 'fila-aprobada';
+
+    const persona = document.createElement('td');
+    persona.append(el('div', 'celda-principal', t.nombre),
+        el('div', 'celda-sub', t.email));
+    if (t.comuna) persona.appendChild(el('div', 'celda-sub', t.comuna));
+    tr.appendChild(persona);
+
+    const celdaSistema = document.createElement('td');
+    celdaSistema.appendChild(el('span', 'etiqueta', t.sistema || 'Sin indicar'));
+    tr.appendChild(celdaSistema);
+
+    const estado = document.createElement('td');
+    if (aprobado) {
+        estado.appendChild(el('span', 'estado estado-respondido', 'Enviado'));
+        estado.appendChild(el('span', 'estado-detalle', fecha(t.aprobado_at)));
+    } else {
+        estado.appendChild(el('span', 'estado estado-pendiente', 'Sin enviar'));
+        // El motivo va en la celda, no en el `title` del botón desactivado: un
+        // botón desactivado no recibe foco, así que ahí nadie lo leería.
+        if (sistema === 'ios') {
+            estado.appendChild(el('span', 'estado-detalle',
+                'La prueba cerrada es de Google Play'));
+        } else if (!sistema) {
+            estado.appendChild(el('span', 'estado-detalle', 'No declaró su sistema'));
+        }
+    }
+    tr.appendChild(estado);
+
+    tr.appendChild(el('td', 'celda-fecha', fecha(t.created_at)));
+
+    // El contenedor flex va DENTRO del <td>: un `display:flex` sobre la celda
+    // le quita su comportamiento de celda y la fila se desarma.
+    const acciones = document.createElement('td');
+    const grupo = el('div', 'acciones-fila');
+
+    const boton = el('button', 'btn-fila-accion', aprobado ? 'Reenviar' : 'Aprobar');
+    boton.type = 'button';
+
+    if (sistema === 'ios') {
+        boton.disabled = true;
+        boton.title = 'La prueba cerrada es de Google Play: no hay nada que instalar desde un iPhone.';
+        boton.setAttribute('aria-label',
+            `No se puede aprobar a ${t.nombre}: declaró iPhone y la prueba es de Google Play`);
+    } else if (!hayEnlace) {
+        boton.disabled = true;
+        boton.title = 'Falta configurar el enlace de la prueba.';
+        boton.setAttribute('aria-label',
+            `No se puede aprobar a ${t.nombre}: falta configurar el enlace de la prueba`);
+    } else {
+        boton.setAttribute('aria-label', aprobado
+            ? `Reenviar el enlace de la prueba a ${t.nombre}`
+            : `Aprobar a ${t.nombre} y enviarle el enlace de la prueba`);
+        boton.addEventListener('click', () => aprobarA(t));
+    }
+
+    grupo.appendChild(boton);
+    acciones.appendChild(grupo);
+    tr.appendChild(acciones);
+    return tr;
+}
+
+/** Aprueba a una persona, confirmando antes. */
+function aprobarA(t) {
+    const enlace = leerEnlace();
+    if (!enlaceValido(enlace)) return pedirEnlace();
+
+    const yaAprobado = Boolean(t.aprobado_at);
+
+    confirmar({
+        titulo: yaAprobado ? 'Reenviar el enlace' : 'Aprobar y enviar el enlace',
+        texto: yaAprobado
+            ? `A ${t.nombre} ya se le envió el enlace el ${fecha(t.aprobado_at)}. ` +
+              `Si continúas, recibirá el mismo correo otra vez.`
+            : `Se enviará a ${t.email} el correo de aprobación, con el enlace de ` +
+              `la prueba y el pedido de mantener la app instalada 14 días seguidos.`,
+        etiquetaConfirmar: yaAprobado ? 'Reenviar' : 'Enviar',
+        // Reenviar sí es el error caro; aprobar por primera vez es el trabajo
+        // normal de esta pantalla y no merece un botón rojo.
+        peligro: yaAprobado,
+        alConfirmar: async () => {
+            const r = await api(`/api/admin/testers/${t.id}/aprobar`, {
+                method: 'POST',
+                body: JSON.stringify({ enlace, reenviar: yaAprobado }),
+            });
+            brindis(r.enviados
+                ? `Enlace enviado a ${t.email}.`
+                : (r.detalle[0] || 'No se envió nada.'));
+            cargarAprobaciones();
+        },
+    });
+}
+
+$('#btn-aprobar-todos').addEventListener('click', async () => {
+    const enlace = leerEnlace();
+    if (!enlaceValido(enlace)) return pedirEnlace();
+
+    // Se vuelve a pedir la lista justo antes de confirmar, en vez de usar la
+    // que se pintó hace rato: entre medio pudo entrar otra inscripción, y el
+    // número que alguien confirma tiene que ser el que se va a enviar.
+    let faltan = 0;
+    try {
+        const p = await api(`/api/admin/testers?limit=${TOPE_LISTA}&offset=0`);
+        faltan = (p.items || []).filter(
+            t => sistemaDe(t) === 'android' && !t.aprobado_at).length;
+    } catch (e) {
+        return brindis(e.message);
+    }
+
+    if (!faltan) {
+        cargarAprobaciones();
+        return brindis('No queda nadie de Android por aprobar.');
+    }
+
+    confirmar({
+        titulo: 'Aprobar a los de Android',
+        texto: `Se enviarán ${faltan} correo(s) con el enlace de la prueba, uno por ` +
+            `persona. Quienes ya fueron aprobados no reciben nada de nuevo, y los ` +
+            `de iPhone quedan fuera de la tanda.`,
+        etiquetaConfirmar: `Enviar ${faltan}`,
+        alConfirmar: async () => {
+            const r = await api('/api/admin/testers/aprobar-pendientes', {
+                method: 'POST',
+                body: JSON.stringify({ enlace, sistema: 'android' }),
+            });
+            const partes = [`${r.enviados} enviado(s)`];
+            if (r.omitidos) partes.push(`${r.omitidos} omitido(s)`);
+            if (r.fallidos) partes.push(`${r.fallidos} fallido(s)`);
+            brindis(partes.join(', ') + '.');
+            cargarAprobaciones();
+        },
+    });
+});
+
+/* ---------- EL ENLACE ---------- */
+
+/** Abre el modal explicando por qué, cuando falta el enlace para enviar. */
+function pedirEnlace() {
+    brindis('Primero configura el enlace de la prueba.');
+    abrirModalEnlace();
+}
+
+let focoPrevioEnlace = null;
+
+function abrirModalEnlace() {
+    $('#enlace-url').value = leerEnlace();
+    $('#enlace-error').hidden = true;
+    focoPrevioEnlace = document.activeElement;
+    $('#modal-enlace').hidden = false;
+    $('#enlace-url').focus();
+    $('#enlace-url').select();
+}
+
+function cerrarModalEnlace() {
+    $('#modal-enlace').hidden = true;
+    // Devolver el foco a donde estaba: si no, el lector de pantalla queda al
+    // principio del documento y hay que volver a recorrer la tabla entera.
+    if (focoPrevioEnlace && document.contains(focoPrevioEnlace)) focoPrevioEnlace.focus();
+    focoPrevioEnlace = null;
+}
+
+$('#btn-enlace').addEventListener('click', abrirModalEnlace);
+$('#enlace-cancelar').addEventListener('click', cerrarModalEnlace);
+
+$('#modal-enlace').addEventListener('click', e => {
+    if (e.target === $('#modal-enlace')) cerrarModalEnlace();
+});
+
+$('#enlace-quitar').addEventListener('click', () => {
+    guardarEnlace('');
+    cerrarModalEnlace();
+    brindis('Enlace quitado. Los envíos quedan desactivados.');
+    pintarAprobaciones();
+});
+
+$('#form-enlace').addEventListener('submit', e => {
+    e.preventDefault();
+    const url = $('#enlace-url').value.trim();
+    const error = $('#enlace-error');
+
+    if (!enlaceValido(url)) {
+        error.textContent = 'Tiene que ser una URL completa, sin espacios, que ' +
+            'empiece con https://. Para dejar el panel sin enlace, usa «Quitar».';
+        error.hidden = false;
+        $('#enlace-url').focus();
+        return;
+    }
+
+    guardarEnlace(url);
+    cerrarModalEnlace();
+    brindis('Enlace guardado.');
+    pintarAprobaciones();
 });
 
 /* ------------------------------------------------------------

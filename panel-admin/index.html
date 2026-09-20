@@ -65,6 +65,13 @@
                  un cero permanente deja de mirarse a los dos días. -->
             <span class="chincheta" id="chincheta-testers" hidden></span>
         </button>
+        <!-- El segundo correo, separado del acuse de recibo: acá se manda el
+             enlace de la prueba cerrada. Son dos pantallas porque son dos
+             decisiones distintas —responder y seleccionar— y mezclarlas hace
+             que el botón equivocado quede a un centímetro del correcto. -->
+        <button type="button" class="pestana" data-vista="aprobaciones">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Aprobaciones
+        </button>
     </nav>
 
     <!-- Un solo <main> en todo el documento: tener dos, aunque uno esté
@@ -292,6 +299,96 @@
                 </div>
                 <div class="paginacion" id="pag-testers"></div>
             </section>
+
+            <!-- ---------- APROBACIONES ---------- -->
+            <section id="vista-aprobaciones" class="vista" aria-labelledby="t-aprobaciones" hidden>
+                <div class="vista-cabecera">
+                    <h1 id="t-aprobaciones">Aprobaciones</h1>
+                    <div class="filtros">
+                        <label class="campo-linea">
+                            <span class="visualmente-oculto">Sistema</span>
+                            <!-- Arranca en Android porque es el único sistema al
+                                 que hoy se le puede mandar algo. iOS se deja ver
+                                 para saber a quién NO. -->
+                            <select id="aprob-sistema">
+                                <option value="android" selected>Solo Android</option>
+                                <option value="ios">Solo iPhone (iOS)</option>
+                                <option value="">Todos los sistemas</option>
+                            </select>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="aprob-pendientes">
+                            <span>Solo sin aprobar</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Google pide 12 personas en opt-in continuo durante 14 días
+                     para dejar publicar una cuenta personal. Saber si vas en 7 o
+                     en 13 es la información que de verdad se necesita acá. -->
+                <article class="panel meta" aria-labelledby="meta-titulo">
+                    <h2 id="meta-titulo">Avance hacia la prueba cerrada</h2>
+                    <p class="meta-cifra">
+                        <strong id="meta-numero">—</strong>
+                        <span id="meta-texto">Cargando…</span>
+                    </p>
+                    <div class="barra-pista" id="meta-pista" role="progressbar"
+                        aria-valuemin="0" aria-valuemax="12" aria-valuenow="0"
+                        aria-label="Personas que ya recibieron el enlace, de las 12 que exige Google Play">
+                        <div class="barra-relleno" id="meta-barra"></div>
+                    </div>
+                    <p class="meta-nota">
+                        «Aprobado» significa que se le envió el enlace, no que
+                        haya entrado a la prueba. Quiénes están en opt-in hoy lo
+                        dice Play Console, no este panel.
+                    </p>
+                </article>
+
+                <!-- Acciones que le escriben a personas reales, separadas de los
+                     filtros por la misma razón que en la pantalla de Testers. -->
+                <div class="acciones-lote">
+                    <p class="acciones-texto" id="resumen-aprobaciones"></p>
+                    <div class="acciones-botones">
+                        <button type="button" class="btn btn-tenue" id="btn-enlace">
+                            <i class="fa-solid fa-link" aria-hidden="true"></i>
+                            Enlace de la prueba
+                        </button>
+                        <!-- Arranca desactivado a propósito: manda correos, y
+                             todavía no se sabe ni si hay enlace ni a cuántos. Lo
+                             habilita el pintado cuando ambas cosas se saben. -->
+                        <button type="button" class="btn btn-primario btn-auto"
+                            id="btn-aprobar-todos" disabled>
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                            Aprobar a los de Android
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dice qué URL va a salir, o por qué no puede salir ninguna.
+                     El motivo va en pantalla y no escondido en el `title` de un
+                     botón desactivado: un botón desactivado no recibe foco. -->
+                <p id="aviso-enlace" hidden></p>
+
+                <div class="tabla-scroll">
+                    <table class="tabla">
+                        <caption class="visualmente-oculto">
+                            Personas inscritas al programa de pruebas, con el
+                            estado del enlace de la prueba cerrada de cada una.
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Persona</th>
+                                <th scope="col">Sistema</th>
+                                <th scope="col">Enlace</th>
+                                <th scope="col">Inscripción</th>
+                                <th scope="col"><span class="visualmente-oculto">Acciones</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-aprobaciones"></tbody>
+                    </table>
+                </div>
+                <p class="nota-tabla" id="nota-aprobaciones" hidden></p>
+            </section>
         </div>
     </main>
 
@@ -342,6 +439,45 @@
                 <button type="button" class="btn btn-tenue" id="tester-cancelar">Cancelar</button>
                 <button type="submit" class="btn btn-primario btn-auto" id="tester-guardar">
                     Agregar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ============================================================
+         ENLACE DE LA PRUEBA
+         El servidor no lo guarda: viaja en cada petición y el panel lo
+         recuerda en el navegador. Es un único valor que cambia una vez, y
+         una tabla de configuración para eso cuesta más de lo que resuelve.
+         ============================================================ -->
+    <div class="modal-fondo" id="modal-enlace" hidden>
+        <form class="modal" id="form-enlace" role="dialog" aria-modal="true"
+            aria-labelledby="enlace-titulo" novalidate>
+            <h2 id="enlace-titulo">Enlace de la prueba</h2>
+            <p class="modal-sub">
+                La URL de la prueba cerrada en Google Play. Es lo único útil que
+                lleva el correo de aprobación: sin ella no hay nada que mandar.
+            </p>
+
+            <div class="campo">
+                <label for="enlace-url">URL de la prueba</label>
+                <input type="url" id="enlace-url" inputmode="url" maxlength="500"
+                    autocapitalize="off" spellcheck="false"
+                    aria-describedby="enlace-ayuda"
+                    placeholder="https://play.google.com/apps/testing/…">
+                <p class="campo-nota" id="enlace-ayuda">
+                    En Play Console: Prueba cerrada → Testers → «Copiar vínculo».
+                    Queda guardada en este navegador, no en el servidor.
+                </p>
+            </div>
+
+            <p class="aviso aviso-error" id="enlace-error" role="alert" hidden></p>
+
+            <div class="modal-acciones">
+                <button type="button" class="btn btn-tenue" id="enlace-quitar">Quitar</button>
+                <button type="button" class="btn btn-tenue" id="enlace-cancelar">Cancelar</button>
+                <button type="submit" class="btn btn-primario btn-auto" id="enlace-guardar">
+                    Guardar
                 </button>
             </div>
         </form>
